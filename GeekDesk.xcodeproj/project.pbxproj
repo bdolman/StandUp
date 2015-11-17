@@ -10,6 +10,11 @@
 		B53815A01BFAED2D00CB13AE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B538159F1BFAED2D00CB13AE /* AppDelegate.swift */; };
 		B53815A21BFAED2D00CB13AE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B53815A11BFAED2D00CB13AE /* Assets.xcassets */; };
 		B53815A51BFAED2D00CB13AE /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = B53815A31BFAED2D00CB13AE /* MainMenu.xib */; };
+		B53815B41BFB0B3D00CB13AE /* DDHotKeyCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = B53815AF1BFB0B3D00CB13AE /* DDHotKeyCenter.m */; };
+		B53815B51BFB0B3D00CB13AE /* DDHotKeyTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = B53815B11BFB0B3D00CB13AE /* DDHotKeyTextField.m */; };
+		B53815B61BFB0B3D00CB13AE /* DDHotKeyUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = B53815B31BFB0B3D00CB13AE /* DDHotKeyUtilities.m */; };
+		B53815B81BFB0B5500CB13AE /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B53815B71BFB0B5500CB13AE /* Carbon.framework */; };
+		B53815BF1BFB0E4500CB13AE /* HotKey.m in Sources */ = {isa = PBXBuildFile; fileRef = B53815BE1BFB0E4500CB13AE /* HotKey.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -18,6 +23,16 @@
 		B53815A11BFAED2D00CB13AE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B53815A41BFAED2D00CB13AE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		B53815A61BFAED2D00CB13AE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B53815AE1BFB0B3D00CB13AE /* DDHotKeyCenter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDHotKeyCenter.h; sourceTree = "<group>"; };
+		B53815AF1BFB0B3D00CB13AE /* DDHotKeyCenter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDHotKeyCenter.m; sourceTree = "<group>"; };
+		B53815B01BFB0B3D00CB13AE /* DDHotKeyTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDHotKeyTextField.h; sourceTree = "<group>"; };
+		B53815B11BFB0B3D00CB13AE /* DDHotKeyTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDHotKeyTextField.m; sourceTree = "<group>"; };
+		B53815B21BFB0B3D00CB13AE /* DDHotKeyUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDHotKeyUtilities.h; sourceTree = "<group>"; };
+		B53815B31BFB0B3D00CB13AE /* DDHotKeyUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDHotKeyUtilities.m; sourceTree = "<group>"; };
+		B53815B71BFB0B5500CB13AE /* Carbon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Carbon.framework; path = System/Library/Frameworks/Carbon.framework; sourceTree = SDKROOT; };
+		B53815BC1BFB0C2C00CB13AE /* GeekDesk-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GeekDesk-Bridging-Header.h"; sourceTree = "<group>"; };
+		B53815BD1BFB0E4500CB13AE /* HotKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotKey.h; sourceTree = "<group>"; };
+		B53815BE1BFB0E4500CB13AE /* HotKey.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotKey.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -25,6 +40,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B53815B81BFB0B5500CB13AE /* Carbon.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -34,6 +50,7 @@
 		B53815931BFAED2D00CB13AE = {
 			isa = PBXGroup;
 			children = (
+				B53815B71BFB0B5500CB13AE /* Carbon.framework */,
 				B538159E1BFAED2D00CB13AE /* GeekDesk */,
 				B538159D1BFAED2D00CB13AE /* Products */,
 			);
@@ -50,12 +67,29 @@
 		B538159E1BFAED2D00CB13AE /* GeekDesk */ = {
 			isa = PBXGroup;
 			children = (
+				B53815AD1BFB0B3D00CB13AE /* DDHotKey */,
 				B538159F1BFAED2D00CB13AE /* AppDelegate.swift */,
 				B53815A11BFAED2D00CB13AE /* Assets.xcassets */,
 				B53815A31BFAED2D00CB13AE /* MainMenu.xib */,
 				B53815A61BFAED2D00CB13AE /* Info.plist */,
+				B53815BC1BFB0C2C00CB13AE /* GeekDesk-Bridging-Header.h */,
+				B53815BD1BFB0E4500CB13AE /* HotKey.h */,
+				B53815BE1BFB0E4500CB13AE /* HotKey.m */,
 			);
 			path = GeekDesk;
+			sourceTree = "<group>";
+		};
+		B53815AD1BFB0B3D00CB13AE /* DDHotKey */ = {
+			isa = PBXGroup;
+			children = (
+				B53815AE1BFB0B3D00CB13AE /* DDHotKeyCenter.h */,
+				B53815AF1BFB0B3D00CB13AE /* DDHotKeyCenter.m */,
+				B53815B01BFB0B3D00CB13AE /* DDHotKeyTextField.h */,
+				B53815B11BFB0B3D00CB13AE /* DDHotKeyTextField.m */,
+				B53815B21BFB0B3D00CB13AE /* DDHotKeyUtilities.h */,
+				B53815B31BFB0B3D00CB13AE /* DDHotKeyUtilities.m */,
+			);
+			path = DDHotKey;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -128,6 +162,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B53815BF1BFB0E4500CB13AE /* HotKey.m in Sources */,
+				B53815B51BFB0B3D00CB13AE /* DDHotKeyTextField.m in Sources */,
+				B53815B41BFB0B3D00CB13AE /* DDHotKeyCenter.m in Sources */,
+				B53815B61BFB0B3D00CB13AE /* DDHotKeyUtilities.m in Sources */,
 				B53815A01BFAED2D00CB13AE /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -235,6 +273,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.hitlabs.GeekDesk;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "GeekDesk/GeekDesk-Bridging-Header.h";
 			};
 			name = Debug;
 		};
@@ -247,6 +286,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.hitlabs.GeekDesk;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "GeekDesk/GeekDesk-Bridging-Header.h";
 			};
 			name = Release;
 		};
