@@ -8,12 +8,7 @@
 
 import Cocoa
 
-enum DeskState {
-    case Lowered
-    case Lowering
-    case Raised
-    case Raising
-    
+extension DeskState {
     var image: NSImage {
         switch self {
         case .Lowered: return NSImage(named: "desk-sit")!
@@ -27,66 +22,76 @@ enum DeskState {
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet weak var window: NSWindow!
+    
+    let accessToken = "8b9ebdc77f38b9cd69c95767f512d692cae586d5"
+    let deviceId = "3a0024000447343337373739"
+    
+    var menuHandler: MenuHandler!
+    var device: Device!
+    var desk: Desk!
+    
     let statusItem: NSStatusItem = NSStatusBar.systemStatusBar().statusItemWithLength(NSSquareStatusItemLength)
-    var deskState: DeskState = .Lowered {
-        didSet {
-            statusItem.button?.image = deskState.image
-        }
-    }
     
     func registerGlobalShortcuts() {
         HotKey.registerRaiseHotKey { event in
-            self.deskState = .Raising
+            self.desk.raise()
         }
         HotKey.registerLowerHotKey { event in
-            self.deskState = .Lowering
+            self.desk.lower()
         }
-    }
-    
-    func enableRightClick() {
-        let mask = Int(NSEventMask.LeftMouseDownMask.rawValue | NSEventMask.RightMouseDownMask.rawValue)
-        statusItem.button?.sendActionOn(mask)
-    }
-    
-    func addMenu() {
-        let menu = NSMenu()
-        menu.addItem(NSMenuItem(title: "Test", action: Selector("statusItemClicked:"), keyEquivalent: "P"))
-//        statusItem.menu = menu
     }
     
     func setupStatusItem() {
-        enableRightClick()
         registerGlobalShortcuts()
-        addMenu()
+        statusItem.menu = menuHandler.menu
         // Initial state
         if let button = statusItem.button {
-            button.image = deskState.image
             button.target = self
             button.action = Selector("statusItemClicked:")
         }
     }
     
-    
-    
-    func applicationDidFinishLaunching(aNotification: NSNotification) {
-        setupStatusItem()
-    }
-
-    func statusItemClicked(sender: AnyObject) {
-        let rightClick = NSApp.currentEvent?.type == .RightMouseDown
-        
-        if rightClick {
-            print("right click")
-        } else if let flags = NSApp.currentEvent?.modifierFlags where flags.contains(.AlternateKeyMask) {
-            print("option")
-        } else {
-            switch deskState {
-            case .Lowered: deskState = .Raising
-            case .Raising: deskState = .Raised
-            case .Raised: deskState = .Lowering
-            case .Lowering: deskState = .Lowered
-            }
+    func updateStatusIcon() {
+        if let image = desk.state?.image {
+            statusItem.button?.image = image
         }
     }
+    
+    func observeDeskStateChanges() {
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("deskStateChanged:"), name: DeskStateChangedNotification, object: desk)
+    }
+    
+    func deskStateChanged(notification: NSNotification) {
+        NSOperationQueue.mainQueue().addOperationWithBlock {
+            self.updateStatusIcon()
+        }
+    }
+    
+    func applicationDidFinishLaunching(aNotification: NSNotification) {
+        device = Device(accessToken: accessToken, deviceId: deviceId)
+        desk = Desk(device: device)
+        menuHandler = MenuHandler()
+        menuHandler.desk = desk
+        setupStatusItem()
+        observeDeskStateChanges()
+        desk.updateCurrentState()
+    }
+
+//    func statusItemClicked(sender: AnyObject) {
+//        let rightClick = NSApp.currentEvent?.type == .RightMouseDown
+//        
+//        if rightClick {
+//            print("right click")
+//        } else if let flags = NSApp.currentEvent?.modifierFlags where flags.contains(.AlternateKeyMask) {
+//            print("option")
+//        } else {
+////            switch deskState {
+////            case .Lowered: deskState = .Raising
+////            case .Raising: deskState = .Raised
+////            case .Raised: deskState = .Lowering
+////            case .Lowering: deskState = .Lowered
+////            }
+//        }
+//    }
 }
 

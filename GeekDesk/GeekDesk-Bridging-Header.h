@@ -7,5 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-
 #import "HotKey.h"
+#import "SparkEvent.h"
+#import "EventSource.h"
