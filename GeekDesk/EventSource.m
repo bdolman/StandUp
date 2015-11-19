@@ -106,7 +106,7 @@ static NSString *const ESEventEventKey = @"event";
 {
     NSLog(@"event open");
     // TODO: add the authorization headers/parameters here
-    wasClosed = NO;
+//    wasClosed = NO;
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:self.eventURL cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:self.timeoutInterval];
 //    if (self.lastEventID)
 //    {
@@ -237,7 +237,10 @@ static NSString *const ESEventEventKey = @"event";
         });
     }
     
-    [self open];
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(self.retryInterval * NSEC_PER_SEC));
+    dispatch_after(popTime, self.queue, ^(void){
+        [self open];
+    });
 }
 
 @end
