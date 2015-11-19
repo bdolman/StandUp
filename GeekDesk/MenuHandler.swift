@@ -13,6 +13,8 @@ private enum ItemType: Int {
     case StandUp
     case SitDown
     case Height
+    case State
+    case Preferences
 }
 
 private extension NSMenuItem {
@@ -28,9 +30,54 @@ private extension NSMenuItem {
     }
 }
 
+private extension DeskState {
+    var title: String {
+        switch self {
+        case .Lowered: return "Sitting"
+        case .Lowering: return "Lowering..."
+        case .Raising: return "Raising..."
+        case .Raised: return "Standing"
+        }
+    }
+}
+
+protocol MenuHandlerDelegate: NSObjectProtocol {
+    func menuHandlerPreferencesItemClicked(menuHandler: MenuHandler)
+}
+
 class MenuHandler: NSObject {
-    var desk: Desk?
+    weak var delegate: MenuHandlerDelegate?
+    var desk: Desk? {
+        willSet {
+            removeDeskObservers()
+        }
+        didSet {
+            addDeskObservers()
+            menu.update()
+        }
+    }
     let menu = NSMenu()
+    
+    private var stateTitle: String {
+        if let state = desk?.state {
+            return state.title
+        }
+        return "Not Connected"
+    }
+    
+    private func addDeskObservers() {
+        guard let desk = desk else { return }
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("heightChanged:"),
+            name: DeskHeightChangedNotification, object: desk)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("stateChanged:"),
+            name: DeskStateChangedNotification, object: desk)
+    }
+    
+    private func removeDeskObservers() {
+        guard let desk = desk else { return }
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: DeskHeightChangedNotification, object: desk)
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: DeskStateChangedNotification, object: desk)
+    }
     
     override init() {
         super.init()
@@ -54,11 +101,26 @@ class MenuHandler: NSObject {
         
         menu.addItem(NSMenuItem.separatorItem())
         
+        // Sit/Stand State
+        let stateItem = NSMenuItem(title: "Sitting", action: Selector("ignore:"), keyEquivalent: "")
+        stateItem.target = self
+        stateItem.tag = ItemType.State.rawValue
+        menu.addItem(stateItem)
+        
         // Height
         let heightItem = NSMenuItem(title: "Height", action: Selector("ignore:"), keyEquivalent: "")
         heightItem.target = self
         heightItem.tag = ItemType.Height.rawValue
         menu.addItem(heightItem)
+        
+        menu.addItem(NSMenuItem.separatorItem())
+        
+        // Prefs
+        let prefsItem = NSMenuItem(title: "Preferences...", action: Selector("showPreferences:"), keyEquivalent: ",")
+        prefsItem.target = self
+        prefsItem.tag = ItemType.Preferences.rawValue
+        menu.addItem(prefsItem)
+        
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("heightChanged:"),
             name: DeskHeightChangedNotification, object: nil)
@@ -78,6 +140,10 @@ class MenuHandler: NSObject {
         desk?.raise()
     }
     
+    func showPreferences(sender: AnyObject) {
+        delegate?.menuHandlerPreferencesItemClicked(self)
+    }
+    
     func ignore(sender: AnyObject) {}
     
     override func validateMenuItem(menuItem: NSMenuItem) -> Bool {
@@ -90,6 +156,9 @@ class MenuHandler: NSObject {
         case .Height:
             let height = desk?.height != nil ? "\(desk!.height!)" : "?"
             menuItem.title = "Height: \(height) cm"
+            return false
+        case .State:
+            menuItem.title = stateTitle
             return false
         default: return true
         }

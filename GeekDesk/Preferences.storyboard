@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="9060" systemVersion="15B42" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="gfF-pS-kv9">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="9060"/>
+    </dependencies>
+    <scenes>
+        <!--Window Controller-->
+        <scene sceneID="whc-in-T2w">
+            <objects>
+                <windowController id="gfF-pS-kv9" customClass="PrefsWindowController" customModule="GeekDesk" customModuleProvider="target" sceneMemberID="viewController">
+                    <window key="window" title="Preferences" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="8Ps-m5-qbC">
+                        <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
+                        <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+                        <rect key="contentRect" x="604" y="461" width="471" height="234"/>
+                        <rect key="screenRect" x="0.0" y="0.0" width="3440" height="1417"/>
+                        <value key="maxSize" type="size" width="471" height="234"/>
+                    </window>
+                    <connections>
+                        <segue destination="lA3-Sx-wNZ" kind="relationship" relationship="window.shadowedContentViewController" id="RuL-aq-LfO"/>
+                    </connections>
+                </windowController>
+                <customObject id="QJe-1i-iXl" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="254.5" y="362"/>
+        </scene>
+        <!--Prefs View Controller-->
+        <scene sceneID="JF5-JZ-17N">
+            <objects>
+                <tabViewController selectedTabViewItemIndex="0" id="lA3-Sx-wNZ" customClass="PrefsViewController" customModule="GeekDesk" customModuleProvider="target" sceneMemberID="viewController">
+                    <tabViewItems>
+                        <tabViewItem identifier="" id="b9x-lQ-JCL"/>
+                        <tabViewItem identifier="" id="rDk-XU-6oR"/>
+                    </tabViewItems>
+                    <tabView key="tabView" type="noTabsNoBorder" id="7qz-sc-cm3">
+                        <rect key="frame" x="0.0" y="0.0" width="450" height="152"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <animations/>
+                        <font key="font" metaFont="message"/>
+                        <tabViewItems/>
+                    </tabView>
+                    <connections>
+                        <segue destination="856-mp-Dfw" kind="relationship" relationship="tabItems" id="L82-w7-xCW"/>
+                        <segue destination="wFU-g9-sCJ" kind="relationship" relationship="tabItems" id="jve-3j-Dbf"/>
+                    </connections>
+                </tabViewController>
+                <customObject id="R5p-K8-Vg1" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1103" y="330"/>
+        </scene>
+        <!--Authentication-->
+        <scene sceneID="gvD-pL-evY">
+            <objects>
+                <viewController title="Authentication" id="856-mp-Dfw" customClass="PrefsAuthController" customModule="GeekDesk" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="qOF-Wg-cfK">
+                        <rect key="frame" x="0.0" y="0.0" width="450" height="159"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="x9c-eH-uxe">
+                                <rect key="frame" x="116" y="119" width="314" height="22"/>
+                                <animations/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="53Y-aI-79d">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="I4m-No-ccs">
+                                <rect key="frame" x="116" y="87" width="314" height="22"/>
+                                <animations/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="aLH-tp-GRs">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="9Tl-P4-7aq">
+                                <rect key="frame" x="18" y="122" width="92" height="17"/>
+                                <animations/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Access Token:" id="o53-Cz-XDv">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="30h-dJ-DEZ">
+                                <rect key="frame" x="44" y="90" width="66" height="17"/>
+                                <animations/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Device ID:" id="ySB-Zq-ErY">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="qJS-IT-s1I">
+                                <rect key="frame" x="361" y="51" width="70" height="32"/>
+                                <animations/>
+                                <buttonCell key="cell" type="push" title="Save" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="IcQ-fA-Koj">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="saveClicked:" target="856-mp-Dfw" id="Ov4-G8-Rbw"/>
+                                </connections>
+                            </button>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="lVb-13-7wS">
+                                <rect key="frame" x="63" y="20" width="47" height="17"/>
+                                <animations/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Status:" id="T2t-Mv-kiF">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="7tm-L0-UEt">
+                                <rect key="frame" x="114" y="20" width="313" height="17"/>
+                                <animations/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Not Connected" id="5MK-rs-Y35">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="I4m-No-ccs" firstAttribute="baseline" secondItem="30h-dJ-DEZ" secondAttribute="baseline" id="4Xp-cn-6kn"/>
+                            <constraint firstItem="9Tl-P4-7aq" firstAttribute="baseline" secondItem="x9c-eH-uxe" secondAttribute="baseline" id="5u0-C5-R12"/>
+                            <constraint firstItem="I4m-No-ccs" firstAttribute="leading" secondItem="30h-dJ-DEZ" secondAttribute="trailing" constant="8" symbolic="YES" id="G7C-Wa-Q7T"/>
+                            <constraint firstItem="x9c-eH-uxe" firstAttribute="leading" secondItem="I4m-No-ccs" secondAttribute="leading" id="JSo-yj-ZZq"/>
+                            <constraint firstItem="x9c-eH-uxe" firstAttribute="trailing" secondItem="I4m-No-ccs" secondAttribute="trailing" id="KJe-69-zdl"/>
+                            <constraint firstItem="qJS-IT-s1I" firstAttribute="top" secondItem="I4m-No-ccs" secondAttribute="bottom" constant="8" symbolic="YES" id="Vvw-fD-bfS"/>
+                            <constraint firstItem="7tm-L0-UEt" firstAttribute="leading" secondItem="lVb-13-7wS" secondAttribute="trailing" constant="8" symbolic="YES" id="WrC-yu-Xlw"/>
+                            <constraint firstAttribute="trailing" secondItem="qJS-IT-s1I" secondAttribute="trailing" constant="25" id="Wxr-2y-QN1"/>
+                            <constraint firstItem="qJS-IT-s1I" firstAttribute="trailing" secondItem="7tm-L0-UEt" secondAttribute="trailing" id="XMa-eR-LNw"/>
+                            <constraint firstItem="9Tl-P4-7aq" firstAttribute="leading" secondItem="qOF-Wg-cfK" secondAttribute="leading" constant="20" symbolic="YES" id="bhU-DT-KgK"/>
+                            <constraint firstItem="lVb-13-7wS" firstAttribute="leading" secondItem="qOF-Wg-cfK" secondAttribute="leading" constant="65" id="gSG-sT-1eb"/>
+                            <constraint firstItem="lVb-13-7wS" firstAttribute="baseline" secondItem="7tm-L0-UEt" secondAttribute="baseline" id="hfZ-78-KRh"/>
+                            <constraint firstItem="I4m-No-ccs" firstAttribute="top" secondItem="x9c-eH-uxe" secondAttribute="bottom" constant="10" symbolic="YES" id="idg-Ot-L5P"/>
+                            <constraint firstItem="7tm-L0-UEt" firstAttribute="leading" secondItem="I4m-No-ccs" secondAttribute="leading" id="nhR-Cm-fK9"/>
+                            <constraint firstAttribute="bottom" secondItem="lVb-13-7wS" secondAttribute="bottom" constant="20" symbolic="YES" id="o2G-zf-TWI"/>
+                            <constraint firstItem="9Tl-P4-7aq" firstAttribute="top" secondItem="qOF-Wg-cfK" secondAttribute="top" constant="20" symbolic="YES" id="oPj-4B-clX"/>
+                            <constraint firstAttribute="trailing" secondItem="x9c-eH-uxe" secondAttribute="trailing" constant="20" symbolic="YES" id="qP4-1D-8CT"/>
+                            <constraint firstItem="x9c-eH-uxe" firstAttribute="leading" secondItem="9Tl-P4-7aq" secondAttribute="trailing" constant="8" symbolic="YES" id="x3m-BH-RSq"/>
+                        </constraints>
+                        <animations/>
+                    </view>
+                    <connections>
+                        <outlet property="accessTokenField" destination="x9c-eH-uxe" id="mfH-Fk-0R4"/>
+                        <outlet property="deviceIdField" destination="I4m-No-ccs" id="zDZ-Yc-p9R"/>
+                        <outlet property="statusField" destination="7tm-L0-UEt" id="God-Nb-AMl"/>
+                    </connections>
+                </viewController>
+                <customObject id="7Zd-BC-SJn" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1732" y="333.5"/>
+        </scene>
+        <!--Presets-->
+        <scene sceneID="g3f-QG-AV5">
+            <objects>
+                <viewController title="Presets" id="wFU-g9-sCJ" customClass="PrefsPresetsController" customModule="GeekDesk" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="LaX-1w-1ro">
+                        <rect key="frame" x="0.0" y="0.0" width="450" height="152"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <animations/>
+                    </view>
+                </viewController>
+                <customObject id="2hV-RM-USD" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1732" y="778"/>
+        </scene>
+    </scenes>
+</document>

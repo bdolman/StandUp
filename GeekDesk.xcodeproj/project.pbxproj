@@ -8,6 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		9B52447F6C4FD01C933E1B72 /* Pods_GeekDesk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82829E77DBC858245202CA91 /* Pods_GeekDesk.framework */; };
+		B51008B21BFD142700206391 /* Preferences.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B51008B11BFD142700206391 /* Preferences.storyboard */; };
+		B51008B41BFD2A3900206391 /* PrefsWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51008B31BFD2A3900206391 /* PrefsWindowController.swift */; };
+		B51008B61BFD2A8100206391 /* PrefsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51008B51BFD2A8100206391 /* PrefsViewController.swift */; };
+		B51008B81BFD2A9E00206391 /* PrefsAuthController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51008B71BFD2A9E00206391 /* PrefsAuthController.swift */; };
+		B51008BB1BFD2AAF00206391 /* PrefsPresetsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51008B91BFD2AAF00206391 /* PrefsPresetsController.swift */; };
+		B51008BE1BFD348100206391 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51008BD1BFD348100206391 /* Settings.swift */; };
+		B51008C01BFD39D100206391 /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51008BF1BFD39D000206391 /* Auth.swift */; };
+		B51008C21BFD3FFA00206391 /* Desks.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51008C11BFD3FFA00206391 /* Desks.swift */; };
 		B53815A01BFAED2D00CB13AE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B538159F1BFAED2D00CB13AE /* AppDelegate.swift */; };
 		B53815A21BFAED2D00CB13AE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B53815A11BFAED2D00CB13AE /* Assets.xcassets */; };
 		B53815A51BFAED2D00CB13AE /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = B53815A31BFAED2D00CB13AE /* MainMenu.xib */; };
@@ -28,6 +36,14 @@
 /* Begin PBXFileReference section */
 		15A4DD22BE3383327B170232 /* Pods-GeekDesk.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GeekDesk.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GeekDesk/Pods-GeekDesk.debug.xcconfig"; sourceTree = "<group>"; };
 		82829E77DBC858245202CA91 /* Pods_GeekDesk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GeekDesk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B51008B11BFD142700206391 /* Preferences.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Preferences.storyboard; sourceTree = "<group>"; };
+		B51008B31BFD2A3900206391 /* PrefsWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrefsWindowController.swift; sourceTree = "<group>"; };
+		B51008B51BFD2A8100206391 /* PrefsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrefsViewController.swift; sourceTree = "<group>"; };
+		B51008B71BFD2A9E00206391 /* PrefsAuthController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrefsAuthController.swift; sourceTree = "<group>"; };
+		B51008B91BFD2AAF00206391 /* PrefsPresetsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrefsPresetsController.swift; sourceTree = "<group>"; };
+		B51008BD1BFD348100206391 /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		B51008BF1BFD39D000206391 /* Auth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Auth.swift; sourceTree = "<group>"; };
+		B51008C11BFD3FFA00206391 /* Desks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Desks.swift; sourceTree = "<group>"; };
 		B538159C1BFAED2D00CB13AE /* GeekDesk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GeekDesk.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B538159F1BFAED2D00CB13AE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B53815A11BFAED2D00CB13AE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -122,6 +138,14 @@
 				B5F7DD541BFBEF9400ABE7E5 /* Request.swift */,
 				B5F7DD581BFBF31000ABE7E5 /* Desk.swift */,
 				B5FB13121BFC4FD700F91B8B /* MenuHandler.swift */,
+				B51008B11BFD142700206391 /* Preferences.storyboard */,
+				B51008B31BFD2A3900206391 /* PrefsWindowController.swift */,
+				B51008B51BFD2A8100206391 /* PrefsViewController.swift */,
+				B51008B71BFD2A9E00206391 /* PrefsAuthController.swift */,
+				B51008B91BFD2AAF00206391 /* PrefsPresetsController.swift */,
+				B51008BD1BFD348100206391 /* Settings.swift */,
+				B51008BF1BFD39D000206391 /* Auth.swift */,
+				B51008C11BFD3FFA00206391 /* Desks.swift */,
 			);
 			path = GeekDesk;
 			sourceTree = "<group>";
@@ -211,6 +235,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B51008B21BFD142700206391 /* Preferences.storyboard in Resources */,
 				B53815A21BFAED2D00CB13AE /* Assets.xcassets in Resources */,
 				B53815A51BFAED2D00CB13AE /* MainMenu.xib in Resources */,
 			);
@@ -273,14 +298,21 @@
 			files = (
 				B53815BF1BFB0E4500CB13AE /* HotKey.m in Sources */,
 				B53815B51BFB0B3D00CB13AE /* DDHotKeyTextField.m in Sources */,
+				B51008BB1BFD2AAF00206391 /* PrefsPresetsController.swift in Sources */,
+				B51008B81BFD2A9E00206391 /* PrefsAuthController.swift in Sources */,
+				B51008B41BFD2A3900206391 /* PrefsWindowController.swift in Sources */,
 				B5F7DD591BFBF31000ABE7E5 /* Desk.swift in Sources */,
 				B53815B41BFB0B3D00CB13AE /* DDHotKeyCenter.m in Sources */,
+				B51008C01BFD39D100206391 /* Auth.swift in Sources */,
 				B5F7DD531BFBE26400ABE7E5 /* Device.swift in Sources */,
+				B51008B61BFD2A8100206391 /* PrefsViewController.swift in Sources */,
 				B5FB13131BFC4FD700F91B8B /* MenuHandler.swift in Sources */,
+				B51008BE1BFD348100206391 /* Settings.swift in Sources */,
 				B5F7DD551BFBEF9400ABE7E5 /* Request.swift in Sources */,
 				B5F7DD5F1BFBFCB600ABE7E5 /* SparkEvent.m in Sources */,
 				B53815B61BFB0B3D00CB13AE /* DDHotKeyUtilities.m in Sources */,
 				B53815A01BFAED2D00CB13AE /* AppDelegate.swift in Sources */,
+				B51008C21BFD3FFA00206391 /* Desks.swift in Sources */,
 				B5F7DD5C1BFBFC4200ABE7E5 /* EventSource.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
