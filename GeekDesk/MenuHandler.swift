@@ -15,6 +15,7 @@ private enum ItemType: Int {
     case Height
     case State
     case Preferences
+    case Quit
 }
 
 private extension NSMenuItem {
@@ -121,6 +122,9 @@ class MenuHandler: NSObject {
         prefsItem.tag = ItemType.Preferences.rawValue
         menu.addItem(prefsItem)
         
+        // Quit
+        let quitItem = NSMenuItem(title: "Quit", action: Selector("terminate:"), keyEquivalent: "q")
+        menu.addItem(quitItem)
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("heightChanged:"),
             name: DeskHeightChangedNotification, object: nil)
