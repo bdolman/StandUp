@@ -23,9 +23,6 @@ extension DeskState {
 class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet weak var window: NSWindow!
     
-    let accessToken = "8b9ebdc77f38b9cd69c95767f512d692cae586d5"
-    let deviceId = "3a0024000447343337373739"
-    
     var menuHandler: MenuHandler!
     let settings = Settings()
     let desks = Desks()
