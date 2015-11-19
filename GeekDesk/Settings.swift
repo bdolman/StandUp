@@ -12,6 +12,7 @@ private let accessTokenKey = "AccessToken"
 private let deviceIdKey = "DeviceId"
 private let standingHeightKey = "StandingHeight"
 private let sittingHeightKey = "SittingHeight"
+private let enabledAtLoginKey = "EnabledAtLogin"
 
 class Settings: NSObject {
     private let defaults = NSUserDefaults.standardUserDefaults()
@@ -19,7 +20,8 @@ class Settings: NSObject {
     override init() {
         defaults.registerDefaults([
             standingHeightKey : 100,
-            sittingHeightKey : 60
+            sittingHeightKey : 60,
+            enabledAtLoginKey : true
         ])
         super.init()
     }
@@ -51,5 +53,9 @@ class Settings: NSObject {
     var sittingHeight: Int {
         get { return defaults.integerForKey(sittingHeightKey) }
         set(newValue) { defaults.setInteger(newValue, forKey: sittingHeightKey) }
+    }
+    var enabledAtLogin: Bool {
+        get { return defaults.boolForKey(enabledAtLoginKey) }
+        set(newValue) { defaults.setBool(newValue, forKey: enabledAtLoginKey) }
     }
 }

@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import ServiceManagement
 
 extension DeskState {
     var image: NSImage {
@@ -100,7 +101,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
     
+    func updateLoginState() {
+        let identifier = NSBundle.mainBundle().bundleIdentifier! + "-Helper"
+        if SMLoginItemSetEnabled(identifier, settings.enabledAtLogin) == false {
+            NSLog("Login item was not successful")
+        }
+    }
+    
     func applicationDidFinishLaunching(aNotification: NSNotification) {
+        updateLoginState()
         menuHandler = MenuHandler()
         menuHandler.delegate = self
         setupStatusItem()

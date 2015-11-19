@@ -16,6 +16,11 @@
 		B51008BE1BFD348100206391 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51008BD1BFD348100206391 /* Settings.swift */; };
 		B51008C01BFD39D100206391 /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51008BF1BFD39D000206391 /* Auth.swift */; };
 		B51008C21BFD3FFA00206391 /* Desks.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51008C11BFD3FFA00206391 /* Desks.swift */; };
+		B5127D3D1BFDA1E80072FB39 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5127D3C1BFDA1E80072FB39 /* AppDelegate.swift */; };
+		B5127D3F1BFDA1E80072FB39 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B5127D3E1BFDA1E80072FB39 /* Assets.xcassets */; };
+		B5127D421BFDA1E80072FB39 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = B5127D401BFDA1E80072FB39 /* MainMenu.xib */; };
+		B5127D481BFDA21E0072FB39 /* ServiceManagement.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5127D471BFDA21E0072FB39 /* ServiceManagement.framework */; };
+		B5127D4A1BFDA2620072FB39 /* GeekDesk Helper.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = B5127D3A1BFDA1E80072FB39 /* GeekDesk Helper.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		B53815A01BFAED2D00CB13AE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B538159F1BFAED2D00CB13AE /* AppDelegate.swift */; };
 		B53815A21BFAED2D00CB13AE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B53815A11BFAED2D00CB13AE /* Assets.xcassets */; };
 		B53815A51BFAED2D00CB13AE /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = B53815A31BFAED2D00CB13AE /* MainMenu.xib */; };
@@ -24,7 +29,6 @@
 		B53815B61BFB0B3D00CB13AE /* DDHotKeyUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = B53815B31BFB0B3D00CB13AE /* DDHotKeyUtilities.m */; };
 		B53815B81BFB0B5500CB13AE /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B53815B71BFB0B5500CB13AE /* Carbon.framework */; };
 		B53815BF1BFB0E4500CB13AE /* HotKey.m in Sources */ = {isa = PBXBuildFile; fileRef = B53815BE1BFB0E4500CB13AE /* HotKey.m */; };
-		B5F7DD4E1BFBC52000ABE7E5 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5F7DD4D1BFBC52000ABE7E5 /* Security.framework */; };
 		B5F7DD531BFBE26400ABE7E5 /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F7DD521BFBE26400ABE7E5 /* Device.swift */; };
 		B5F7DD551BFBEF9400ABE7E5 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F7DD541BFBEF9400ABE7E5 /* Request.swift */; };
 		B5F7DD591BFBF31000ABE7E5 /* Desk.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F7DD581BFBF31000ABE7E5 /* Desk.swift */; };
@@ -32,6 +36,19 @@
 		B5F7DD5F1BFBFCB600ABE7E5 /* SparkEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = B5F7DD5E1BFBFCB600ABE7E5 /* SparkEvent.m */; };
 		B5FB13131BFC4FD700F91B8B /* MenuHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5FB13121BFC4FD700F91B8B /* MenuHandler.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		B5127D491BFDA2440072FB39 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = Contents/Library/LoginItems;
+			dstSubfolderSpec = 1;
+			files = (
+				B5127D4A1BFDA2620072FB39 /* GeekDesk Helper.app in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		15A4DD22BE3383327B170232 /* Pods-GeekDesk.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GeekDesk.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GeekDesk/Pods-GeekDesk.debug.xcconfig"; sourceTree = "<group>"; };
@@ -44,6 +61,14 @@
 		B51008BD1BFD348100206391 /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		B51008BF1BFD39D000206391 /* Auth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Auth.swift; sourceTree = "<group>"; };
 		B51008C11BFD3FFA00206391 /* Desks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Desks.swift; sourceTree = "<group>"; };
+		B5127D3A1BFDA1E80072FB39 /* GeekDesk Helper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "GeekDesk Helper.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B5127D3C1BFDA1E80072FB39 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		B5127D3E1BFDA1E80072FB39 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		B5127D411BFDA1E80072FB39 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		B5127D431BFDA1E80072FB39 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B5127D471BFDA21E0072FB39 /* ServiceManagement.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ServiceManagement.framework; path = System/Library/Frameworks/ServiceManagement.framework; sourceTree = SDKROOT; };
+		B5127D4B1BFDA6EB0072FB39 /* GeekDesk.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = GeekDesk.entitlements; sourceTree = "<group>"; };
+		B5127D4C1BFDA7140072FB39 /* GeekDesk Helper.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "GeekDesk Helper.entitlements"; sourceTree = "<group>"; };
 		B538159C1BFAED2D00CB13AE /* GeekDesk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GeekDesk.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B538159F1BFAED2D00CB13AE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B53815A11BFAED2D00CB13AE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -72,11 +97,18 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		B5127D371BFDA1E80072FB39 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B53815991BFAED2D00CB13AE /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B5F7DD4E1BFBC52000ABE7E5 /* Security.framework in Frameworks */,
+				B5127D481BFDA21E0072FB39 /* ServiceManagement.framework in Frameworks */,
 				B53815B81BFB0B5500CB13AE /* Carbon.framework in Frameworks */,
 				9B52447F6C4FD01C933E1B72 /* Pods_GeekDesk.framework in Frameworks */,
 			);
@@ -97,10 +129,23 @@
 		6B93E820F92A29E63062748B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B5127D471BFDA21E0072FB39 /* ServiceManagement.framework */,
 				B5F7DD4D1BFBC52000ABE7E5 /* Security.framework */,
 				82829E77DBC858245202CA91 /* Pods_GeekDesk.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B5127D3B1BFDA1E80072FB39 /* GeekDesk Helper */ = {
+			isa = PBXGroup;
+			children = (
+				B5127D4C1BFDA7140072FB39 /* GeekDesk Helper.entitlements */,
+				B5127D3C1BFDA1E80072FB39 /* AppDelegate.swift */,
+				B5127D3E1BFDA1E80072FB39 /* Assets.xcassets */,
+				B5127D401BFDA1E80072FB39 /* MainMenu.xib */,
+				B5127D431BFDA1E80072FB39 /* Info.plist */,
+			);
+			path = "GeekDesk Helper";
 			sourceTree = "<group>";
 		};
 		B53815931BFAED2D00CB13AE = {
@@ -108,6 +153,7 @@
 			children = (
 				B53815B71BFB0B5500CB13AE /* Carbon.framework */,
 				B538159E1BFAED2D00CB13AE /* GeekDesk */,
+				B5127D3B1BFDA1E80072FB39 /* GeekDesk Helper */,
 				B538159D1BFAED2D00CB13AE /* Products */,
 				675CA24E945756F0F49A83FE /* Pods */,
 				6B93E820F92A29E63062748B /* Frameworks */,
@@ -118,6 +164,7 @@
 			isa = PBXGroup;
 			children = (
 				B538159C1BFAED2D00CB13AE /* GeekDesk.app */,
+				B5127D3A1BFDA1E80072FB39 /* GeekDesk Helper.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -125,6 +172,7 @@
 		B538159E1BFAED2D00CB13AE /* GeekDesk */ = {
 			isa = PBXGroup;
 			children = (
+				B5127D4B1BFDA6EB0072FB39 /* GeekDesk.entitlements */,
 				B5FB13111BFC462E00F91B8B /* Particle */,
 				B53815AD1BFB0B3D00CB13AE /* DDHotKey */,
 				B538159F1BFAED2D00CB13AE /* AppDelegate.swift */,
@@ -177,6 +225,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		B5127D391BFDA1E80072FB39 /* GeekDesk Helper */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B5127D441BFDA1E80072FB39 /* Build configuration list for PBXNativeTarget "GeekDesk Helper" */;
+			buildPhases = (
+				B5127D361BFDA1E80072FB39 /* Sources */,
+				B5127D371BFDA1E80072FB39 /* Frameworks */,
+				B5127D381BFDA1E80072FB39 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "GeekDesk Helper";
+			productName = "GeekDesk Helper";
+			productReference = B5127D3A1BFDA1E80072FB39 /* GeekDesk Helper.app */;
+			productType = "com.apple.product-type.application";
+		};
 		B538159B1BFAED2D00CB13AE /* GeekDesk */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = B53815A91BFAED2D00CB13AE /* Build configuration list for PBXNativeTarget "GeekDesk" */;
@@ -187,6 +252,7 @@
 				B538159A1BFAED2D00CB13AE /* Resources */,
 				C63FC5A320C234F16ADFBE50 /* Embed Pods Frameworks */,
 				A37A28501601D9E498E541FD /* Copy Pods Resources */,
+				B5127D491BFDA2440072FB39 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -207,8 +273,21 @@
 				LastUpgradeCheck = 0710;
 				ORGANIZATIONNAME = "Hit Labs";
 				TargetAttributes = {
+					B5127D391BFDA1E80072FB39 = {
+						CreatedOnToolsVersion = 7.1.1;
+						SystemCapabilities = {
+							com.apple.Sandbox = {
+								enabled = 1;
+							};
+						};
+					};
 					B538159B1BFAED2D00CB13AE = {
 						CreatedOnToolsVersion = 7.1.1;
+						SystemCapabilities = {
+							com.apple.Sandbox = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -226,11 +305,21 @@
 			projectRoot = "";
 			targets = (
 				B538159B1BFAED2D00CB13AE /* GeekDesk */,
+				B5127D391BFDA1E80072FB39 /* GeekDesk Helper */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		B5127D381BFDA1E80072FB39 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B5127D3F1BFDA1E80072FB39 /* Assets.xcassets in Resources */,
+				B5127D421BFDA1E80072FB39 /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B538159A1BFAED2D00CB13AE /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -292,6 +381,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		B5127D361BFDA1E80072FB39 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B5127D3D1BFDA1E80072FB39 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		B53815981BFAED2D00CB13AE /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -320,6 +417,14 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		B5127D401BFDA1E80072FB39 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B5127D411BFDA1E80072FB39 /* Base */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
 		B53815A31BFAED2D00CB13AE /* MainMenu.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -331,6 +436,34 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		B5127D451BFDA1E80072FB39 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "GeekDesk Helper/GeekDesk Helper.entitlements";
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = "GeekDesk Helper/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.hitlabs.GeekDesk-Helper";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		B5127D461BFDA1E80072FB39 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "GeekDesk Helper/GeekDesk Helper.entitlements";
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = "GeekDesk Helper/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.hitlabs.GeekDesk-Helper";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
 		B53815A71BFAED2D00CB13AE /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -416,6 +549,8 @@
 			baseConfigurationReference = 15A4DD22BE3383327B170232 /* Pods-GeekDesk.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = GeekDesk/GeekDesk.entitlements;
+				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = GeekDesk/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
@@ -430,6 +565,8 @@
 			baseConfigurationReference = D7424A962800D6597DA1C8DB /* Pods-GeekDesk.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = GeekDesk/GeekDesk.entitlements;
+				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = GeekDesk/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
@@ -442,6 +579,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		B5127D441BFDA1E80072FB39 /* Build configuration list for PBXNativeTarget "GeekDesk Helper" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B5127D451BFDA1E80072FB39 /* Debug */,
+				B5127D461BFDA1E80072FB39 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		B53815971BFAED2D00CB13AE /* Build configuration list for PBXProject "GeekDesk" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
