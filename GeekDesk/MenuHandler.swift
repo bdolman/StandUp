@@ -46,8 +46,8 @@ protocol MenuHandlerDelegate: NSObjectProtocol {
 }
 
 class MenuHandler: NSObject {
-    weak var delegate: MenuHandlerDelegate?
-    var desk: Desk? {
+    weak var delegate: MenuHandlerDelegate? = nil
+    var desk: Desk? = nil {
         willSet {
             removeDeskObservers()
         }

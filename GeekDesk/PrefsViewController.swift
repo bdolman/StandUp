@@ -13,11 +13,12 @@ class PrefsViewController: NSTabViewController {
     var desks: Desks!
     var settings: Settings!
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-    
     override func viewWillAppear() {
+        if desks.activeDesk == nil {
+            selectedTabViewItemIndex = 0
+        } else {
+            selectedTabViewItemIndex = 1
+        }
         prepareChildViewControllers()
         super.viewWillAppear()
     }

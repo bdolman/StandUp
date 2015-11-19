@@ -22,7 +22,7 @@ class PrefsAuthController: NSViewController {
     @IBOutlet weak var deviceIdField: NSTextField!
     @IBOutlet weak var statusField: NSTextField!
     
-    private var desk: Desk? {
+    private var desk: Desk? = nil {
         willSet {
             removeDeskObservers()
         }
@@ -77,11 +77,11 @@ class PrefsAuthController: NSViewController {
     }
     
     func updateStatus() {
-        var statusText = "Not Connected"
+        var statusText = "Not connected"
         if let height = desk?.height {
             statusText = "Connected (Height: \(height) cm)"
         } else if let _ = desk {
-            statusText = "Connected"
+            statusText = "Waiting for connection..."
         }
         statusField.stringValue = statusText
     }
@@ -95,7 +95,7 @@ class PrefsAuthController: NSViewController {
             settings.deviceId = newDeviceId
             if let auth = settings.auth {
                 let device = Device(accessToken: auth.accessToken, deviceId: auth.deviceId)
-                let desk = Desk(device: device)
+                let desk = Desk(device: device, sittingHeight: settings.sittingHeight, standingHeight: settings.standingHeight)
                 desk.updateCurrentState()
                 desks.activeDesk = desk
             } else {

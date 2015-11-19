@@ -47,31 +47,48 @@ private enum DeskEvent {
     }
 }
 
-class Desk {
+class Desk: NSObject {
     let device: Device
     
-    var sittingHeight: Int = 60
-    var standingHeight: Int = 100
+    var sittingHeight: Int {
+        didSet(oldValue) {
+            guard oldValue != sittingHeight else { return }
+            updateStateToMatchCurrentHeight()
+        }
+    }
+    var standingHeight: Int {
+        didSet(oldValue) {
+            guard oldValue != standingHeight else { return }
+            updateStateToMatchCurrentHeight()
+        }
+    }
     private var source: EventSource!
     
     let lock = NSRecursiveLock()
     
-    var state: DeskState? {
+    var state: DeskState? = nil {
         didSet(oldValue) {
             guard oldValue != state else { return }
             NSNotificationCenter.defaultCenter().postNotificationName(DeskStateChangedNotification, object: self)
         }
     }
-    var height: Int? {
+    var height: Int? = nil {
         didSet(oldValue) {
             guard oldValue != height else { return }
             NSNotificationCenter.defaultCenter().postNotificationName(DeskHeightChangedNotification, object: self)
         }
     }
     
-    init(device: Device) {
+    init(device: Device, sittingHeight: Int, standingHeight: Int) {
         self.device = device
+        self.sittingHeight = sittingHeight
+        self.standingHeight = standingHeight
+        super.init()
         setupEventObserver()
+    }
+    
+    deinit {
+        source.close()
     }
     
     private func handleDeskEvent(event: DeskEvent) {
@@ -105,7 +122,7 @@ class Desk {
         let url = device.baseURL.URLByAppendingPathComponent("events")
         source = EventSource(URL: url, timeoutInterval: 30.0,
             queue: dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), accessToken: device.accessToken)
-        let handler: EventSourceEventHandler = { (event: Event!) -> Void in
+        let handler: EventSourceEventHandler = {[unowned self] (event: Event!) -> Void in
             guard let data = event.data else {
                 NSLog("Event error \(event.error)")
                 return

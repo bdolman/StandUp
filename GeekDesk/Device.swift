@@ -12,7 +12,12 @@ import Alamofire
 private final class GetHeightResponse: ResponseObjectSerializable {
     let height: Int
     init?(response: NSHTTPURLResponse, representation: AnyObject) {
-        self.height = representation.valueForKeyPath("return_value") as! Int
+        if let height = representation.valueForKeyPath("return_value") as? Int {
+            self.height = height
+        } else {
+            height = 0
+            return nil
+        }
     }
 }
 

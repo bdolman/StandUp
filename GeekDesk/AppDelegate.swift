@@ -29,7 +29,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var menuHandler: MenuHandler!
     let settings = Settings()
     let desks = Desks()
-    var desk: Desk? {
+    var desk: Desk? = nil {
         willSet {
             removeDeskObservers()
         }
@@ -39,7 +39,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             updateStatusIcon()
         }
     }
-    var prefsController: PrefsWindowController?
+    var prefsController: PrefsWindowController? = nil
     let statusItem: NSStatusItem = NSStatusBar.systemStatusBar().statusItemWithLength(NSSquareStatusItemLength)
     
     func registerGlobalShortcutHandlers() {
@@ -97,7 +97,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func savedDesk() -> Desk? {
         if let auth = settings.auth {
             let device = Device(accessToken: auth.accessToken, deviceId: auth.deviceId)
-            return Desk(device: device)
+            return Desk(device: device, sittingHeight: settings.sittingHeight, standingHeight: settings.standingHeight)
         } else {
             return nil
         }
@@ -115,6 +115,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         observeActiveDeskChanges()
         
         updateStatusIcon()
+        
+        if desk == nil {
+            showPreferences()
+        }
     }
     
     func showPreferences() {
