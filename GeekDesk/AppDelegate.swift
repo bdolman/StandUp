@@ -73,7 +73,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         if let image = desk?.state?.image {
             statusItem.button?.image = image
         } else {
-            statusItem.button?.image = DeskState.Lowered.image
+            statusItem.button?.image = DeskState.Raising.image
         }
     }
     
