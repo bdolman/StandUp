@@ -20,11 +20,13 @@ class PrefsPresetsController: NSViewController {
     
     dynamic private var desk: Desk? = nil {
         willSet {
+            desk?.pollForHeightChanges = false
             removeDeskObservers()
         }
         didSet {
             addDeskObservers()
             updateStatus()
+            desk?.pollForHeightChanges = true
         }
     }
     
@@ -38,6 +40,12 @@ class PrefsPresetsController: NSViewController {
     
     override func viewWillAppear() {
         super.viewWillAppear()
+        desk?.pollForHeightChanges = true
+    }
+    
+    override func viewWillDisappear() {
+        super.viewWillDisappear()
+        desk?.pollForHeightChanges = false
     }
     
     deinit {

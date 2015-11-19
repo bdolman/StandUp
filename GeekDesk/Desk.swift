@@ -64,7 +64,44 @@ class Desk: NSObject {
     }
     private var source: EventSource!
     
-    let lock = NSRecursiveLock()
+    var pollForHeightChanges: Bool = false {
+        didSet(oldValue) {
+            guard oldValue != pollForHeightChanges else { return }
+            if pollForHeightChanges {
+                beginPollingForHeightChanges()
+            } else {
+                stopPollingForHeightChanges()
+            }
+        }
+    }
+    
+    var pollingTimer: NSTimer?
+    private func beginPollingForHeightChanges() {
+        dispatch_async(dispatch_get_main_queue()) {
+            self.pollingTimer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self,
+                selector: Selector("pollingTimerFired:"), userInfo: nil, repeats: false)
+        }
+    }
+    
+    private func stopPollingForHeightChanges() {
+        dispatch_async(dispatch_get_main_queue()) {
+            self.pollingTimer?.invalidate()
+            self.pollingTimer = nil
+        }
+    }
+    
+    @objc private func pollingTimerFired(timer: NSTimer) {
+        device.getHeight { (height, error) -> Void in
+            if let height = height {
+                self.height = height
+            } else {
+                NSLog("getHeight error \(error)")
+            }
+            if self.pollForHeightChanges {
+                self.beginPollingForHeightChanges()
+            }
+        }
+    }
     
     var state: DeskState? = nil {
         didSet(oldValue) {
