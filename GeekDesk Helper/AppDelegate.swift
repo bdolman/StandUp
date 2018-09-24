@@ -17,7 +17,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         var pathComponents = Bundle.main.bundleURL.pathComponents
         let mainApp = Array(pathComponents[0..<(pathComponents.count - 4)])
         let mainAppPath = NSString.path(withComponents: mainApp)
-        let launched = NSWorkspace.shared().launchApplication(mainAppPath)
+        let launched = NSWorkspace.shared.launchApplication(mainAppPath)
         NSLog("GeekDesk Helper launch result \(launched) \(mainAppPath)")
     }
 

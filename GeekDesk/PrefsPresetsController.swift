@@ -16,9 +16,9 @@ class PrefsPresetsController: NSViewController {
             observeActiveDeskChanges()
         }
     }
-    dynamic var settings: Settings!
+    @objc dynamic var settings: Settings!
     
-    dynamic fileprivate var desk: Desk? = nil {
+    @objc dynamic fileprivate var desk: Desk? = nil {
         willSet {
             desk?.pollForHeightChanges = false
             removeDeskObservers()
@@ -66,7 +66,7 @@ class PrefsPresetsController: NSViewController {
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: DeskHeightChangedNotification), object: desk)
     }
     
-    func deskStateChanged(_ notification: Notification) {
+    @objc func deskStateChanged(_ notification: Notification) {
         OperationQueue.main.addOperation {
             self.updateStatus()
         }
@@ -77,7 +77,7 @@ class PrefsPresetsController: NSViewController {
             name: NSNotification.Name(rawValue: ActiveDeskDidChangeNotification), object: desks)
     }
     
-    func activeDeskChanged(_ notification: Notification) {
+    @objc func activeDeskChanged(_ notification: Notification) {
         desk = desks.activeDesk
     }
     

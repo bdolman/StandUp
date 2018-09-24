@@ -274,7 +274,7 @@
 				TargetAttributes = {
 					B5127D391BFDA1E80072FB39 = {
 						CreatedOnToolsVersion = 7.1.1;
-						LastSwiftMigration = 0830;
+						LastSwiftMigration = 1000;
 						SystemCapabilities = {
 							com.apple.Sandbox = {
 								enabled = 1;
@@ -283,7 +283,7 @@
 					};
 					B538159B1BFAED2D00CB13AE = {
 						CreatedOnToolsVersion = 7.1.1;
-						LastSwiftMigration = 0830;
+						LastSwiftMigration = 1000;
 						SystemCapabilities = {
 							com.apple.Sandbox = {
 								enabled = 1;
@@ -439,7 +439,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.hitlabs.GeekDesk-Helper";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
@@ -454,7 +454,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.hitlabs.GeekDesk-Helper";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};
@@ -551,7 +551,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.hitlabs.GeekDesk;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "GeekDesk/GeekDesk-Bridging-Header.h";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
@@ -568,7 +568,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.hitlabs.GeekDesk;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "GeekDesk/GeekDesk-Bridging-Header.h";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};

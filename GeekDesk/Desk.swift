@@ -162,7 +162,9 @@ class Desk: NSObject {
             queue: DispatchQueue.global(qos: .background), accessToken: device.accessToken)
         let handler: EventSourceEventHandler = {[unowned self] (event: Event!) -> Void in
             guard let data = event.data else {
-                NSLog("Event error \(event.error)")
+                if let error = event.error {
+                    NSLog("Event error \(error)")
+                }
                 return
             }
             do {

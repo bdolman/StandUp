@@ -61,7 +61,7 @@ class PrefsAuthController: NSViewController {
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: DeskHeightChangedNotification), object: desk)
     }
     
-    func deskStateChanged(_ notification: Notification) {
+    @objc func deskStateChanged(_ notification: Notification) {
         OperationQueue.main.addOperation {
             self.updateStatus()
         }
@@ -72,7 +72,7 @@ class PrefsAuthController: NSViewController {
             name: NSNotification.Name(rawValue: ActiveDeskDidChangeNotification), object: desks)
     }
     
-    func activeDeskChanged(_ notification: Notification) {
+    @objc func activeDeskChanged(_ notification: Notification) {
         desk = desks.activeDesk
     }
     

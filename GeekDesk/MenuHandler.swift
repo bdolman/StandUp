@@ -82,22 +82,22 @@ class MenuHandler: NSObject {
     
     override init() {
         super.init()
-        let arrowModifierMask = Int(NSEventModifierFlags.shift.rawValue | NSEventModifierFlags.command.rawValue)
+        let arrowModifierMask = Int(NSEvent.ModifierFlags.shift.rawValue | NSEvent.ModifierFlags.command.rawValue)
         
         // Stand Up
-        let upArrowKey = String(Character(UnicodeScalar(NSUpArrowFunctionKey)!))
+        let upArrowKey = String(Character(UnicodeScalar(NSEvent.SpecialKey.upArrow.rawValue)!))
         let standUpItem = NSMenuItem(title: "Stand Up", action: #selector(MenuHandler.standUp(_:)), keyEquivalent: upArrowKey)
         standUpItem.tag = ItemType.standUp.rawValue
         standUpItem.target = self
-        standUpItem.keyEquivalentModifierMask = NSEventModifierFlags(rawValue: UInt(arrowModifierMask))
+        standUpItem.keyEquivalentModifierMask = NSEvent.ModifierFlags(rawValue: UInt(arrowModifierMask))
         menu.addItem(standUpItem)
         
         // Sit Down
-        let downArrowKey = String(Character(UnicodeScalar(NSDownArrowFunctionKey)!))
+        let downArrowKey = String(Character(UnicodeScalar(NSEvent.SpecialKey.downArrow.rawValue)!))
         let sitDownItem = NSMenuItem(title: "Sit Down", action: #selector(MenuHandler.sitDown(_:)), keyEquivalent: downArrowKey)
         sitDownItem.tag = ItemType.sitDown.rawValue
         sitDownItem.target = self
-        sitDownItem.keyEquivalentModifierMask = NSEventModifierFlags(rawValue: UInt(arrowModifierMask))
+        sitDownItem.keyEquivalentModifierMask = NSEvent.ModifierFlags(rawValue: UInt(arrowModifierMask))
         menu.addItem(sitDownItem)
         
         menu.addItem(NSMenuItem.separator())
@@ -138,25 +138,25 @@ class MenuHandler: NSObject {
         NotificationCenter.default.removeObserver(self)
     }
     
-    func sitDown(_ sender: AnyObject) {
+    @objc func sitDown(_ sender: AnyObject) {
         desk?.lower()
     }
     
-    func standUp(_ sender: AnyObject) {
+    @objc func standUp(_ sender: AnyObject) {
         desk?.raise()
     }
     
-    func showPreferences(_ sender: AnyObject) {
+    @objc func showPreferences(_ sender: AnyObject) {
         delegate?.menuHandlerPreferencesItemClicked(self)
     }
     
-    func quitApp(_ sender: AnyObject) {
-        NSApplication.shared().terminate(self)
+    @objc func quitApp(_ sender: AnyObject) {
+        NSApplication.shared.terminate(self)
     }
     
-    func ignore(_ sender: AnyObject) {}
+    @objc func ignore(_ sender: AnyObject) {}
     
-    override func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
+    @objc func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
         guard let itemType = menuItem.itemType else { return true }
         switch itemType {
         case .standUp:
@@ -175,13 +175,13 @@ class MenuHandler: NSObject {
         }
     }
     
-    func stateChanged(_ notification: Notification) {
+    @objc func stateChanged(_ notification: Notification) {
         OperationQueue.main.addOperation {
             self.menu.update()
         }
     }
     
-    func heightChanged(_ notification: Notification) {
+    @objc func heightChanged(_ notification: Notification) {
         OperationQueue.main.addOperation {
             self.menu.update()
         }

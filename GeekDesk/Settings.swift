@@ -37,24 +37,24 @@ class Settings: NSObject {
         }
     }
     
-    var accessToken: String? {
+    @objc var accessToken: String? {
         get { return defaults.string(forKey: accessTokenKey) }
         set(newValue) { defaults.set(newValue, forKey: accessTokenKey) }
     }
-    var deviceId: String? {
+    @objc var deviceId: String? {
         get { return defaults.string(forKey: deviceIdKey) }
         set(newValue) { defaults.set(newValue, forKey: deviceIdKey) }
     }
     
-    var standingHeight: Int {
+    @objc var standingHeight: Int {
         get { return defaults.integer(forKey: standingHeightKey) }
         set(newValue) { defaults.set(newValue, forKey: standingHeightKey) }
     }
-    var sittingHeight: Int {
+    @objc var sittingHeight: Int {
         get { return defaults.integer(forKey: sittingHeightKey) }
         set(newValue) { defaults.set(newValue, forKey: sittingHeightKey) }
     }
-    var enabledAtLogin: Bool {
+    @objc var enabledAtLogin: Bool {
         get { return defaults.bool(forKey: enabledAtLoginKey) }
         set(newValue) { defaults.set(newValue, forKey: enabledAtLoginKey) }
     }

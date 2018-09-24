@@ -38,7 +38,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
     var prefsController: PrefsWindowController? = nil
-    let statusItem: NSStatusItem = NSStatusBar.system().statusItem(withLength: NSSquareStatusItemLength)
+    let statusItem: NSStatusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
     
     func registerGlobalShortcutHandlers() {
         HotKey.registerRaise { event in
@@ -77,13 +77,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             name: NSNotification.Name(rawValue: ActiveDeskDidChangeNotification), object: desks)
     }
     
-    func deskStateChanged(_ notification: Notification) {
+    @objc func deskStateChanged(_ notification: Notification) {
         OperationQueue.main.addOperation {
             self.updateStatusIcon()
         }
     }
     
-    func activeDeskChanged(_ notification: Notification) {
+    @objc func activeDeskChanged(_ notification: Notification) {
         desk = desks.activeDesk
     }
     
@@ -129,17 +129,17 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             prefsController?.desks = desks
             prefsController?.settings = settings
             NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.prefsClosed(_:)),
-                name: NSNotification.Name.NSWindowWillClose, object: prefsController)
+                name: NSWindow.willCloseNotification, object: prefsController)
         }
         prefsController?.showWindow(self)
         prefsController?.window?.makeKeyAndOrderFront(self)
         NSApp.activate(ignoringOtherApps: true)
     }
     
-    func prefsClosed(_ notification: Notification) {
+    @objc func prefsClosed(_ notification: Notification) {
         guard let prefsController = self.prefsController else { return }
         self.prefsController = nil
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.NSWindowWillClose, object: prefsController)
+        NotificationCenter.default.removeObserver(self, name: NSWindow.willCloseNotification, object: prefsController)
     }
 }
 
