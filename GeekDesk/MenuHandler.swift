@@ -124,6 +124,8 @@ class MenuHandler: NSObject {
         
         // Quit
         let quitItem = NSMenuItem(title: "Quit", action: #selector(MenuHandler.quitApp(_:)), keyEquivalent: "q")
+        quitItem.target = self
+        quitItem.tag = ItemType.quit.rawValue
         menu.addItem(quitItem)
         
         NotificationCenter.default.addObserver(self, selector: #selector(MenuHandler.heightChanged(_:)),
@@ -168,7 +170,8 @@ class MenuHandler: NSObject {
         case .state:
             menuItem.title = stateTitle
             return false
-        default: return true
+        default:
+            return true
         }
     }
     
