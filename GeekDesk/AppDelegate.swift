@@ -62,11 +62,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     func setupStatusItem() {
         statusItem.menu = menuHandler.menu
-        // Initial state
-        if let button = statusItem.button {
-            button.target = self
-            button.action = Selector("statusItemClicked:")
-        }
     }
     
     func updateStatusIcon() {
