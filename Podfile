@@ -5,7 +5,7 @@ inhibit_all_warnings!
 
 target 'GeekDesk' do
 
-pod 'Alamofire', '~> 3.0'
+pod 'Alamofire', '~> 4'
 # pod 'Spark-SDK', :git => 'https://github.com/bdolman/spark-sdk-ios.git'
 # pod 'Spark-SDK', :path => '/Users/ben/Developer/ext/spark-sdk-ios'
 

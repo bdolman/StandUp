@@ -18,7 +18,7 @@ class PrefsPresetsController: NSViewController {
     }
     dynamic var settings: Settings!
     
-    dynamic private var desk: Desk? = nil {
+    dynamic fileprivate var desk: Desk? = nil {
         willSet {
             desk?.pollForHeightChanges = false
             removeDeskObservers()
@@ -49,35 +49,35 @@ class PrefsPresetsController: NSViewController {
     }
     
     deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
     }
     
-    private func addDeskObservers() {
+    fileprivate func addDeskObservers() {
         guard let desk = desk else { return }
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("deskStateChanged:"),
-            name: DeskStateChangedNotification, object: desk)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("deskStateChanged:"),
-            name: DeskHeightChangedNotification, object: desk)
+        NotificationCenter.default.addObserver(self, selector: #selector(PrefsPresetsController.deskStateChanged(_:)),
+            name: NSNotification.Name(rawValue: DeskStateChangedNotification), object: desk)
+        NotificationCenter.default.addObserver(self, selector: #selector(PrefsPresetsController.deskStateChanged(_:)),
+            name: NSNotification.Name(rawValue: DeskHeightChangedNotification), object: desk)
     }
     
-    private func removeDeskObservers() {
+    fileprivate func removeDeskObservers() {
         guard let desk = desk else { return }
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: DeskStateChangedNotification, object: desk)
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: DeskHeightChangedNotification, object: desk)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: DeskStateChangedNotification), object: desk)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: DeskHeightChangedNotification), object: desk)
     }
     
-    func deskStateChanged(notification: NSNotification) {
-        NSOperationQueue.mainQueue().addOperationWithBlock {
+    func deskStateChanged(_ notification: Notification) {
+        OperationQueue.main.addOperation {
             self.updateStatus()
         }
     }
     
     func observeActiveDeskChanges() {
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("activeDeskChanged:"),
-            name: ActiveDeskDidChangeNotification, object: desks)
+        NotificationCenter.default.addObserver(self, selector: #selector(PrefsPresetsController.activeDeskChanged(_:)),
+            name: NSNotification.Name(rawValue: ActiveDeskDidChangeNotification), object: desks)
     }
     
-    func activeDeskChanged(notification: NSNotification) {
+    func activeDeskChanged(_ notification: Notification) {
         desk = desks.activeDesk
     }
     
@@ -85,7 +85,7 @@ class PrefsPresetsController: NSViewController {
         
     }
     
-    @IBAction func presetValueChanged(sender: AnyObject) {
+    @IBAction func presetValueChanged(_ sender: AnyObject) {
         desk?.standingHeight = settings.standingHeight
         desk?.sittingHeight = settings.sittingHeight
     }
@@ -101,12 +101,12 @@ class PrefsPresetsController: NSViewController {
         statusField.stringValue = statusText
     }
     
-    @IBAction func standingUseCurrentHeightClicked(sender: AnyObject) {
+    @IBAction func standingUseCurrentHeightClicked(_ sender: AnyObject) {
         if let height = desk?.height {
             standingField.stringValue = String(height)
         }
     }
-    @IBAction func sittingUseCurrentHeightClicked(sender: AnyObject) {
+    @IBAction func sittingUseCurrentHeightClicked(_ sender: AnyObject) {
         if let height = desk?.height {
             sittingField.stringValue = String(height)
         }

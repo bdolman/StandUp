@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9B52447F6C4FD01C933E1B72 /* Pods_GeekDesk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 82829E77DBC858245202CA91 /* Pods_GeekDesk.framework */; };
+		02C7BB242C524629325EB89B /* Pods_GeekDesk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 816796EA1DC565AF0B818B9F /* Pods_GeekDesk.framework */; };
 		B51008B21BFD142700206391 /* Preferences.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B51008B11BFD142700206391 /* Preferences.storyboard */; };
 		B51008B41BFD2A3900206391 /* PrefsWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51008B31BFD2A3900206391 /* PrefsWindowController.swift */; };
 		B51008B61BFD2A8100206391 /* PrefsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51008B51BFD2A8100206391 /* PrefsViewController.swift */; };
@@ -51,8 +51,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		15A4DD22BE3383327B170232 /* Pods-GeekDesk.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GeekDesk.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GeekDesk/Pods-GeekDesk.debug.xcconfig"; sourceTree = "<group>"; };
-		82829E77DBC858245202CA91 /* Pods_GeekDesk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GeekDesk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		816796EA1DC565AF0B818B9F /* Pods_GeekDesk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GeekDesk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		844723D5B65C273208473ACA /* Pods-GeekDesk.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GeekDesk.release.xcconfig"; path = "Pods/Target Support Files/Pods-GeekDesk/Pods-GeekDesk.release.xcconfig"; sourceTree = "<group>"; };
 		B51008B11BFD142700206391 /* Preferences.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Preferences.storyboard; sourceTree = "<group>"; };
 		B51008B31BFD2A3900206391 /* PrefsWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrefsWindowController.swift; sourceTree = "<group>"; };
 		B51008B51BFD2A8100206391 /* PrefsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrefsViewController.swift; sourceTree = "<group>"; };
@@ -93,7 +93,7 @@
 		B5F7DD5D1BFBFCB600ABE7E5 /* SparkEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SparkEvent.h; sourceTree = "<group>"; };
 		B5F7DD5E1BFBFCB600ABE7E5 /* SparkEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SparkEvent.m; sourceTree = "<group>"; };
 		B5FB13121BFC4FD700F91B8B /* MenuHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuHandler.swift; sourceTree = "<group>"; };
-		D7424A962800D6597DA1C8DB /* Pods-GeekDesk.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GeekDesk.release.xcconfig"; path = "Pods/Target Support Files/Pods-GeekDesk/Pods-GeekDesk.release.xcconfig"; sourceTree = "<group>"; };
+		C30C54F62195A2FEF3BF7287 /* Pods-GeekDesk.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GeekDesk.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GeekDesk/Pods-GeekDesk.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,30 +110,30 @@
 			files = (
 				B5127D481BFDA21E0072FB39 /* ServiceManagement.framework in Frameworks */,
 				B53815B81BFB0B5500CB13AE /* Carbon.framework in Frameworks */,
-				9B52447F6C4FD01C933E1B72 /* Pods_GeekDesk.framework in Frameworks */,
+				02C7BB242C524629325EB89B /* Pods_GeekDesk.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		675CA24E945756F0F49A83FE /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				15A4DD22BE3383327B170232 /* Pods-GeekDesk.debug.xcconfig */,
-				D7424A962800D6597DA1C8DB /* Pods-GeekDesk.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 		6B93E820F92A29E63062748B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				B5127D471BFDA21E0072FB39 /* ServiceManagement.framework */,
 				B5F7DD4D1BFBC52000ABE7E5 /* Security.framework */,
-				82829E77DBC858245202CA91 /* Pods_GeekDesk.framework */,
+				816796EA1DC565AF0B818B9F /* Pods_GeekDesk.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		8A576F2487DB0EBC6965B86F /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				C30C54F62195A2FEF3BF7287 /* Pods-GeekDesk.debug.xcconfig */,
+				844723D5B65C273208473ACA /* Pods-GeekDesk.release.xcconfig */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 		B5127D3B1BFDA1E80072FB39 /* GeekDesk Helper */ = {
@@ -155,8 +155,8 @@
 				B538159E1BFAED2D00CB13AE /* GeekDesk */,
 				B5127D3B1BFDA1E80072FB39 /* GeekDesk Helper */,
 				B538159D1BFAED2D00CB13AE /* Products */,
-				675CA24E945756F0F49A83FE /* Pods */,
 				6B93E820F92A29E63062748B /* Frameworks */,
+				8A576F2487DB0EBC6965B86F /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -246,13 +246,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B53815A91BFAED2D00CB13AE /* Build configuration list for PBXNativeTarget "GeekDesk" */;
 			buildPhases = (
-				E0B0198503F133FDAD9D4BB6 /* Check Pods Manifest.lock */,
+				AAD467E730564115F3360FE1 /* [CP] Check Pods Manifest.lock */,
 				B53815981BFAED2D00CB13AE /* Sources */,
 				B53815991BFAED2D00CB13AE /* Frameworks */,
 				B538159A1BFAED2D00CB13AE /* Resources */,
-				C63FC5A320C234F16ADFBE50 /* Embed Pods Frameworks */,
-				A37A28501601D9E498E541FD /* Copy Pods Resources */,
 				B5127D491BFDA2440072FB39 /* CopyFiles */,
+				85A73EA90F2F32222C6F0F23 /* [CP] Embed Pods Frameworks */,
+				D21430BF59C43ED6CE49FA65 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -275,6 +275,7 @@
 				TargetAttributes = {
 					B5127D391BFDA1E80072FB39 = {
 						CreatedOnToolsVersion = 7.1.1;
+						LastSwiftMigration = 0830;
 						SystemCapabilities = {
 							com.apple.Sandbox = {
 								enabled = 1;
@@ -283,6 +284,7 @@
 					};
 					B538159B1BFAED2D00CB13AE = {
 						CreatedOnToolsVersion = 7.1.1;
+						LastSwiftMigration = 0830;
 						SystemCapabilities = {
 							com.apple.Sandbox = {
 								enabled = 1;
@@ -333,29 +335,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		A37A28501601D9E498E541FD /* Copy Pods Resources */ = {
+		85A73EA90F2F32222C6F0F23 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GeekDesk/Pods-GeekDesk-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		C63FC5A320C234F16ADFBE50 /* Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -363,19 +350,34 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GeekDesk/Pods-GeekDesk-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		E0B0198503F133FDAD9D4BB6 /* Check Pods Manifest.lock */ = {
+		AAD467E730564115F3360FE1 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		D21430BF59C43ED6CE49FA65 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GeekDesk/Pods-GeekDesk-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -447,6 +449,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.hitlabs.GeekDesk-Helper";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -461,6 +464,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.hitlabs.GeekDesk-Helper";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -546,7 +550,7 @@
 		};
 		B53815AA1BFAED2D00CB13AE /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 15A4DD22BE3383327B170232 /* Pods-GeekDesk.debug.xcconfig */;
+			baseConfigurationReference = C30C54F62195A2FEF3BF7287 /* Pods-GeekDesk.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = GeekDesk/GeekDesk.entitlements;
@@ -557,12 +561,13 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.hitlabs.GeekDesk;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "GeekDesk/GeekDesk-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
 		B53815AB1BFAED2D00CB13AE /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D7424A962800D6597DA1C8DB /* Pods-GeekDesk.release.xcconfig */;
+			baseConfigurationReference = 844723D5B65C273208473ACA /* Pods-GeekDesk.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = GeekDesk/GeekDesk.entitlements;
@@ -573,6 +578,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.hitlabs.GeekDesk;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "GeekDesk/GeekDesk-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};

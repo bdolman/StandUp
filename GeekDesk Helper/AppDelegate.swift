@@ -13,13 +13,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     @IBOutlet weak var window: NSWindow!
 
-    func applicationDidFinishLaunching(aNotification: NSNotification) {
-        if var pathComponents = NSBundle.mainBundle().bundleURL.pathComponents {
-            let mainApp = Array(pathComponents[0..<(pathComponents.count - 4)])
-            let mainAppPath = NSString.pathWithComponents(mainApp)
-            let launched = NSWorkspace.sharedWorkspace().launchApplication(mainAppPath)
-            NSLog("GeekDesk Helper launch result \(launched) \(mainAppPath)")
-        }
+    func applicationDidFinishLaunching(_ aNotification: Notification) {
+        var pathComponents = Bundle.main.bundleURL.pathComponents
+        let mainApp = Array(pathComponents[0..<(pathComponents.count - 4)])
+        let mainAppPath = NSString.path(withComponents: mainApp)
+        let launched = NSWorkspace.shared().launchApplication(mainAppPath)
+        NSLog("GeekDesk Helper launch result \(launched) \(mainAppPath)")
     }
 
 }

@@ -23,7 +23,7 @@ class PrefsViewController: NSTabViewController {
         super.viewWillAppear()
     }
     
-    private func prepareChildViewControllers() {
+    fileprivate func prepareChildViewControllers() {
         for viewController in childViewControllers {
             if let authController = viewController as? PrefsAuthController {
                 authController.desks = desks

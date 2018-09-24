@@ -13,7 +13,7 @@ class PrefsWindowController: NSWindowController {
     var desks: Desks!
     var settings: Settings!
     
-    override func showWindow(sender: AnyObject?) {
+    override func showWindow(_ sender: Any?) {
         if let prefsViewController = contentViewController as? PrefsViewController {
             prefsViewController.desks = desks
             prefsViewController.settings = settings

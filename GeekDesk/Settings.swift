@@ -15,10 +15,10 @@ private let sittingHeightKey = "SittingHeight"
 private let enabledAtLoginKey = "EnabledAtLogin"
 
 class Settings: NSObject {
-    private let defaults = NSUserDefaults.standardUserDefaults()
+    fileprivate let defaults = UserDefaults.standard
     
     override init() {
-        defaults.registerDefaults([
+        defaults.register(defaults: [
             standingHeightKey : 100,
             sittingHeightKey : 60,
             enabledAtLoginKey : true
@@ -28,7 +28,7 @@ class Settings: NSObject {
     
     var auth: Auth? {
         get {
-            guard let accessToken = self.accessToken, deviceId = self.deviceId else { return nil }
+            guard let accessToken = self.accessToken, let deviceId = self.deviceId else { return nil }
             return Auth(accessToken: accessToken, deviceId: deviceId)
         }
         set(newValue) {
@@ -38,24 +38,24 @@ class Settings: NSObject {
     }
     
     var accessToken: String? {
-        get { return defaults.stringForKey(accessTokenKey) }
-        set(newValue) { defaults.setObject(newValue, forKey: accessTokenKey) }
+        get { return defaults.string(forKey: accessTokenKey) }
+        set(newValue) { defaults.set(newValue, forKey: accessTokenKey) }
     }
     var deviceId: String? {
-        get { return defaults.stringForKey(deviceIdKey) }
-        set(newValue) { defaults.setObject(newValue, forKey: deviceIdKey) }
+        get { return defaults.string(forKey: deviceIdKey) }
+        set(newValue) { defaults.set(newValue, forKey: deviceIdKey) }
     }
     
     var standingHeight: Int {
-        get { return defaults.integerForKey(standingHeightKey) }
-        set(newValue) { defaults.setInteger(newValue, forKey: standingHeightKey) }
+        get { return defaults.integer(forKey: standingHeightKey) }
+        set(newValue) { defaults.set(newValue, forKey: standingHeightKey) }
     }
     var sittingHeight: Int {
-        get { return defaults.integerForKey(sittingHeightKey) }
-        set(newValue) { defaults.setInteger(newValue, forKey: sittingHeightKey) }
+        get { return defaults.integer(forKey: sittingHeightKey) }
+        set(newValue) { defaults.set(newValue, forKey: sittingHeightKey) }
     }
     var enabledAtLogin: Bool {
-        get { return defaults.boolForKey(enabledAtLoginKey) }
-        set(newValue) { defaults.setBool(newValue, forKey: enabledAtLoginKey) }
+        get { return defaults.bool(forKey: enabledAtLoginKey) }
+        set(newValue) { defaults.set(newValue, forKey: enabledAtLoginKey) }
     }
 }

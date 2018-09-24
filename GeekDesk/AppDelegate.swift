@@ -12,10 +12,10 @@ import ServiceManagement
 extension DeskState {
     var image: NSImage {
         switch self {
-        case .Lowered: return NSImage(named: "desk-sit")!
-        case .Lowering: return NSImage(named: "desk-stand-busy")!
-        case .Raised: return NSImage(named: "desk-stand")!
-        case .Raising: return NSImage(named: "desk-sit-busy")!
+        case .lowered: return NSImage(named: "desk-sit")!
+        case .lowering: return NSImage(named: "desk-stand-busy")!
+        case .raised: return NSImage(named: "desk-stand")!
+        case .raising: return NSImage(named: "desk-sit-busy")!
         }
     }
 }
@@ -38,10 +38,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
     var prefsController: PrefsWindowController? = nil
-    let statusItem: NSStatusItem = NSStatusBar.systemStatusBar().statusItemWithLength(NSSquareStatusItemLength)
+    let statusItem: NSStatusItem = NSStatusBar.system().statusItem(withLength: NSSquareStatusItemLength)
     
     func registerGlobalShortcutHandlers() {
-        HotKey.registerRaiseHotKey { event in
+        HotKey.registerRaise { event in
             self.desk?.raise()
         }
         HotKey.registerLowerHotKey { event in
@@ -49,15 +49,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
     
-    private func addDeskObservers() {
+    fileprivate func addDeskObservers() {
         guard let desk = desk else { return }
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("deskStateChanged:"),
-            name: DeskStateChangedNotification, object: desk)
+        NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.deskStateChanged(_:)),
+            name: NSNotification.Name(rawValue: DeskStateChangedNotification), object: desk)
     }
     
-    private func removeDeskObservers() {
+    fileprivate func removeDeskObservers() {
         guard let desk = desk else { return }
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: DeskStateChangedNotification, object: desk)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: DeskStateChangedNotification), object: desk)
     }
     
     func setupStatusItem() {
@@ -73,22 +73,22 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         if let image = desk?.state?.image {
             statusItem.button?.image = image
         } else {
-            statusItem.button?.image = DeskState.Raising.image
+            statusItem.button?.image = DeskState.raising.image
         }
     }
     
     func observeActiveDeskChanges() {
-         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("activeDeskChanged:"),
-            name: ActiveDeskDidChangeNotification, object: desks)
+         NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.activeDeskChanged(_:)),
+            name: NSNotification.Name(rawValue: ActiveDeskDidChangeNotification), object: desks)
     }
     
-    func deskStateChanged(notification: NSNotification) {
-        NSOperationQueue.mainQueue().addOperationWithBlock {
+    func deskStateChanged(_ notification: Notification) {
+        OperationQueue.main.addOperation {
             self.updateStatusIcon()
         }
     }
     
-    func activeDeskChanged(notification: NSNotification) {
+    func activeDeskChanged(_ notification: Notification) {
         desk = desks.activeDesk
     }
     
@@ -102,13 +102,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     func updateLoginState() {
-        let identifier = NSBundle.mainBundle().bundleIdentifier! + "-Helper"
-        if SMLoginItemSetEnabled(identifier, settings.enabledAtLogin) == false {
+        let identifier = Bundle.main.bundleIdentifier! + "-Helper"
+        if SMLoginItemSetEnabled(identifier as CFString, settings.enabledAtLogin) == false {
             NSLog("Login item was not successful")
         }
     }
     
-    func applicationDidFinishLaunching(aNotification: NSNotification) {
+    func applicationDidFinishLaunching(_ aNotification: Notification) {
         updateLoginState()
         menuHandler = MenuHandler()
         menuHandler.delegate = self
@@ -129,27 +129,27 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     func showPreferences() {
         if prefsController == nil {
-            let storyboard = NSStoryboard(name: "Preferences", bundle: NSBundle.mainBundle())
+            let storyboard = NSStoryboard(name: "Preferences", bundle: Bundle.main)
             prefsController = storyboard.instantiateInitialController() as? PrefsWindowController
             prefsController?.desks = desks
             prefsController?.settings = settings
-            NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("prefsClosed:"),
-                name: NSWindowWillCloseNotification, object: prefsController)
+            NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.prefsClosed(_:)),
+                name: NSNotification.Name.NSWindowWillClose, object: prefsController)
         }
         prefsController?.showWindow(self)
         prefsController?.window?.makeKeyAndOrderFront(self)
-        NSApp.activateIgnoringOtherApps(true)
+        NSApp.activate(ignoringOtherApps: true)
     }
     
-    func prefsClosed(notification: NSNotification) {
+    func prefsClosed(_ notification: Notification) {
         guard let prefsController = self.prefsController else { return }
         self.prefsController = nil
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: NSWindowWillCloseNotification, object: prefsController)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.NSWindowWillClose, object: prefsController)
     }
 }
 
 extension AppDelegate: MenuHandlerDelegate {
-    func menuHandlerPreferencesItemClicked(menuHandler: MenuHandler) {
+    func menuHandlerPreferencesItemClicked(_ menuHandler: MenuHandler) {
         showPreferences()
     }
 }

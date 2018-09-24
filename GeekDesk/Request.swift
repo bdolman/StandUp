@@ -10,31 +10,33 @@ import Foundation
 import Alamofire
 
 public protocol ResponseObjectSerializable {
-    init?(response: NSHTTPURLResponse, representation: AnyObject)
+    init?(response: HTTPURLResponse, representation: Any)
 }
 
-extension Request {
-    public func responseObject<T: ResponseObjectSerializable>(completionHandler: Response<T, NSError> -> Void) -> Self {
-        let responseSerializer = ResponseSerializer<T, NSError> { request, response, data, error in
-            guard error == nil else { return .Failure(error!) }
+extension DataRequest {
+    public func responseObject<T: ResponseObjectSerializable>(_ completionHandler: @escaping (DataResponse<T>) -> Void) -> Self {
+        let responseSerializer = DataResponseSerializer<T> { request, response, data, error in
+            guard error == nil else { return .failure(error!) }
             
-            let JSONResponseSerializer = Request.JSONResponseSerializer(options: .AllowFragments)
+            let JSONResponseSerializer = DataRequest.jsonResponseSerializer(options: .allowFragments)
             let result = JSONResponseSerializer.serializeResponse(request, response, data, error)
             
             switch result {
-            case .Success(let value):
+            case .success(let value):
                 if let
                     response = response,
-                    responseObject = T(response: response, representation: value)
+                    let responseObject = T(response: response, representation: value)
                 {
-                    return .Success(responseObject)
+                    return .success(responseObject)
                 } else {
                     let failureReason = "JSON could not be serialized into response object: \(value)"
-                    let error = Error.errorWithCode(.JSONSerializationFailed, failureReason: failureReason)
-                    return .Failure(error)
+                    let error = NSError(domain: "GeekDesk", code: 1, userInfo: [
+                        NSLocalizedDescriptionKey : failureReason
+                    ])
+                    return .failure(error)
                 }
-            case .Failure(let error):
-                return .Failure(error)
+            case .failure(let error):
+                return .failure(error)
             }
         }
         

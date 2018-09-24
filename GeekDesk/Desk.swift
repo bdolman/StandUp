@@ -12,35 +12,35 @@ let DeskHeightChangedNotification = "DeskHeightChangedNotification"
 let DeskStateChangedNotification = "DeskStateChangedNotification"
 
 enum DeskState {
-    case Lowered
-    case Lowering
-    case Raised
-    case Raising
+    case lowered
+    case lowering
+    case raised
+    case raising
 }
 
 private enum DeskEvent {
-    case MovingDown
-    case MovingUp
-    case TargetReached
-    case Height(Int)
-    case MoveTimeout
+    case movingDown
+    case movingUp
+    case targetReached
+    case height(Int)
+    case moveTimeout
     
     init?(sparkEvent: SparkEvent) {
         switch sparkEvent.event {
         case "movingdown":
-            self = .MovingDown
+            self = .movingDown
         case "movingup":
-            self = .MovingUp
+            self = .movingUp
         case "height":
             if let heightValue = Int(sparkEvent.data) {
-                self = .Height(heightValue)
+                self = .height(heightValue)
             } else {
                 return nil
             }
         case "targetreached":
-            self = .TargetReached
+            self = .targetReached
         case "movetimeout":
-            self = .MoveTimeout
+            self = .moveTimeout
         default:
             return nil
         }
@@ -62,7 +62,7 @@ class Desk: NSObject {
             updateStateToMatchCurrentHeight()
         }
     }
-    private var source: EventSource!
+    fileprivate var source: EventSource!
     
     var pollForHeightChanges: Bool = false {
         didSet(oldValue) {
@@ -75,26 +75,26 @@ class Desk: NSObject {
         }
     }
     
-    var pollingTimer: NSTimer?
-    private func beginPollingForHeightChanges() {
-        dispatch_async(dispatch_get_main_queue()) {
-            self.pollingTimer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self,
-                selector: Selector("pollingTimerFired:"), userInfo: nil, repeats: false)
+    var pollingTimer: Timer?
+    fileprivate func beginPollingForHeightChanges() {
+        DispatchQueue.main.async {
+            self.pollingTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self,
+                selector: #selector(Desk.pollingTimerFired(_:)), userInfo: nil, repeats: false)
         }
     }
     
-    private func stopPollingForHeightChanges() {
-        dispatch_async(dispatch_get_main_queue()) {
+    fileprivate func stopPollingForHeightChanges() {
+        DispatchQueue.main.async {
             self.pollingTimer?.invalidate()
             self.pollingTimer = nil
         }
     }
     
-    @objc private func pollingTimerFired(timer: NSTimer) {
+    @objc fileprivate func pollingTimerFired(_ timer: Timer) {
         device.getHeight { (height, error) -> Void in
             if let height = height {
                 self.height = height
-            } else {
+            } else if let error = error {
                 NSLog("getHeight error \(error)")
             }
             if self.pollForHeightChanges {
@@ -106,13 +106,13 @@ class Desk: NSObject {
     var state: DeskState? = nil {
         didSet(oldValue) {
             guard oldValue != state else { return }
-            NSNotificationCenter.defaultCenter().postNotificationName(DeskStateChangedNotification, object: self)
+            NotificationCenter.default.post(name: Notification.Name(rawValue: DeskStateChangedNotification), object: self)
         }
     }
     var height: Int? = nil {
         didSet(oldValue) {
             guard oldValue != height else { return }
-            NSNotificationCenter.defaultCenter().postNotificationName(DeskHeightChangedNotification, object: self)
+            NotificationCenter.default.post(name: Notification.Name(rawValue: DeskHeightChangedNotification), object: self)
         }
     }
     
@@ -128,53 +128,54 @@ class Desk: NSObject {
         source.close()
     }
     
-    private func handleDeskEvent(event: DeskEvent) {
+    fileprivate func handleDeskEvent(_ event: DeskEvent) {
         NSLog("\(event)")
         switch event {
-        case .MovingDown:
-            state = .Lowering
-        case .MovingUp:
-            state = .Raising
-        case .TargetReached where state == .Lowering:
-            state = .Lowered
+        case .movingDown:
+            state = .lowering
+        case .movingUp:
+            state = .raising
+        case .targetReached where state == .lowering:
+            state = .lowered
             self.updateCurrentState()
-        case .TargetReached where state == .Raising:
-            state = .Raised
+        case .targetReached where state == .raising:
+            state = .raised
             self.updateCurrentState()
-        case .Height(let height):
+        case .height(let height):
             self.height = height
-        case .MoveTimeout:
+        case .moveTimeout:
             self.updateCurrentState()
         default: break
         }
     }
     
-    private func handleSparkEvent(event: SparkEvent) {
+    fileprivate func handleSparkEvent(_ event: SparkEvent) {
         if let deskEvent = DeskEvent(sparkEvent: event) {
             handleDeskEvent(deskEvent)
         }
     }
     
-    private func setupEventObserver() {
-        let url = device.baseURL.URLByAppendingPathComponent("events")
-        source = EventSource(URL: url, timeoutInterval: 30.0,
-            queue: dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), accessToken: device.accessToken)
+    fileprivate func setupEventObserver() {
+        let url = device.baseURL.appendingPathComponent("events")
+        
+        source = EventSource(url: url, timeoutInterval: 30.0,
+            queue: DispatchQueue.global(qos: .background), accessToken: device.accessToken)
         let handler: EventSourceEventHandler = {[unowned self] (event: Event!) -> Void in
             guard let data = event.data else {
                 NSLog("Event error \(event.error)")
                 return
             }
             do {
-                let obj = try NSJSONSerialization.JSONObjectWithData(data, options: [])
+                let obj = try JSONSerialization.jsonObject(with: data, options: [])
                 guard var dict = obj as? [String:AnyObject] else {
                     NSLog("Invalid event data")
                     return
                 }
                 if let eventName = event.name {
-                    dict["event"] = eventName
+                    dict["event"] = eventName as AnyObject
                 }
                 let sparkEvent = SparkEvent(eventDict: dict)
-                self.handleSparkEvent(sparkEvent)
+                self.handleSparkEvent(sparkEvent!)
             } catch {
                 NSLog("Event parse error \(error)")
             }
@@ -182,12 +183,12 @@ class Desk: NSObject {
         source.onMessage(handler)
     }
     
-    private func updateStateWithHeight(height: Int) {
+    fileprivate func updateStateWithHeight(_ height: Int) {
         let midpoint = sittingHeight + ((standingHeight - sittingHeight) / 2)
-        state = height <= midpoint ? .Lowered : .Raised
+        state = height <= midpoint ? .lowered : .raised
     }
     
-    private func updateStateToMatchCurrentHeight() {
+    fileprivate func updateStateToMatchCurrentHeight() {
         if let height = self.height {
             updateStateWithHeight(height)
         }
@@ -198,14 +199,14 @@ class Desk: NSObject {
             if let height = height {
                 self.updateStateWithHeight(height)
                 self.height = height
-            } else {
+            } else if let error = error {
                 NSLog("getHeight error \(error)")
             }
         }
     }
     
     func raise() {
-        if state != .Raised {
+        if state != .raised {
             device.setHeight(standingHeight) { error in
                 if let error = error {
                     NSLog("setHeight error \(error)")
@@ -215,7 +216,7 @@ class Desk: NSObject {
     }
     
     func lower() {
-        if state != .Lowered {
+        if state != .lowered {
             device.setHeight(sittingHeight) { error in
                 if let error = error {
                     NSLog("setHeight error \(error)")

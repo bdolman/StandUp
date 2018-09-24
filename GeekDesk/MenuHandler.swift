@@ -9,13 +9,13 @@
 import Foundation
 
 private enum ItemType: Int {
-    case Unknown
-    case StandUp
-    case SitDown
-    case Height
-    case State
-    case Preferences
-    case Quit
+    case unknown
+    case standUp
+    case sitDown
+    case height
+    case state
+    case preferences
+    case quit
 }
 
 private extension NSMenuItem {
@@ -34,16 +34,16 @@ private extension NSMenuItem {
 private extension DeskState {
     var title: String {
         switch self {
-        case .Lowered: return "Sitting"
-        case .Lowering: return "Lowering..."
-        case .Raising: return "Raising..."
-        case .Raised: return "Standing"
+        case .lowered: return "Sitting"
+        case .lowering: return "Lowering..."
+        case .raising: return "Raising..."
+        case .raised: return "Standing"
         }
     }
 }
 
 protocol MenuHandlerDelegate: NSObjectProtocol {
-    func menuHandlerPreferencesItemClicked(menuHandler: MenuHandler)
+    func menuHandlerPreferencesItemClicked(_ menuHandler: MenuHandler)
 }
 
 class MenuHandler: NSObject {
@@ -59,123 +59,127 @@ class MenuHandler: NSObject {
     }
     let menu = NSMenu()
     
-    private var stateTitle: String {
+    fileprivate var stateTitle: String {
         if let state = desk?.state {
             return state.title
         }
         return "Not Connected"
     }
     
-    private func addDeskObservers() {
+    fileprivate func addDeskObservers() {
         guard let desk = desk else { return }
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("heightChanged:"),
-            name: DeskHeightChangedNotification, object: desk)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("stateChanged:"),
-            name: DeskStateChangedNotification, object: desk)
+        NotificationCenter.default.addObserver(self, selector: #selector(MenuHandler.heightChanged(_:)),
+            name: NSNotification.Name(rawValue: DeskHeightChangedNotification), object: desk)
+        NotificationCenter.default.addObserver(self, selector: #selector(MenuHandler.stateChanged(_:)),
+            name: NSNotification.Name(rawValue: DeskStateChangedNotification), object: desk)
     }
     
-    private func removeDeskObservers() {
+    fileprivate func removeDeskObservers() {
         guard let desk = desk else { return }
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: DeskHeightChangedNotification, object: desk)
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: DeskStateChangedNotification, object: desk)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: DeskHeightChangedNotification), object: desk)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: DeskStateChangedNotification), object: desk)
     }
     
     override init() {
         super.init()
-        let arrowModifierMask = Int(NSEventModifierFlags.ShiftKeyMask.rawValue | NSEventModifierFlags.CommandKeyMask.rawValue)
+        let arrowModifierMask = Int(NSEventModifierFlags.shift.rawValue | NSEventModifierFlags.command.rawValue)
         
         // Stand Up
-        let upArrowKey = String(Character(UnicodeScalar(NSUpArrowFunctionKey)))
-        let standUpItem = NSMenuItem(title: "Stand Up", action: Selector("standUp:"), keyEquivalent: upArrowKey)
-        standUpItem.tag = ItemType.StandUp.rawValue
+        let upArrowKey = String(Character(UnicodeScalar(NSUpArrowFunctionKey)!))
+        let standUpItem = NSMenuItem(title: "Stand Up", action: #selector(MenuHandler.standUp(_:)), keyEquivalent: upArrowKey)
+        standUpItem.tag = ItemType.standUp.rawValue
         standUpItem.target = self
-        standUpItem.keyEquivalentModifierMask = arrowModifierMask
+        standUpItem.keyEquivalentModifierMask = NSEventModifierFlags(rawValue: UInt(arrowModifierMask))
         menu.addItem(standUpItem)
         
         // Sit Down
-        let downArrowKey = String(Character(UnicodeScalar(NSDownArrowFunctionKey)))
-        let sitDownItem = NSMenuItem(title: "Sit Down", action: Selector("sitDown:"), keyEquivalent: downArrowKey)
-        sitDownItem.tag = ItemType.SitDown.rawValue
+        let downArrowKey = String(Character(UnicodeScalar(NSDownArrowFunctionKey)!))
+        let sitDownItem = NSMenuItem(title: "Sit Down", action: #selector(MenuHandler.sitDown(_:)), keyEquivalent: downArrowKey)
+        sitDownItem.tag = ItemType.sitDown.rawValue
         sitDownItem.target = self
-        sitDownItem.keyEquivalentModifierMask = arrowModifierMask
+        sitDownItem.keyEquivalentModifierMask = NSEventModifierFlags(rawValue: UInt(arrowModifierMask))
         menu.addItem(sitDownItem)
         
-        menu.addItem(NSMenuItem.separatorItem())
+        menu.addItem(NSMenuItem.separator())
         
         // Sit/Stand State
-        let stateItem = NSMenuItem(title: "Sitting", action: Selector("ignore:"), keyEquivalent: "")
+        let stateItem = NSMenuItem(title: "Sitting", action: #selector(MenuHandler.ignore(_:)), keyEquivalent: "")
         stateItem.target = self
-        stateItem.tag = ItemType.State.rawValue
+        stateItem.tag = ItemType.state.rawValue
         menu.addItem(stateItem)
         
         // Height
-        let heightItem = NSMenuItem(title: "Height", action: Selector("ignore:"), keyEquivalent: "")
+        let heightItem = NSMenuItem(title: "Height", action: #selector(MenuHandler.ignore(_:)), keyEquivalent: "")
         heightItem.target = self
-        heightItem.tag = ItemType.Height.rawValue
+        heightItem.tag = ItemType.height.rawValue
         menu.addItem(heightItem)
         
-        menu.addItem(NSMenuItem.separatorItem())
+        menu.addItem(NSMenuItem.separator())
         
         // Prefs
-        let prefsItem = NSMenuItem(title: "Preferences...", action: Selector("showPreferences:"), keyEquivalent: ",")
+        let prefsItem = NSMenuItem(title: "Preferences...", action: #selector(MenuHandler.showPreferences(_:)), keyEquivalent: ",")
         prefsItem.target = self
-        prefsItem.tag = ItemType.Preferences.rawValue
+        prefsItem.tag = ItemType.preferences.rawValue
         menu.addItem(prefsItem)
         
         // Quit
-        let quitItem = NSMenuItem(title: "Quit", action: Selector("terminate:"), keyEquivalent: "q")
+        let quitItem = NSMenuItem(title: "Quit", action: #selector(MenuHandler.quitApp(_:)), keyEquivalent: "q")
         menu.addItem(quitItem)
         
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("heightChanged:"),
-            name: DeskHeightChangedNotification, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("stateChanged:"),
-            name: DeskStateChangedNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(MenuHandler.heightChanged(_:)),
+            name: NSNotification.Name(rawValue: DeskHeightChangedNotification), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(MenuHandler.stateChanged(_:)),
+            name: NSNotification.Name(rawValue: DeskStateChangedNotification), object: nil)
     }
     
     deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
     }
     
-    func sitDown(sender: AnyObject) {
+    func sitDown(_ sender: AnyObject) {
         desk?.lower()
     }
     
-    func standUp(sender: AnyObject) {
+    func standUp(_ sender: AnyObject) {
         desk?.raise()
     }
     
-    func showPreferences(sender: AnyObject) {
+    func showPreferences(_ sender: AnyObject) {
         delegate?.menuHandlerPreferencesItemClicked(self)
     }
     
-    func ignore(sender: AnyObject) {}
+    func quitApp(_ sender: AnyObject) {
+        NSApplication.shared().terminate(self)
+    }
     
-    override func validateMenuItem(menuItem: NSMenuItem) -> Bool {
+    func ignore(_ sender: AnyObject) {}
+    
+    override func validateMenuItem(_ menuItem: NSMenuItem) -> Bool {
         guard let itemType = menuItem.itemType else { return true }
         switch itemType {
-        case .StandUp:
-            return desk?.state == .Lowered
-        case .SitDown:
-            return desk?.state == .Raised
-        case .Height:
+        case .standUp:
+            return desk?.state == .lowered
+        case .sitDown:
+            return desk?.state == .raised
+        case .height:
             let height = desk?.height != nil ? "\(desk!.height!)" : "?"
             menuItem.title = "Height: \(height) cm"
             return false
-        case .State:
+        case .state:
             menuItem.title = stateTitle
             return false
         default: return true
         }
     }
     
-    func stateChanged(notification: NSNotification) {
-        NSOperationQueue.mainQueue().addOperationWithBlock {
+    func stateChanged(_ notification: Notification) {
+        OperationQueue.main.addOperation {
             self.menu.update()
         }
     }
     
-    func heightChanged(notification: NSNotification) {
-        NSOperationQueue.mainQueue().addOperationWithBlock {
+    func heightChanged(_ notification: Notification) {
+        OperationQueue.main.addOperation {
             self.menu.update()
         }
     }

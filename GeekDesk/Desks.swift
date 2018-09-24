@@ -14,7 +14,7 @@ class Desks: NSObject {
     var activeDesk: Desk? = nil {
         didSet(oldValue) {
             guard oldValue !== activeDesk else { return }
-            NSNotificationCenter.defaultCenter().postNotificationName(ActiveDeskDidChangeNotification, object: self)
+            NotificationCenter.default.post(name: Notification.Name(rawValue: ActiveDeskDidChangeNotification), object: self)
         }
     }
 }

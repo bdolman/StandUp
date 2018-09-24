@@ -11,8 +11,8 @@ import Alamofire
 
 private final class GetHeightResponse: ResponseObjectSerializable {
     let height: Int
-    init?(response: NSHTTPURLResponse, representation: AnyObject) {
-        if let height = representation.valueForKeyPath("return_value") as? Int {
+    init?(response: HTTPURLResponse, representation: Any) {
+        if let height = (representation as AnyObject).value(forKeyPath: "return_value") as? Int {
             self.height = height
         } else {
             height = 0
@@ -22,9 +22,9 @@ private final class GetHeightResponse: ResponseObjectSerializable {
 }
 
 class Device {
-    lazy var baseURL: NSURL = {
-        let host = NSURL(string: "https://api.particle.io")!
-        let base = host.URLByAppendingPathComponent("/v1/devices/\(self.deviceId)")
+    lazy var baseURL: URL = {
+        let host = URL(string: "https://api.particle.io")!
+        let base = host.appendingPathComponent("/v1/devices/\(self.deviceId)")
         return base
     }()
     lazy var headers: [String: String] = {
@@ -40,24 +40,25 @@ class Device {
         self.deviceId = deviceId
     }
     
-    func setHeight(heightInCms: Int, completionHandler: (error: NSError?) -> Void) {
-        let url = self.baseURL.URLByAppendingPathComponent("setHeight")
+    func setHeight(_ heightInCms: Int, completionHandler: @escaping (_ error: Error?) -> Void) {
+        let url = self.baseURL.appendingPathComponent("setHeight")
         let params = ["arg" : heightInCms]
-        Alamofire.request(.POST, url, parameters: params, headers: headers)
-            .response { request, response, data, error in
-                completionHandler(error: error)
+        Alamofire
+            .request(url, method: .post, parameters: params, headers: headers)
+            .response { (response) in
+                completionHandler(response.error)
             }
     }
     
-    func getHeight(completionHandler: (height: Int?, error: NSError?) -> Void) {
-        let url = self.baseURL.URLByAppendingPathComponent("getHeight")
-        Alamofire.request(.POST, url, headers: headers)
-            .responseObject { (response: Response<GetHeightResponse, NSError>) in
+    func getHeight(_ completionHandler: @escaping (_ height: Int?, _ error: Error?) -> Void) {
+        let url = self.baseURL.appendingPathComponent("getHeight")
+        _ = Alamofire.request(url, method: .post, headers: headers)
+            .responseObject { (response: DataResponse<GetHeightResponse>) in
                 switch response.result {
-                case .Success(let response):
-                    completionHandler(height: response.height, error: nil)
-                case .Failure(let error):
-                    completionHandler(height: nil, error: error)
+                case .success(let response):
+                    completionHandler(response.height, nil)
+                case .failure(let error):
+                    completionHandler(nil, error)
                 }
             }
     }

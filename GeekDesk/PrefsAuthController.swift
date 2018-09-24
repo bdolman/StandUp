@@ -22,7 +22,7 @@ class PrefsAuthController: NSViewController {
     @IBOutlet weak var deviceIdField: NSTextField!
     @IBOutlet weak var statusField: NSTextField!
     
-    private var desk: Desk? = nil {
+    fileprivate var desk: Desk? = nil {
         willSet {
             removeDeskObservers()
         }
@@ -37,7 +37,7 @@ class PrefsAuthController: NSViewController {
     }
     
     deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
     }
     
     override func viewWillAppear() {
@@ -47,32 +47,32 @@ class PrefsAuthController: NSViewController {
         super.viewWillAppear()
     }
     
-    private func addDeskObservers() {
+    fileprivate func addDeskObservers() {
         guard let desk = desk else { return }
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("deskStateChanged:"),
-            name: DeskStateChangedNotification, object: desk)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("deskStateChanged:"),
-            name: DeskHeightChangedNotification, object: desk)
+        NotificationCenter.default.addObserver(self, selector: #selector(PrefsAuthController.deskStateChanged(_:)),
+            name: NSNotification.Name(rawValue: DeskStateChangedNotification), object: desk)
+        NotificationCenter.default.addObserver(self, selector: #selector(PrefsAuthController.deskStateChanged(_:)),
+            name: NSNotification.Name(rawValue: DeskHeightChangedNotification), object: desk)
     }
     
-    private func removeDeskObservers() {
+    fileprivate func removeDeskObservers() {
         guard let desk = desk else { return }
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: DeskStateChangedNotification, object: desk)
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: DeskHeightChangedNotification, object: desk)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: DeskStateChangedNotification), object: desk)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: DeskHeightChangedNotification), object: desk)
     }
     
-    func deskStateChanged(notification: NSNotification) {
-        NSOperationQueue.mainQueue().addOperationWithBlock {
+    func deskStateChanged(_ notification: Notification) {
+        OperationQueue.main.addOperation {
             self.updateStatus()
         }
     }
     
     func observeActiveDeskChanges() {
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("activeDeskChanged:"),
-            name: ActiveDeskDidChangeNotification, object: desks)
+        NotificationCenter.default.addObserver(self, selector: #selector(PrefsAuthController.activeDeskChanged(_:)),
+            name: NSNotification.Name(rawValue: ActiveDeskDidChangeNotification), object: desks)
     }
     
-    func activeDeskChanged(notification: NSNotification) {
+    func activeDeskChanged(_ notification: Notification) {
         desk = desks.activeDesk
     }
     
@@ -86,7 +86,7 @@ class PrefsAuthController: NSViewController {
         statusField.stringValue = statusText
     }
     
-    @IBAction func saveClicked(sender: AnyObject) {
+    @IBAction func saveClicked(_ sender: AnyObject) {
         let newToken: String? = accessTokenField.stringValue != "" ? accessTokenField.stringValue : nil
         let newDeviceId: String? = deviceIdField.stringValue != "" ? deviceIdField.stringValue : nil
         
