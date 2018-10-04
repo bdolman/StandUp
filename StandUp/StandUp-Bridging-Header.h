@@ -3,7 +3,7 @@
 //  StandUp
 //
 //  Created by Ben Dolman on 11/17/15.
-//  Copyright © 2015 Hit Labs. All rights reserved.
+//  Copyright © 2015 Ben Dolman. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
