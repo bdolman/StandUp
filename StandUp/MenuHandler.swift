@@ -1,6 +1,6 @@
 //
 //  MenuHandler.swift
-//  GeekDesk
+//  StandUp
 //
 //  Created by Ben Dolman on 11/17/15.
 //  Copyright © 2015 Hit Labs. All rights reserved.

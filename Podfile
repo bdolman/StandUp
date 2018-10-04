@@ -3,7 +3,7 @@ platform :osx, '10.11'
 use_frameworks!
 inhibit_all_warnings!
 
-target 'GeekDesk' do
+target 'StandUp' do
 
 pod 'Alamofire', '~> 4'
 # pod 'Spark-SDK', :git => 'https://github.com/bdolman/spark-sdk-ios.git'

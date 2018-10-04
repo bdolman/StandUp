@@ -1,6 +1,6 @@
 //
 //  AppDelegate.swift
-//  GeekDesk
+//  StandUp
 //
 //  Created by Ben Dolman on 11/16/15.
 //  Copyright © 2015 Hit Labs. All rights reserved.

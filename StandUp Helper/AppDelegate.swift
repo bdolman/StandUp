@@ -1,6 +1,6 @@
 //
 //  AppDelegate.swift
-//  GeekDesk Helper
+//  StandUp Helper
 //
 //  Created by Ben Dolman on 11/18/15.
 //  Copyright © 2015 Hit Labs. All rights reserved.
@@ -18,7 +18,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let mainApp = Array(pathComponents[0..<(pathComponents.count - 4)])
         let mainAppPath = NSString.path(withComponents: mainApp)
         let launched = NSWorkspace.shared.launchApplication(mainAppPath)
-        NSLog("GeekDesk Helper launch result \(launched) \(mainAppPath)")
+        NSLog("StandUp Helper launch result \(launched) \(mainAppPath)")
     }
 
 }

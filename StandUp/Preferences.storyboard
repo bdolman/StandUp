@@ -8,7 +8,7 @@
         <!--Window Controller-->
         <scene sceneID="whc-in-T2w">
             <objects>
-                <windowController id="gfF-pS-kv9" customClass="PrefsWindowController" customModule="GeekDesk" customModuleProvider="target" sceneMemberID="viewController">
+                <windowController id="gfF-pS-kv9" customClass="PrefsWindowController" customModule="StandUp" customModuleProvider="target" sceneMemberID="viewController">
                     <window key="window" title="Preferences" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="8Ps-m5-qbC">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
@@ -28,7 +28,7 @@
         <!--Prefs View Controller-->
         <scene sceneID="JF5-JZ-17N">
             <objects>
-                <tabViewController selectedTabViewItemIndex="0" id="lA3-Sx-wNZ" customClass="PrefsViewController" customModule="GeekDesk" customModuleProvider="target" sceneMemberID="viewController">
+                <tabViewController selectedTabViewItemIndex="0" id="lA3-Sx-wNZ" customClass="PrefsViewController" customModule="StandUp" customModuleProvider="target" sceneMemberID="viewController">
                     <tabViewItems>
                         <tabViewItem identifier="" id="b9x-lQ-JCL"/>
                         <tabViewItem identifier="" id="rDk-XU-6oR"/>
@@ -52,7 +52,7 @@
         <!--Authentication-->
         <scene sceneID="gvD-pL-evY">
             <objects>
-                <viewController title="Authentication" id="856-mp-Dfw" customClass="PrefsAuthController" customModule="GeekDesk" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Authentication" id="856-mp-Dfw" customClass="PrefsAuthController" customModule="StandUp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="qOF-Wg-cfK">
                         <rect key="frame" x="0.0" y="0.0" width="450" height="188"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -170,7 +170,7 @@
         <!--Presets-->
         <scene sceneID="g3f-QG-AV5">
             <objects>
-                <viewController title="Presets" id="wFU-g9-sCJ" customClass="PrefsPresetsController" customModule="GeekDesk" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Presets" id="wFU-g9-sCJ" customClass="PrefsPresetsController" customModule="StandUp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="LaX-1w-1ro">
                         <rect key="frame" x="0.0" y="0.0" width="450" height="152"/>
                         <autoresizingMask key="autoresizingMask"/>

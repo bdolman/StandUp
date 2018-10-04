@@ -1,6 +1,6 @@
 //
 //  Request.swift
-//  GeekDesk
+//  StandUp
 //
 //  Created by Ben Dolman on 11/17/15.
 //  Copyright © 2015 Hit Labs. All rights reserved.
@@ -30,7 +30,7 @@ extension DataRequest {
                     return .success(responseObject)
                 } else {
                     let failureReason = "JSON could not be serialized into response object: \(value)"
-                    let error = NSError(domain: "GeekDesk", code: 1, userInfo: [
+                    let error = NSError(domain: "StandUp", code: 1, userInfo: [
                         NSLocalizedDescriptionKey : failureReason
                     ])
                     return .failure(error)

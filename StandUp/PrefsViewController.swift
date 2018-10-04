@@ -1,6 +1,6 @@
 //
 //  PrefsViewController.swift
-//  GeekDesk
+//  StandUp
 //
 //  Created by Ben Dolman on 11/18/15.
 //  Copyright © 2015 Hit Labs. All rights reserved.

@@ -11,6 +11,6 @@
 #endif
 
 
-FOUNDATION_EXPORT double Pods_GeekDeskVersionNumber;
-FOUNDATION_EXPORT const unsigned char Pods_GeekDeskVersionString[];
+FOUNDATION_EXPORT double Pods_StandUpVersionNumber;
+FOUNDATION_EXPORT const unsigned char Pods_StandUpVersionString[];
 

@@ -1,6 +1,6 @@
 //
-//  GeekDesk-Bridging-Header.h
-//  GeekDesk
+//  StandUp-Bridging-Header.h
+//  StandUp
 //
 //  Created by Ben Dolman on 11/17/15.
 //  Copyright © 2015 Hit Labs. All rights reserved.
