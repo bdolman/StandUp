@@ -21,6 +21,9 @@
 		B5127D421BFDA1E80072FB39 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = B5127D401BFDA1E80072FB39 /* MainMenu.xib */; };
 		B5127D481BFDA21E0072FB39 /* ServiceManagement.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5127D471BFDA21E0072FB39 /* ServiceManagement.framework */; };
 		B5127D4A1BFDA2620072FB39 /* StandUp Helper.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = B5127D3A1BFDA1E80072FB39 /* StandUp Helper.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		B529D1862179456C000442AA /* PreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B529D1852179456C000442AA /* PreferencesViewController.swift */; };
+		B529D189217945BA000442AA /* PreferencesDeskDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B529D187217945BA000442AA /* PreferencesDeskDetailViewController.swift */; };
+		B529D18D21794D5C000442AA /* DeskConfigurationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B529D18B21794D5C000442AA /* DeskConfigurationViewController.swift */; };
 		B53815A01BFAED2D00CB13AE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B538159F1BFAED2D00CB13AE /* AppDelegate.swift */; };
 		B53815A21BFAED2D00CB13AE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B53815A11BFAED2D00CB13AE /* Assets.xcassets */; };
 		B53815A51BFAED2D00CB13AE /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = B53815A31BFAED2D00CB13AE /* MainMenu.xib */; };
@@ -69,6 +72,9 @@
 		B5127D471BFDA21E0072FB39 /* ServiceManagement.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ServiceManagement.framework; path = System/Library/Frameworks/ServiceManagement.framework; sourceTree = SDKROOT; };
 		B5127D4B1BFDA6EB0072FB39 /* StandUp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = StandUp.entitlements; sourceTree = "<group>"; };
 		B5127D4C1BFDA7140072FB39 /* StandUp Helper.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "StandUp Helper.entitlements"; sourceTree = "<group>"; };
+		B529D1852179456C000442AA /* PreferencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesViewController.swift; sourceTree = "<group>"; };
+		B529D187217945BA000442AA /* PreferencesDeskDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesDeskDetailViewController.swift; sourceTree = "<group>"; };
+		B529D18B21794D5C000442AA /* DeskConfigurationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeskConfigurationViewController.swift; sourceTree = "<group>"; };
 		B538159C1BFAED2D00CB13AE /* StandUp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StandUp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B538159F1BFAED2D00CB13AE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B53815A11BFAED2D00CB13AE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -194,6 +200,9 @@
 				B51008BD1BFD348100206391 /* Settings.swift */,
 				B51008BF1BFD39D000206391 /* Auth.swift */,
 				B51008C11BFD3FFA00206391 /* Desks.swift */,
+				B529D1852179456C000442AA /* PreferencesViewController.swift */,
+				B529D187217945BA000442AA /* PreferencesDeskDetailViewController.swift */,
+				B529D18B21794D5C000442AA /* DeskConfigurationViewController.swift */,
 			);
 			path = StandUp;
 			sourceTree = "<group>";
@@ -392,11 +401,14 @@
 				B51008B41BFD2A3900206391 /* PrefsWindowController.swift in Sources */,
 				B5F7DD591BFBF31000ABE7E5 /* Desk.swift in Sources */,
 				B53815B41BFB0B3D00CB13AE /* DDHotKeyCenter.m in Sources */,
+				B529D189217945BA000442AA /* PreferencesDeskDetailViewController.swift in Sources */,
 				B51008C01BFD39D100206391 /* Auth.swift in Sources */,
+				B529D18D21794D5C000442AA /* DeskConfigurationViewController.swift in Sources */,
 				B5F7DD531BFBE26400ABE7E5 /* Device.swift in Sources */,
 				B51008B61BFD2A8100206391 /* PrefsViewController.swift in Sources */,
 				B5FB13131BFC4FD700F91B8B /* MenuHandler.swift in Sources */,
 				B51008BE1BFD348100206391 /* Settings.swift in Sources */,
+				B529D1862179456C000442AA /* PreferencesViewController.swift in Sources */,
 				B5F7DD551BFBEF9400ABE7E5 /* Request.swift in Sources */,
 				B5F7DD5F1BFBFCB600ABE7E5 /* SparkEvent.m in Sources */,
 				B53815B61BFB0B3D00CB13AE /* DDHotKeyUtilities.m in Sources */,
