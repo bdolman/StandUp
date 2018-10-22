@@ -48,7 +48,7 @@ private enum DeskEvent {
 }
 
 class DeskOld: NSObject {
-    let device: Device
+    let device: DeviceOld
     
     var sittingHeight: Int {
         didSet(oldValue) {
@@ -116,7 +116,7 @@ class DeskOld: NSObject {
         }
     }
     
-    init(device: Device, sittingHeight: Int, standingHeight: Int) {
+    init(device: DeviceOld, sittingHeight: Int, standingHeight: Int) {
         self.device = device
         self.sittingHeight = sittingHeight
         self.standingHeight = standingHeight

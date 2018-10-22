@@ -94,7 +94,7 @@ class PrefsAuthController: NSViewController {
             settings.accessToken = newToken
             settings.deviceId = newDeviceId
             if let auth = settings.auth {
-                let device = Device(accessToken: auth.accessToken, deviceId: auth.deviceId)
+                let device = DeviceOld(accessToken: auth.accessToken, deviceId: auth.deviceId)
                 let desk = DeskOld(device: device, sittingHeight: settings.sittingHeight, standingHeight: settings.standingHeight)
                 desk.updateCurrentState()
                 desks.activeDesk = desk
