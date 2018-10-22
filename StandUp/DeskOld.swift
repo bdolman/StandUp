@@ -47,7 +47,7 @@ private enum DeskEvent {
     }
 }
 
-class Desk: NSObject {
+class DeskOld: NSObject {
     let device: Device
     
     var sittingHeight: Int {
@@ -79,7 +79,7 @@ class Desk: NSObject {
     fileprivate func beginPollingForHeightChanges() {
         DispatchQueue.main.async {
             self.pollingTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self,
-                selector: #selector(Desk.pollingTimerFired(_:)), userInfo: nil, repeats: false)
+                selector: #selector(DeskOld.pollingTimerFired(_:)), userInfo: nil, repeats: false)
         }
     }
     

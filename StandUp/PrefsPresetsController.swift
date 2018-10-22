@@ -18,7 +18,7 @@ class PrefsPresetsController: NSViewController {
     }
     @objc dynamic var settings: Settings!
     
-    @objc dynamic fileprivate var desk: Desk? = nil {
+    @objc dynamic fileprivate var desk: DeskOld? = nil {
         willSet {
             desk?.pollForHeightChanges = false
             removeDeskObservers()
