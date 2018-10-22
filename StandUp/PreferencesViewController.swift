@@ -10,17 +10,17 @@ import Cocoa
 
 class PreferencesViewController: NSViewController {
     // Injected properties
-    var settings: Settings! {
-        didSet {
-            desks = settings.desks ?? []
-        }
-    }
+    var settings: Settings!
     
     @IBOutlet weak var deskTableView: NSTableView!
+    @IBOutlet weak var emptyStateBox: NSBox!
+    @IBOutlet weak var deskDetailBox: NSBox!
     
     private var desks = [Desk]()
     
     private var dragDropType = NSPasteboard.PasteboardType(rawValue: "private.table-row")
+    
+    private weak var deskDetailViewController: PreferencesDeskDetailViewController!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,27 +30,63 @@ class PreferencesViewController: NSViewController {
     
     override func viewWillAppear() {
         super.viewWillAppear()
-        deskTableView.reloadData()
-    }
-    
-    @IBAction func addDesk(_ sender: Any) {
+        loadDesks()
     }
     
     @IBAction func removeDesk(_ sender: Any) {
+        let selectedIndex = deskTableView.selectedRow
+        guard selectedIndex >= 0 else { return }
+        
+        desks.remove(at: selectedIndex)
+        deskTableView.removeRows(at: IndexSet([selectedIndex]), withAnimation: .effectFade)
+        
+        if desks.count > 0 {
+            let newSelectedIndex = max(0,selectedIndex - 1)
+            deskTableView.selectRowIndexes(IndexSet(integer: newSelectedIndex), byExtendingSelection: false)
+        }
+        
+        saveDesks()
     }
     
     override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
         if let deskConfigController = segue.destinationController as? DeskConfigurationViewController {
             deskConfigController.delegate = self
         }
+        if let deskDetailController = segue.destinationController as? PreferencesDeskDetailViewController {
+            deskDetailViewController = deskDetailController
+        }
+    }
+    
+    private func loadDesks() {
+        desks = settings.desks ?? []
+        deskTableView.reloadData()
+        updateDeskDetail()
     }
     
     private func saveDesks() {
         settings.desks = desks
     }
+    
+    private func updateDeskDetail() {
+        let selectedIndex = deskTableView.selectedRow
+        if selectedIndex >= 0 {
+            let desk = desks[selectedIndex]
+            deskDetailViewController.desk = desk
+            
+            deskDetailBox.isHidden = false
+            emptyStateBox.isHidden = true
+        } else {
+            deskDetailBox.isHidden = true
+            emptyStateBox.isHidden = false
+        }
+    }
 }
 
 extension PreferencesViewController: NSTableViewDelegate {
+    func tableViewSelectionDidChange(_ notification: Notification) {
+        updateDeskDetail()
+    }
+    
     func tableView(_ tableView: NSTableView, pasteboardWriterForRow row: Int) -> NSPasteboardWriting? {
         
         let item = NSPasteboardItem()
@@ -124,6 +160,7 @@ extension PreferencesViewController: DeskConfigurationViewControllerDelegate {
         } else {
             desks.append(savedDesk)
             deskTableView.reloadData()
+            deskTableView.selectRowIndexes(IndexSet(integer: desks.count - 1), byExtendingSelection: false)
         }
         
         saveDesks()

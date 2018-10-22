@@ -468,7 +468,6 @@
                                                 <font key="font" metaFont="system"/>
                                             </buttonCell>
                                             <connections>
-                                                <action selector="addDesk:" target="cYa-NZ-D0A" id="aYd-bc-VtA"/>
                                                 <segue destination="5OV-LB-hRZ" kind="sheet" id="uCK-6R-SB6"/>
                                             </connections>
                                         </button>
@@ -510,7 +509,6 @@
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="addDesk:" target="cYa-NZ-D0A" id="2gz-Sh-vY0"/>
                                     <segue destination="5OV-LB-hRZ" kind="sheet" id="Hbn-JK-7g0"/>
                                 </connections>
                             </button>
@@ -559,7 +557,9 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="deskDetailBox" destination="sWX-d3-L04" id="v6X-d7-gAc"/>
                         <outlet property="deskTableView" destination="421-NG-dk3" id="yas-YP-4Cb"/>
+                        <outlet property="emptyStateBox" destination="BFu-uP-1zA" id="0VE-ZR-W47"/>
                     </connections>
                 </viewController>
                 <customObject id="2KE-ae-F93" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
@@ -841,15 +841,21 @@
                             <constraint firstItem="UiQ-IZ-YdM" firstAttribute="trailing" secondItem="GuI-FR-raA" secondAttribute="trailing" id="rl4-hK-OhT"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="heightField" destination="f4K-iA-hkC" id="YsG-Fa-Kpk"/>
+                        <outlet property="nameField" destination="hlD-TP-f20" id="ZMH-CB-vml"/>
+                        <outlet property="presetsTableView" destination="Z06-0v-mRn" id="tpw-t4-s1P"/>
+                        <outlet property="statusField" destination="Gdf-Fw-VH0" id="DdJ-38-njG"/>
+                    </connections>
                 </viewController>
                 <customObject id="FTk-js-UAn" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1435" y="863"/>
         </scene>
-        <!--Desk Configuration View Controller-->
+        <!--Add Desk-->
         <scene sceneID="XWa-9x-Ch1">
             <objects>
-                <viewController id="5OV-LB-hRZ" customClass="DeskConfigurationViewController" customModule="StandUp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Add Desk" id="5OV-LB-hRZ" customClass="DeskConfigurationViewController" customModule="StandUp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="5FP-Tz-AHU">
                         <rect key="frame" x="0.0" y="0.0" width="450" height="200"/>
                         <autoresizingMask key="autoresizingMask"/>
