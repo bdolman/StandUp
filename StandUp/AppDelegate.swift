@@ -89,7 +89,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     func savedDesk() -> DeskOld? {
         if let auth = settings.auth {
-            let device = Device(accessToken: auth.accessToken, deviceId: auth.deviceId)
+            let device = DeviceOld(accessToken: auth.accessToken, deviceId: auth.deviceId)
             return DeskOld(device: device, sittingHeight: settings.sittingHeight, standingHeight: settings.standingHeight)
         } else {
             return nil

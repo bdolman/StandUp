@@ -21,7 +21,7 @@ private final class GetHeightResponse: ResponseObjectSerializable {
     }
 }
 
-class Device {
+class DeviceOld {
     lazy var baseURL: URL = {
         let host = URL(string: "https://api.particle.io")!
         let base = host.appendingPathComponent("/v1/devices/\(self.deviceId)")
