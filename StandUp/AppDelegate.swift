@@ -27,7 +27,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var menuHandler: MenuHandler!
     let settings = Settings()
     let desks = Desks()
-    var desk: Desk? = nil {
+    var desk: DeskOld? = nil {
         willSet {
             removeDeskObservers()
         }
@@ -87,10 +87,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         desk = desks.activeDesk
     }
     
-    func savedDesk() -> Desk? {
+    func savedDesk() -> DeskOld? {
         if let auth = settings.auth {
             let device = Device(accessToken: auth.accessToken, deviceId: auth.deviceId)
-            return Desk(device: device, sittingHeight: settings.sittingHeight, standingHeight: settings.standingHeight)
+            return DeskOld(device: device, sittingHeight: settings.sittingHeight, standingHeight: settings.standingHeight)
         } else {
             return nil
         }

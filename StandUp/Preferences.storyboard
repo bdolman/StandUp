@@ -609,13 +609,13 @@
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GuI-FR-raA">
+                            <scrollView autohidesScrollers="YES" horizontalLineScroll="44" horizontalPageScroll="10" verticalLineScroll="44" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GuI-FR-raA">
                                 <rect key="frame" x="20" y="38" width="237" height="160"/>
                                 <clipView key="contentView" id="uKx-IQ-bDi">
                                     <rect key="frame" x="1" y="0.0" width="235" height="159"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" headerView="Ahi-fq-Qe8" viewBased="YES" id="Z06-0v-mRn">
+                                        <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowHeight="42" rowSizeStyle="automatic" headerView="Ahi-fq-Qe8" viewBased="YES" id="Z06-0v-mRn">
                                             <rect key="frame" x="0.0" y="0.0" width="235" height="134"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <size key="intercellSpacing" width="3" height="2"/>
@@ -824,11 +824,14 @@
                                             </textField>
                                             <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="wnT-0r-WaC">
                                                 <rect key="frame" x="48" y="0.0" width="314" height="22"/>
-                                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="bqS-dV-yBV">
+                                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" usesSingleLineMode="YES" id="bqS-dV-yBV">
                                                     <font key="font" metaFont="system"/>
                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                 </textFieldCell>
+                                                <connections>
+                                                    <outlet property="delegate" destination="5OV-LB-hRZ" id="p72-XS-9nH"/>
+                                                </connections>
                                             </textField>
                                         </subviews>
                                         <visibilityPriorities>
@@ -853,11 +856,14 @@
                                             </textField>
                                             <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="WwW-bM-j3K">
                                                 <rect key="frame" x="95" y="0.0" width="314" height="22"/>
-                                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="lUY-SJ-Ozq">
+                                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" usesSingleLineMode="YES" id="lUY-SJ-Ozq">
                                                     <font key="font" metaFont="system"/>
                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                 </textFieldCell>
+                                                <connections>
+                                                    <outlet property="delegate" destination="5OV-LB-hRZ" id="vJe-MQ-HAe"/>
+                                                </connections>
                                             </textField>
                                         </subviews>
                                         <visibilityPriorities>
@@ -882,11 +888,14 @@
                                             </textField>
                                             <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="5CI-iQ-9cL">
                                                 <rect key="frame" x="70" y="0.0" width="314" height="22"/>
-                                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="QNV-3i-dZ9">
+                                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" usesSingleLineMode="YES" id="QNV-3i-dZ9">
                                                     <font key="font" metaFont="system"/>
                                                     <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                 </textFieldCell>
+                                                <connections>
+                                                    <outlet property="delegate" destination="5OV-LB-hRZ" id="tfy-LV-TZd"/>
+                                                </connections>
                                             </textField>
                                         </subviews>
                                         <visibilityPriorities>
@@ -926,6 +935,9 @@
 Gw
 </string>
                                         </buttonCell>
+                                        <connections>
+                                            <action selector="dismissController:" target="5OV-LB-hRZ" id="frR-90-IWe"/>
+                                        </connections>
                                     </button>
                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="tNe-7p-r7q">
                                         <rect key="frame" x="76" y="-7" width="70" height="32"/>
@@ -964,8 +976,15 @@ Gw
                             <constraint firstItem="b3q-No-aEl" firstAttribute="leading" secondItem="5FP-Tz-AHU" secondAttribute="leading" constant="20" id="sTC-2P-BDm"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="accessTokenField" destination="WwW-bM-j3K" id="wwL-DU-mT3"/>
+                        <outlet property="deviceIDField" destination="5CI-iQ-9cL" id="Dqz-DZ-fMy"/>
+                        <outlet property="nameField" destination="wnT-0r-WaC" id="bP7-8r-GIm"/>
+                        <outlet property="saveButton" destination="tNe-7p-r7q" id="T2u-SM-2Lp"/>
+                    </connections>
                 </viewController>
                 <customObject id="FKd-XY-yYn" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+                <userDefaultsController id="FEU-N3-B6g"/>
             </objects>
             <point key="canvasLocation" x="1279" y="1311"/>
         </scene>

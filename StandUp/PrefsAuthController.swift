@@ -22,7 +22,7 @@ class PrefsAuthController: NSViewController {
     @IBOutlet weak var deviceIdField: NSTextField!
     @IBOutlet weak var statusField: NSTextField!
     
-    fileprivate var desk: Desk? = nil {
+    fileprivate var desk: DeskOld? = nil {
         willSet {
             removeDeskObservers()
         }
@@ -95,7 +95,7 @@ class PrefsAuthController: NSViewController {
             settings.deviceId = newDeviceId
             if let auth = settings.auth {
                 let device = Device(accessToken: auth.accessToken, deviceId: auth.deviceId)
-                let desk = Desk(device: device, sittingHeight: settings.sittingHeight, standingHeight: settings.standingHeight)
+                let desk = DeskOld(device: device, sittingHeight: settings.sittingHeight, standingHeight: settings.standingHeight)
                 desk.updateCurrentState()
                 desks.activeDesk = desk
             } else {

@@ -34,7 +34,7 @@
 		B53815BF1BFB0E4500CB13AE /* HotKey.m in Sources */ = {isa = PBXBuildFile; fileRef = B53815BE1BFB0E4500CB13AE /* HotKey.m */; };
 		B5F7DD531BFBE26400ABE7E5 /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F7DD521BFBE26400ABE7E5 /* Device.swift */; };
 		B5F7DD551BFBEF9400ABE7E5 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F7DD541BFBEF9400ABE7E5 /* Request.swift */; };
-		B5F7DD591BFBF31000ABE7E5 /* Desk.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F7DD581BFBF31000ABE7E5 /* Desk.swift */; };
+		B5F7DD591BFBF31000ABE7E5 /* DeskOld.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F7DD581BFBF31000ABE7E5 /* DeskOld.swift */; };
 		B5F7DD5C1BFBFC4200ABE7E5 /* EventSource.m in Sources */ = {isa = PBXBuildFile; fileRef = B5F7DD5B1BFBFC4200ABE7E5 /* EventSource.m */; };
 		B5F7DD5F1BFBFCB600ABE7E5 /* SparkEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = B5F7DD5E1BFBFCB600ABE7E5 /* SparkEvent.m */; };
 		B5FB13131BFC4FD700F91B8B /* MenuHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5FB13121BFC4FD700F91B8B /* MenuHandler.swift */; };
@@ -93,7 +93,7 @@
 		B5F7DD4D1BFBC52000ABE7E5 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		B5F7DD521BFBE26400ABE7E5 /* Device.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
 		B5F7DD541BFBEF9400ABE7E5 /* Request.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
-		B5F7DD581BFBF31000ABE7E5 /* Desk.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Desk.swift; sourceTree = "<group>"; };
+		B5F7DD581BFBF31000ABE7E5 /* DeskOld.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeskOld.swift; sourceTree = "<group>"; };
 		B5F7DD5A1BFBFC4200ABE7E5 /* EventSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventSource.h; sourceTree = "<group>"; };
 		B5F7DD5B1BFBFC4200ABE7E5 /* EventSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventSource.m; sourceTree = "<group>"; };
 		B5F7DD5D1BFBFCB600ABE7E5 /* SparkEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SparkEvent.h; sourceTree = "<group>"; };
@@ -190,7 +190,7 @@
 				B53815BE1BFB0E4500CB13AE /* HotKey.m */,
 				B5F7DD521BFBE26400ABE7E5 /* Device.swift */,
 				B5F7DD541BFBEF9400ABE7E5 /* Request.swift */,
-				B5F7DD581BFBF31000ABE7E5 /* Desk.swift */,
+				B5F7DD581BFBF31000ABE7E5 /* DeskOld.swift */,
 				B5FB13121BFC4FD700F91B8B /* MenuHandler.swift */,
 				B51008B11BFD142700206391 /* Preferences.storyboard */,
 				B51008B31BFD2A3900206391 /* PrefsWindowController.swift */,
@@ -399,7 +399,7 @@
 				B51008BB1BFD2AAF00206391 /* PrefsPresetsController.swift in Sources */,
 				B51008B81BFD2A9E00206391 /* PrefsAuthController.swift in Sources */,
 				B51008B41BFD2A3900206391 /* PrefsWindowController.swift in Sources */,
-				B5F7DD591BFBF31000ABE7E5 /* Desk.swift in Sources */,
+				B5F7DD591BFBF31000ABE7E5 /* DeskOld.swift in Sources */,
 				B53815B41BFB0B3D00CB13AE /* DDHotKeyCenter.m in Sources */,
 				B529D189217945BA000442AA /* PreferencesDeskDetailViewController.swift in Sources */,
 				B51008C01BFD39D100206391 /* Auth.swift in Sources */,

@@ -11,7 +11,7 @@ import Foundation
 let ActiveDeskDidChangeNotification = "ActiveDeskDidChangeNotification"
 
 class Desks: NSObject {
-    var activeDesk: Desk? = nil {
+    var activeDesk: DeskOld? = nil {
         didSet(oldValue) {
             guard oldValue !== activeDesk else { return }
             NotificationCenter.default.post(name: Notification.Name(rawValue: ActiveDeskDidChangeNotification), object: self)
