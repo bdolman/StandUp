@@ -18,6 +18,9 @@ class PrefsWindowController: NSWindowController {
             prefsViewController.desks = desks
             prefsViewController.settings = settings
         }
+        if let prefsViewController = contentViewController as? PreferencesViewController {
+            prefsViewController.settings = settings
+        }
         super.showWindow(sender)
     }
 }
