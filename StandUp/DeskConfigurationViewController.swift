@@ -8,9 +8,14 @@
 
 import Cocoa
 
+protocol DeskConfigurationViewControllerDelegate: NSObjectProtocol {
+    func deskConfigurationViewController(_ controller: DeskConfigurationViewController, savedDesk: Desk)
+}
+
 class DeskConfigurationViewController: NSViewController {
     // Injected properties
-    
+    var desk: Desk?
+    weak var delegate: DeskConfigurationViewControllerDelegate?
     
     @IBOutlet weak var saveButton: NSButton!
     @IBOutlet weak var nameField: NSTextField!
@@ -20,8 +25,7 @@ class DeskConfigurationViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        
+        reloadData()
         validateData()
     }
     
@@ -51,6 +55,20 @@ class DeskConfigurationViewController: NSViewController {
             deviceIDField.stringValue = newValue
         }
     }
+    
+    private func reloadData() {
+        name = desk?.name ?? ""
+        accessToken = desk?.accessToken ?? ""
+        deviceID = desk?.deviceID ?? ""
+    }
+    
+    @IBAction func saveButtonClicked(_ sender: Any) {
+        let savedDesk = desk ?? Desk(deviceID: deviceID, accessToken: accessToken, name: name)
+        savedDesk.accessToken = accessToken
+        savedDesk.name = name
+        delegate?.deskConfigurationViewController(self, savedDesk: savedDesk)
+    }
+    
 }
 
 // MARK: - Validation
@@ -62,6 +80,7 @@ extension DeskConfigurationViewController {
     
     private func validateData() {
         saveButton.isEnabled = isDataValid
+        deviceIDField.isEnabled = desk == nil
     }
 }
 

@@ -347,13 +347,13 @@
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                             </button>
-                            <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UGn-ud-XQo">
+                            <scrollView autohidesScrollers="YES" horizontalLineScroll="50" horizontalPageScroll="10" verticalLineScroll="50" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UGn-ud-XQo">
                                 <rect key="frame" x="20" y="72" width="237" height="347"/>
                                 <clipView key="contentView" id="l5v-2N-bWZ">
                                     <rect key="frame" x="1" y="0.0" width="235" height="346"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" headerView="hMc-HT-HHm" viewBased="YES" id="421-NG-dk3">
+                                        <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" emptySelection="NO" autosaveColumns="NO" rowHeight="48" rowSizeStyle="automatic" headerView="hMc-HT-HHm" viewBased="YES" id="421-NG-dk3">
                                             <rect key="frame" x="0.0" y="0.0" width="235" height="321"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <size key="intercellSpacing" width="3" height="2"/>
@@ -373,27 +373,69 @@
                                                     </textFieldCell>
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                     <prototypeCellViews>
-                                                        <tableCellView id="xoS-ba-zdd">
-                                                            <rect key="frame" x="1" y="1" width="232" height="17"/>
+                                                        <tableCellView id="xoS-ba-zdd" customClass="PreferencesDeskTableViewCell" customModule="StandUp" customModuleProvider="target">
+                                                            <rect key="frame" x="1" y="1" width="232" height="48"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
-                                                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KkI-Ol-nud">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="232" height="17"/>
-                                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                                                    <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="OKg-sw-v0f">
-                                                                        <font key="font" metaFont="system"/>
-                                                                        <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                                                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                                    </textFieldCell>
-                                                                </textField>
+                                                                <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="1" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="d9x-UA-82D">
+                                                                    <rect key="frame" x="48" y="8" width="176" height="32"/>
+                                                                    <subviews>
+                                                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="KkI-Ol-nud">
+                                                                            <rect key="frame" x="-2" y="15" width="96" height="17"/>
+                                                                            <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" usesSingleLineMode="YES" id="OKg-sw-v0f">
+                                                                                <font key="font" metaFont="system"/>
+                                                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                                <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                            </textFieldCell>
+                                                                        </textField>
+                                                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="asH-5T-Ede">
+                                                                            <rect key="frame" x="-2" y="0.0" width="33" height="14"/>
+                                                                            <textFieldCell key="cell" lineBreakMode="clipping" title="Label" usesSingleLineMode="YES" id="6ye-Xc-8IA">
+                                                                                <font key="font" metaFont="smallSystem"/>
+                                                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                                            </textFieldCell>
+                                                                        </textField>
+                                                                    </subviews>
+                                                                    <visibilityPriorities>
+                                                                        <integer value="1000"/>
+                                                                        <integer value="1000"/>
+                                                                    </visibilityPriorities>
+                                                                    <customSpacing>
+                                                                        <real value="3.4028234663852886e+38"/>
+                                                                        <real value="3.4028234663852886e+38"/>
+                                                                    </customSpacing>
+                                                                </stackView>
+                                                                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1SI-lf-ozg">
+                                                                    <rect key="frame" x="8" y="8" width="32" height="32"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="height" constant="32" id="iFd-Gl-Fwo"/>
+                                                                        <constraint firstAttribute="width" constant="32" id="wQZ-LY-Jvp"/>
+                                                                    </constraints>
+                                                                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="desk" id="OmL-oL-XgZ"/>
+                                                                </imageView>
                                                             </subviews>
+                                                            <constraints>
+                                                                <constraint firstItem="d9x-UA-82D" firstAttribute="centerY" secondItem="xoS-ba-zdd" secondAttribute="centerY" id="Qli-OZ-gks"/>
+                                                                <constraint firstItem="d9x-UA-82D" firstAttribute="leading" secondItem="1SI-lf-ozg" secondAttribute="trailing" constant="8" id="Z0D-83-skz"/>
+                                                                <constraint firstAttribute="trailing" secondItem="d9x-UA-82D" secondAttribute="trailing" constant="8" id="f6m-n6-DbU"/>
+                                                                <constraint firstItem="1SI-lf-ozg" firstAttribute="leading" secondItem="xoS-ba-zdd" secondAttribute="leading" constant="8" id="kh9-q7-HsP"/>
+                                                                <constraint firstItem="1SI-lf-ozg" firstAttribute="centerY" secondItem="xoS-ba-zdd" secondAttribute="centerY" id="khG-Ea-wty"/>
+                                                            </constraints>
                                                             <connections>
-                                                                <outlet property="textField" destination="KkI-Ol-nud" id="R0P-Mr-onb"/>
+                                                                <outlet property="deskImageView" destination="1SI-lf-ozg" id="8iO-r2-qDl"/>
+                                                                <outlet property="imageView" destination="1SI-lf-ozg" id="TgY-ca-sKo"/>
+                                                                <outlet property="statusField" destination="asH-5T-Ede" id="C3J-Tk-EQ7"/>
+                                                                <outlet property="titleField" destination="KkI-Ol-nud" id="56r-UR-FoS"/>
                                                             </connections>
                                                         </tableCellView>
                                                     </prototypeCellViews>
                                                 </tableColumn>
                                             </tableColumns>
+                                            <connections>
+                                                <outlet property="dataSource" destination="cYa-NZ-D0A" id="Sd7-hu-Cv0"/>
+                                                <outlet property="delegate" destination="cYa-NZ-D0A" id="1FL-TE-0m9"/>
+                                            </connections>
                                         </tableView>
                                     </subviews>
                                 </clipView>
@@ -427,6 +469,7 @@
                                             </buttonCell>
                                             <connections>
                                                 <action selector="addDesk:" target="cYa-NZ-D0A" id="aYd-bc-VtA"/>
+                                                <segue destination="5OV-LB-hRZ" kind="sheet" id="uCK-6R-SB6"/>
                                             </connections>
                                         </button>
                                     </subviews>
@@ -515,6 +558,9 @@
                             <constraint firstItem="sJn-xD-NMa" firstAttribute="width" secondItem="UGn-ud-XQo" secondAttribute="width" id="w8e-kI-gkj"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="deskTableView" destination="421-NG-dk3" id="yas-YP-4Cb"/>
+                    </connections>
                 </viewController>
                 <customObject id="2KE-ae-F93" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -944,7 +990,13 @@ Gw
                                         <buttonCell key="cell" type="push" title="Save" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="2eD-tv-cu4">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
+                                            <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
                                         </buttonCell>
+                                        <connections>
+                                            <action selector="saveButtonClicked:" target="5OV-LB-hRZ" id="wnj-Cw-YhE"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <visibilityPriorities>
@@ -996,4 +1048,7 @@ Gw
         <image name="desk-sit" width="18" height="18"/>
         <image name="desk-stand" width="18" height="18"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="uCK-6R-SB6"/>
+    </inferredMetricsTieBreakers>
 </document>

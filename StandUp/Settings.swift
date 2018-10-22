@@ -13,6 +13,7 @@ private let deviceIdKey = "DeviceId"
 private let standingHeightKey = "StandingHeight"
 private let sittingHeightKey = "SittingHeight"
 private let enabledAtLoginKey = "EnabledAtLogin"
+private let desksKey = "Desks"
 
 class Settings: NSObject {
     fileprivate let defaults = UserDefaults.standard
@@ -57,5 +58,34 @@ class Settings: NSObject {
     @objc var enabledAtLogin: Bool {
         get { return defaults.bool(forKey: enabledAtLoginKey) }
         set(newValue) { defaults.set(newValue, forKey: enabledAtLoginKey) }
+    }
+    
+    var desks: [Desk]? {
+        get {
+            guard let data = defaults.data(forKey: desksKey) else {
+                return nil
+            }
+            do {
+                let decoder = JSONDecoder()
+                let desks = try decoder.decode([Desk].self, from: data)
+                return desks
+            } catch {
+                NSLog("Error reading desks \(error)")
+                return nil
+            }
+        }
+        set {
+            if let desks = newValue {
+                let encoder = JSONEncoder()
+                do {
+                    let encoded = try encoder.encode(desks)
+                    defaults.set(encoded, forKey: desksKey)
+                } catch {
+                    NSLog("Error saving desks \(error)")
+                }
+            } else {
+                defaults.set(nil, forKey: desksKey)
+            }
+        }
     }
 }
