@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="gfF-pS-kv9">
     <dependencies>
-        <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14313.18"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -351,7 +350,7 @@
                                 <rect key="frame" x="20" y="72" width="237" height="347"/>
                                 <clipView key="contentView" id="l5v-2N-bWZ">
                                     <rect key="frame" x="1" y="0.0" width="235" height="346"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" emptySelection="NO" autosaveColumns="NO" rowHeight="48" rowSizeStyle="automatic" headerView="hMc-HT-HHm" viewBased="YES" id="421-NG-dk3">
                                             <rect key="frame" x="0.0" y="0.0" width="235" height="321"/>
@@ -522,7 +521,7 @@
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <action selector="removeDesk:" target="cYa-NZ-D0A" id="ztq-97-U5E"/>
+                                    <action selector="removeDeskButtonClicked:" target="cYa-NZ-D0A" id="ztq-97-U5E"/>
                                 </connections>
                             </button>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="b0E-r9-sYW">
@@ -599,6 +598,9 @@
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
+                                        <connections>
+                                            <segue destination="5OV-LB-hRZ" kind="sheet" id="mPK-iF-GTj"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <visibilityPriorities>
@@ -659,7 +661,7 @@
                                 <rect key="frame" x="20" y="38" width="237" height="160"/>
                                 <clipView key="contentView" id="uKx-IQ-bDi">
                                     <rect key="frame" x="1" y="0.0" width="235" height="159"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowHeight="42" rowSizeStyle="automatic" headerView="Ahi-fq-Qe8" viewBased="YES" id="Z06-0v-mRn">
                                             <rect key="frame" x="0.0" y="0.0" width="235" height="134"/>
@@ -1055,6 +1057,6 @@ DQ
         <image name="desk-stand" width="18" height="18"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="uCK-6R-SB6"/>
+        <segue reference="mPK-iF-GTj"/>
     </inferredMetricsTieBreakers>
 </document>
