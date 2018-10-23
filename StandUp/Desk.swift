@@ -8,10 +8,10 @@
 
 import Cocoa
 
-class Desk: Codable, Equatable {
+class Desk: NSObject, Codable {
     let deviceID: String
-    var accessToken: String
-    var name: String
+    @objc dynamic var accessToken: String
+    @objc dynamic var name: String
     
     static func == (lhs: Desk, rhs: Desk) -> Bool {
         return lhs.deviceID == rhs.deviceID
@@ -22,10 +22,8 @@ class Desk: Codable, Equatable {
         self.accessToken = accessToken
         self.name = name
     }
-}
-
-extension Desk: CustomDebugStringConvertible {
-    var debugDescription: String {
+    
+    override var debugDescription: String {
         return "\(name) (\(deviceID))"
     }
 }

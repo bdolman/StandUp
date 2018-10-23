@@ -8,6 +8,8 @@
 
 import Cocoa
 
+private var DragDropType = NSPasteboard.PasteboardType(rawValue: "private.table-row")
+
 class PreferencesViewController: NSViewController {
     // Injected properties
     var settings: Settings!
@@ -16,36 +18,19 @@ class PreferencesViewController: NSViewController {
     @IBOutlet weak var emptyStateBox: NSBox!
     @IBOutlet weak var deskDetailBox: NSBox!
     
-    private var desks = [Desk]()
-    
-    private var dragDropType = NSPasteboard.PasteboardType(rawValue: "private.table-row")
-    
     private weak var deskDetailViewController: PreferencesDeskDetailViewController!
+    
+    private var desks = [Desk]()
+    private var observers = [NSKeyValueObservation]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        deskTableView.registerForDraggedTypes([dragDropType])
+        deskTableView.registerForDraggedTypes([DragDropType])
     }
     
     override func viewWillAppear() {
         super.viewWillAppear()
         loadDesks()
-    }
-    
-    @IBAction func removeDesk(_ sender: Any) {
-        let selectedIndex = deskTableView.selectedRow
-        guard selectedIndex >= 0 else { return }
-        
-        desks.remove(at: selectedIndex)
-        deskTableView.removeRows(at: IndexSet([selectedIndex]), withAnimation: .effectFade)
-        
-        if desks.count > 0 {
-            let newSelectedIndex = max(0,selectedIndex - 1)
-            deskTableView.selectRowIndexes(IndexSet(integer: newSelectedIndex), byExtendingSelection: false)
-        }
-        
-        saveDesks()
     }
     
     override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
@@ -57,17 +42,13 @@ class PreferencesViewController: NSViewController {
         }
     }
     
-    private func loadDesks() {
-        desks = settings.desks ?? []
-        deskTableView.reloadData()
-        updateDeskDetail()
+    @IBAction func removeDeskButtonClicked(_ sender: Any) {
+        let index = deskTableView.selectedRow
+        guard index >= 0 else { return }
+        remove(desk: desks[index])
     }
     
-    private func saveDesks() {
-        settings.desks = desks
-    }
-    
-    private func updateDeskDetail() {
+    private func updateSelectedDesk() {
         let selectedIndex = deskTableView.selectedRow
         if selectedIndex >= 0 {
             let desk = desks[selectedIndex]
@@ -82,15 +63,73 @@ class PreferencesViewController: NSViewController {
     }
 }
 
+// MARK: - Model management
+extension PreferencesViewController {
+    private func loadDesks() {
+        desks = settings.desks ?? []
+        deskTableView.reloadData()
+        updateSelectedDesk()
+        updateDeskObservers()
+    }
+    
+    private func saveDesks() {
+        settings.desks = desks
+    }
+    
+    private func updateDeskObservers() {
+        observers.removeAll()
+        desks.forEach { (desk) in
+            observers.append(desk.observe(\.name, changeHandler: { [weak self] (desk, change) in
+                self?.update(desk: desk)
+            }))
+        }
+    }
+    
+    private func update(desk: Desk) {
+        if let index = desks.firstIndex(of: desk), let cell = deskTableView.view(atColumn: 0, row: index, makeIfNecessary: false) as? PreferencesDeskTableViewCell {
+            cell.update(desk: desk)
+        }
+        saveDesks()
+    }
+    
+    private func add(desk: Desk, selectDesk: Bool) {
+        desks.append(desk)
+        deskTableView.insertRows(at: IndexSet(integer: desks.count - 1), withAnimation: .slideDown)
+        if selectDesk {
+            deskTableView.selectRowIndexes(IndexSet(integer: desks.count - 1), byExtendingSelection: false)
+        }
+        updateDeskObservers()
+        saveDesks()
+    }
+    
+    private func remove(desk: Desk) {
+        guard let index = desks.firstIndex(of: desk) else { return }
+        
+        desks.remove(at: index)
+        deskTableView.removeRows(at: IndexSet([index]), withAnimation: .effectFade)
+        
+        if desks.count > 0 {
+            let newSelectedIndex = max(0,index - 1)
+            deskTableView.selectRowIndexes(IndexSet(integer: newSelectedIndex), byExtendingSelection: false)
+        }
+        
+        updateDeskObservers()
+        saveDesks()
+    }
+    
+    
+}
+
+// MARK: - NSTableViewDelegate
 extension PreferencesViewController: NSTableViewDelegate {
     func tableViewSelectionDidChange(_ notification: Notification) {
-        updateDeskDetail()
+        updateSelectedDesk()
     }
     
     func tableView(_ tableView: NSTableView, pasteboardWriterForRow row: Int) -> NSPasteboardWriting? {
         
         let item = NSPasteboardItem()
-        item.setString(String(row), forType: self.dragDropType)
+        item.setString(String(row), forType: DragDropType)
         return item
     }
     
@@ -106,16 +145,14 @@ extension PreferencesViewController: NSTableViewDelegate {
         
         var oldIndexes = [Int]()
         info.enumerateDraggingItems(options: [], for: tableView, classes: [NSPasteboardItem.self], searchOptions: [:]) { dragItem, _, _ in
-            if let str = (dragItem.item as! NSPasteboardItem).string(forType: self.dragDropType), let index = Int(str) {
+            if let str = (dragItem.item as! NSPasteboardItem).string(forType: DragDropType), let index = Int(str) {
                 oldIndexes.append(index)
             }
         }
         
         var oldIndexOffset = 0
         var newIndexOffset = 0
-        
-        // For simplicity, the code below uses `tableView.moveRowAtIndex` to move rows around directly.
-        // You may want to move rows in your content array and then call `tableView.reloadData()` instead.
+
         tableView.beginUpdates()
         for oldIndex in oldIndexes {
             let from: Int
@@ -140,6 +177,7 @@ extension PreferencesViewController: NSTableViewDelegate {
     }
 }
 
+// MARK: - NSTableViewDataSource
 extension PreferencesViewController: NSTableViewDataSource {
     func numberOfRows(in tableView: NSTableView) -> Int {
         return desks.count
@@ -153,16 +191,8 @@ extension PreferencesViewController: NSTableViewDataSource {
 extension PreferencesViewController: DeskConfigurationViewControllerDelegate {
     func deskConfigurationViewController(_ controller: DeskConfigurationViewController, savedDesk: Desk) {
         dismiss(controller)
-        
-        if let index = desks.firstIndex(of: savedDesk) {
-            let cell = deskTableView.view(atColumn: 0, row: index, makeIfNecessary: false) as? PreferencesDeskTableViewCell
-            cell?.update(desk: savedDesk)
-        } else {
-            desks.append(savedDesk)
-            deskTableView.reloadData()
-            deskTableView.selectRowIndexes(IndexSet(integer: desks.count - 1), byExtendingSelection: false)
+        if !desks.contains(savedDesk) {
+            add(desk: savedDesk, selectDesk: true)
         }
-        
-        saveDesks()
     }
 }

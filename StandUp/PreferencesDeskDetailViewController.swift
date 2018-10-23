@@ -30,4 +30,18 @@ class PreferencesDeskDetailViewController: NSViewController {
         guard let desk = desk else { return }
         nameField.stringValue = desk.name
     }
+    
+    override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
+        if let deskConfigController = segue.destinationController as? DeskConfigurationViewController {
+            deskConfigController.delegate = self
+            deskConfigController.desk = desk
+        }
+    }
+}
+
+extension PreferencesDeskDetailViewController: DeskConfigurationViewControllerDelegate {
+    func deskConfigurationViewController(_ controller: DeskConfigurationViewController, savedDesk: Desk) {
+        dismiss(controller)
+        reloadData()
+    }
 }
