@@ -57,6 +57,8 @@ class PreferencesViewController: NSViewController {
             deskDetailBox.isHidden = false
             emptyStateBox.isHidden = true
         } else {
+            deskDetailViewController.desk = nil
+            
             deskDetailBox.isHidden = true
             emptyStateBox.isHidden = false
         }
@@ -81,6 +83,17 @@ extension PreferencesViewController {
         desks.forEach { (desk) in
             observers.append(desk.observe(\.name, changeHandler: { [weak self] (desk, change) in
                 self?.update(desk: desk)
+                self?.saveDesks()
+            }))
+            observers.append(desk.observe(\.accessToken, changeHandler: { [weak self] (desk, change) in
+                self?.update(desk: desk)
+                self?.saveDesks()
+            }))
+            observers.append(desk.observe(\.height, changeHandler: { [weak self] (desk, change) in
+                self?.update(desk: desk)
+            }))
+            observers.append(desk.observe(\.connectionState, changeHandler: { [weak self] (desk, change) in
+                self?.update(desk: desk)
             }))
         }
     }
@@ -89,7 +102,6 @@ extension PreferencesViewController {
         if let index = desks.firstIndex(of: desk), let cell = deskTableView.view(atColumn: 0, row: index, makeIfNecessary: false) as? PreferencesDeskTableViewCell {
             cell.update(desk: desk)
         }
-        saveDesks()
     }
     
     private func add(desk: Desk, selectDesk: Bool) {
@@ -115,6 +127,8 @@ extension PreferencesViewController {
         
         updateDeskObservers()
         saveDesks()
+        
+        desk.close()
     }
     
     
