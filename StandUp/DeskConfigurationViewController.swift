@@ -64,8 +64,12 @@ class DeskConfigurationViewController: NSViewController {
     
     @IBAction func saveButtonClicked(_ sender: Any) {
         let savedDesk = desk ?? Desk(deviceID: deviceID, accessToken: accessToken, name: name)
-        savedDesk.accessToken = accessToken
-        savedDesk.name = name
+        if savedDesk.name != name {
+            savedDesk.name = name
+        }
+        if savedDesk.accessToken != accessToken {
+            savedDesk.accessToken = accessToken
+        }
         delegate?.deskConfigurationViewController(self, savedDesk: savedDesk)
     }
     

@@ -17,18 +17,62 @@ class PreferencesDeskDetailViewController: NSViewController {
     var desk: Desk? {
         didSet {
             guard oldValue != desk else { return }
+            updateDeskObservers()
             reloadData()
         }
     }
+    
+    private var observers = [NSKeyValueObservation]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do view setup here.
     }
     
-    private func reloadData() {
+    private func updateDeskObservers() {
+        observers.removeAll()
+        guard let desk = desk else { return }
+        
+        observers.append(desk.observe(\.name, changeHandler: { [weak self] (desk, change) in
+            self?.updateName()
+        }))
+        observers.append(desk.observe(\.height, changeHandler: { [weak self] (desk, change) in
+            self?.updateStatus()
+        }))
+        observers.append(desk.observe(\.connectionState, changeHandler: { [weak self] (desk, change) in
+            self?.updateStatus()
+        }))
+    }
+    
+    private func updateName() {
         guard let desk = desk else { return }
         nameField.stringValue = desk.name
+    }
+    
+    private func updateStatus() {
+        guard let desk = desk else { return }
+        
+        let statusString: String
+        var heightString: String = ""
+        switch (desk.connectionState, desk.connectionError) {
+        case (.connecting, _):
+            statusString = "Connecting..."
+        case (.open, _):
+            statusString = "Connected"
+            heightString = "\(desk.height) cm"
+        case (.closed, .some):
+            statusString = "Error"
+        case (.closed, .none):
+            statusString = "Disconnected"
+        }
+        
+        statusField.stringValue = statusString
+        heightField.stringValue = heightString
+    }
+    
+    private func reloadData() {
+        updateName()
+        updateStatus()
     }
     
     override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
@@ -42,6 +86,5 @@ class PreferencesDeskDetailViewController: NSViewController {
 extension PreferencesDeskDetailViewController: DeskConfigurationViewControllerDelegate {
     func deskConfigurationViewController(_ controller: DeskConfigurationViewController, savedDesk: Desk) {
         dismiss(controller)
-        reloadData()
     }
 }
