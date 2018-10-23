@@ -15,19 +15,7 @@ class PreferencesDeskTableViewCell: NSTableCellView {
     
     func update(desk: Desk) {
         titleField.stringValue = desk.name
-        
-        let statusString: String
-        switch (desk.connectionState, desk.connectionError) {
-        case (.connecting, _):
-            statusString = "Connecting..."
-        case (.open, _):
-            statusString = "Connected"
-        case (.closed, .some):
-            statusString = "Error"
-        case (.closed, .none):
-            statusString = "Disconnected"
-        }
-        statusField.stringValue = statusString
+        statusField.stringValue = desk.connectionStatusString
     }
     
     override var objectValue: Any? {

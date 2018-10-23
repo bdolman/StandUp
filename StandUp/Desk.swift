@@ -224,6 +224,28 @@ extension Desk {
     }
 }
 
+extension Desk {
+    var connectionStatusString: String {
+        var statusString: String
+        switch (connectionState, connectionError) {
+        case (.connecting, _):
+            statusString = "Connecting..."
+        case (.open, _):
+            statusString = "Connected"
+        case (.closed, .some(let error)):
+            statusString = "Error"
+            if (error as NSError).domain == NSURLErrorDomain {
+                if (error as NSError).code == NSURLErrorNotConnectedToInternet {
+                    statusString = "Internet offline"
+                }
+            }
+        case (.closed, .none):
+            statusString = "Disconnected"
+        }
+        return statusString
+    }
+}
+
 private final class GetHeightResponse: ResponseObjectSerializable {
     let height: Int
     init?(response: HTTPURLResponse, representation: Any) {

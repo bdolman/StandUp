@@ -52,18 +52,13 @@ class PreferencesDeskDetailViewController: NSViewController {
     private func updateStatus() {
         guard let desk = desk else { return }
         
-        let statusString: String
+        let statusString = desk.connectionStatusString
         var heightString: String = ""
         switch (desk.connectionState, desk.connectionError) {
-        case (.connecting, _):
-            statusString = "Connecting..."
         case (.open, _):
-            statusString = "Connected"
             heightString = "\(desk.height) cm"
-        case (.closed, .some):
-            statusString = "Error"
-        case (.closed, .none):
-            statusString = "Disconnected"
+        default:
+            break
         }
         
         statusField.stringValue = statusString
