@@ -17,6 +17,7 @@ class PreferencesViewController: NSViewController {
     @IBOutlet weak var deskTableView: NSTableView!
     @IBOutlet weak var emptyStateBox: NSBox!
     @IBOutlet weak var deskDetailBox: NSBox!
+    @IBOutlet weak var runAtLoginCheckbox: NSButton!
     
     private weak var deskDetailViewController: PreferencesDeskDetailViewController!
     
@@ -31,6 +32,7 @@ class PreferencesViewController: NSViewController {
     override func viewWillAppear() {
         super.viewWillAppear()
         loadDesks()
+        updateRunAtLoginCheckbox()
     }
     
     override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
@@ -46,6 +48,15 @@ class PreferencesViewController: NSViewController {
         let index = deskTableView.selectedRow
         guard index >= 0 else { return }
         remove(desk: desks[index])
+    }
+    
+    @IBAction func runAtLoginCheckboxChecked(_ sender: Any) {
+        settings.enabledAtLogin = runAtLoginCheckbox.state == .on ? true : false
+        LoginItemHelper.setLoginState(enabled: settings.enabledAtLogin)
+    }
+    
+    private func updateRunAtLoginCheckbox() {
+        runAtLoginCheckbox.state = settings.enabledAtLogin ? .on : .off
     }
     
     private func updateSelectedDesk() {

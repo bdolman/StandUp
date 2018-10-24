@@ -97,10 +97,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     
     func updateLoginState() {
-        let identifier = Bundle.main.bundleIdentifier! + "-Helper"
-        if SMLoginItemSetEnabled(identifier as CFString, settings.enabledAtLogin) == false {
-            NSLog("Login item was not successful")
-        }
+        LoginItemHelper.setLoginState(enabled: settings.enabledAtLogin)
     }
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {

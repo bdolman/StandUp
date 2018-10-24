@@ -21,6 +21,7 @@
 		B5127D421BFDA1E80072FB39 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = B5127D401BFDA1E80072FB39 /* MainMenu.xib */; };
 		B5127D481BFDA21E0072FB39 /* ServiceManagement.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5127D471BFDA21E0072FB39 /* ServiceManagement.framework */; };
 		B5127D4A1BFDA2620072FB39 /* StandUp Helper.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = B5127D3A1BFDA1E80072FB39 /* StandUp Helper.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		B5164168217FEDA1008150A6 /* LoginItemHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5164167217FEDA1008150A6 /* LoginItemHelper.swift */; };
 		B529D1862179456C000442AA /* PreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B529D1852179456C000442AA /* PreferencesViewController.swift */; };
 		B529D189217945BA000442AA /* PreferencesDeskDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B529D187217945BA000442AA /* PreferencesDeskDetailViewController.swift */; };
 		B529D18D21794D5C000442AA /* DeskConfigurationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B529D18B21794D5C000442AA /* DeskConfigurationViewController.swift */; };
@@ -74,6 +75,7 @@
 		B5127D471BFDA21E0072FB39 /* ServiceManagement.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ServiceManagement.framework; path = System/Library/Frameworks/ServiceManagement.framework; sourceTree = SDKROOT; };
 		B5127D4B1BFDA6EB0072FB39 /* StandUp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = StandUp.entitlements; sourceTree = "<group>"; };
 		B5127D4C1BFDA7140072FB39 /* StandUp Helper.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "StandUp Helper.entitlements"; sourceTree = "<group>"; };
+		B5164167217FEDA1008150A6 /* LoginItemHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginItemHelper.swift; sourceTree = "<group>"; };
 		B529D1852179456C000442AA /* PreferencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesViewController.swift; sourceTree = "<group>"; };
 		B529D187217945BA000442AA /* PreferencesDeskDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesDeskDetailViewController.swift; sourceTree = "<group>"; };
 		B529D18B21794D5C000442AA /* DeskConfigurationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeskConfigurationViewController.swift; sourceTree = "<group>"; };
@@ -209,6 +211,7 @@
 				B529D18B21794D5C000442AA /* DeskConfigurationViewController.swift */,
 				B52FD3A4217E69830032AED0 /* Desk.swift */,
 				B52FD3A6217E7D820032AED0 /* PreferencesDeskTableViewCell.swift */,
+				B5164167217FEDA1008150A6 /* LoginItemHelper.swift */,
 			);
 			path = StandUp;
 			sourceTree = "<group>";
@@ -416,6 +419,7 @@
 				B51008B61BFD2A8100206391 /* PrefsViewController.swift in Sources */,
 				B5FB13131BFC4FD700F91B8B /* MenuHandler.swift in Sources */,
 				B51008BE1BFD348100206391 /* Settings.swift in Sources */,
+				B5164168217FEDA1008150A6 /* LoginItemHelper.swift in Sources */,
 				B529D1862179456C000442AA /* PreferencesViewController.swift in Sources */,
 				B5F7DD551BFBEF9400ABE7E5 /* Request.swift in Sources */,
 				B5F7DD5F1BFBFCB600ABE7E5 /* SparkEvent.m in Sources */,

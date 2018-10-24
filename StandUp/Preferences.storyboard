@@ -531,6 +531,9 @@
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
+                                <connections>
+                                    <action selector="runAtLoginCheckboxChecked:" target="cYa-NZ-D0A" id="9oF-vp-Sqd"/>
+                                </connections>
                             </button>
                         </subviews>
                         <constraints>
@@ -560,6 +563,7 @@
                         <outlet property="deskDetailBox" destination="sWX-d3-L04" id="v6X-d7-gAc"/>
                         <outlet property="deskTableView" destination="421-NG-dk3" id="yas-YP-4Cb"/>
                         <outlet property="emptyStateBox" destination="BFu-uP-1zA" id="0VE-ZR-W47"/>
+                        <outlet property="runAtLoginCheckbox" destination="b0E-r9-sYW" id="GLj-7i-mUK"/>
                     </connections>
                 </viewController>
                 <customObject id="2KE-ae-F93" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
@@ -662,7 +666,7 @@
                                 <rect key="frame" x="20" y="38" width="237" height="160"/>
                                 <clipView key="contentView" id="uKx-IQ-bDi">
                                     <rect key="frame" x="1" y="0.0" width="235" height="159"/>
-                                    <autoresizingMask key="autoresizingMask"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowHeight="42" rowSizeStyle="automatic" headerView="Ahi-fq-Qe8" viewBased="YES" id="Z06-0v-mRn">
                                             <rect key="frame" x="0.0" y="0.0" width="235" height="134"/>
