@@ -9,7 +9,7 @@
 import Foundation
 import Alamofire
 
-class Desk: NSObject, Codable {
+class DeskStatic: NSObject, Codable {
     let deviceID: String
     @objc dynamic var accessToken: String {
         didSet {
@@ -53,7 +53,7 @@ class Desk: NSObject, Codable {
         ]
     }
     
-    static func == (lhs: Desk, rhs: Desk) -> Bool {
+    static func == (lhs: DeskStatic, rhs: DeskStatic) -> Bool {
         return lhs.deviceID == rhs.deviceID
     }
     
@@ -93,7 +93,7 @@ class Desk: NSObject, Codable {
 }
 
 
-extension Desk {
+extension DeskStatic {
     private func removeEventObserver() {
         let oldSource = source
         source = nil
@@ -199,7 +199,7 @@ extension Desk {
     }
 }
 
-extension Desk {
+extension DeskStatic {
     func setHeight(_ heightInCms: Int, completionHandler: @escaping (_ error: Error?) -> Void) {
         let url = self.baseURL.appendingPathComponent("setHeight")
         let params = ["arg" : heightInCms]
@@ -224,7 +224,7 @@ extension Desk {
     }
 }
 
-extension Desk {
+extension DeskStatic {
     var connectionStatusString: String {
         var statusString: String
         switch (connectionState, connectionError) {

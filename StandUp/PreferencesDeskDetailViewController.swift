@@ -14,7 +14,7 @@ class PreferencesDeskDetailViewController: NSViewController {
     @IBOutlet weak var heightField: NSTextField!
     @IBOutlet weak var presetsTableView: NSTableView!
     
-    var desk: Desk? {
+    var desk: DeskStatic? {
         didSet {
             guard oldValue != desk else { return }
             updateDeskObservers()
@@ -79,7 +79,7 @@ class PreferencesDeskDetailViewController: NSViewController {
 }
 
 extension PreferencesDeskDetailViewController: DeskConfigurationViewControllerDelegate {
-    func deskConfigurationViewController(_ controller: DeskConfigurationViewController, savedDesk: Desk) {
+    func deskConfigurationViewController(_ controller: DeskConfigurationViewController, savedDesk: DeskStatic) {
         dismiss(controller)
     }
 }

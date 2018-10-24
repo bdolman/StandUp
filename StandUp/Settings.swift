@@ -60,14 +60,14 @@ class Settings: NSObject {
         set(newValue) { defaults.set(newValue, forKey: enabledAtLoginKey) }
     }
     
-    var desks: [Desk]? {
+    var desks: [DeskStatic]? {
         get {
             guard let data = defaults.data(forKey: desksKey) else {
                 return nil
             }
             do {
                 let decoder = JSONDecoder()
-                let desks = try decoder.decode([Desk].self, from: data)
+                let desks = try decoder.decode([DeskStatic].self, from: data)
                 return desks
             } catch {
                 NSLog("Error reading desks \(error)")
