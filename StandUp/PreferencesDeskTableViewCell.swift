@@ -13,14 +13,14 @@ class PreferencesDeskTableViewCell: NSTableCellView {
     @IBOutlet weak var titleField: NSTextField!
     @IBOutlet weak var statusField: NSTextField!
     
-    func update(desk: Desk) {
+    func update(desk: DeskStatic) {
         titleField.stringValue = desk.name
         statusField.stringValue = desk.connectionStatusString
     }
     
     override var objectValue: Any? {
         didSet {
-            if let desk = objectValue as? Desk {
+            if let desk = objectValue as? DeskStatic {
                 update(desk: desk)
             }
         }

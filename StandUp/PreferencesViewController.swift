@@ -21,7 +21,7 @@ class PreferencesViewController: NSViewController {
     
     private weak var deskDetailViewController: PreferencesDeskDetailViewController!
     
-    private var desks = [Desk]()
+    private var desks = [DeskStatic]()
     private var observers = [NSKeyValueObservation]()
     
     override func viewDidLoad() {
@@ -109,13 +109,13 @@ extension PreferencesViewController {
         }
     }
     
-    private func update(desk: Desk) {
+    private func update(desk: DeskStatic) {
         if let index = desks.firstIndex(of: desk), let cell = deskTableView.view(atColumn: 0, row: index, makeIfNecessary: false) as? PreferencesDeskTableViewCell {
             cell.update(desk: desk)
         }
     }
     
-    private func add(desk: Desk, selectDesk: Bool) {
+    private func add(desk: DeskStatic, selectDesk: Bool) {
         desks.append(desk)
         deskTableView.insertRows(at: IndexSet(integer: desks.count - 1), withAnimation: .slideDown)
         if selectDesk {
@@ -125,7 +125,7 @@ extension PreferencesViewController {
         saveDesks()
     }
     
-    private func remove(desk: Desk) {
+    private func remove(desk: DeskStatic) {
         guard let index = desks.firstIndex(of: desk) else { return }
         
         desks.remove(at: index)
@@ -214,7 +214,7 @@ extension PreferencesViewController: NSTableViewDataSource {
 }
 
 extension PreferencesViewController: DeskConfigurationViewControllerDelegate {
-    func deskConfigurationViewController(_ controller: DeskConfigurationViewController, savedDesk: Desk) {
+    func deskConfigurationViewController(_ controller: DeskConfigurationViewController, savedDesk: DeskStatic) {
         dismiss(controller)
         if !desks.contains(savedDesk) {
             add(desk: savedDesk, selectDesk: true)
