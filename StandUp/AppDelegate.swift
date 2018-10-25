@@ -64,6 +64,7 @@ extension AppDelegate {
     private func didLoad(persistentContainer: NSPersistentContainer) {
         self.persistentContainer = persistentContainer
         
+        loadAllDesks()
         updateLoginState()
         
         menuHandler = MenuHandler()
@@ -75,6 +76,14 @@ extension AppDelegate {
         updateStatusIcon()
         
         showPreferences()
+    }
+    
+    // Faults in all desks so that they start their network connections
+    private func loadAllDesks() {
+        guard let context = persistentContainer?.viewContext else { return }
+        let fetchRequest: NSFetchRequest<Desk> = Desk.fetchRequest()
+        fetchRequest.returnsObjectsAsFaults = false
+        let _ = try! context.fetch(fetchRequest)
     }
 }
 
