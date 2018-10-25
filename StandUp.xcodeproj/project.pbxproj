@@ -25,6 +25,7 @@
 		B529D1862179456C000442AA /* PreferencesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B529D1852179456C000442AA /* PreferencesViewController.swift */; };
 		B529D189217945BA000442AA /* PreferencesDeskDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B529D187217945BA000442AA /* PreferencesDeskDetailViewController.swift */; };
 		B529D18D21794D5C000442AA /* DeskConfigurationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B529D18B21794D5C000442AA /* DeskConfigurationViewController.swift */; };
+		B52B8CF0218132D1004004B4 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B52B8CEE218132D1004004B4 /* Model.xcdatamodeld */; };
 		B52FD3A5217E69830032AED0 /* DeskStatic.swift in Sources */ = {isa = PBXBuildFile; fileRef = B52FD3A4217E69830032AED0 /* DeskStatic.swift */; };
 		B52FD3A7217E7D820032AED0 /* PreferencesDeskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B52FD3A6217E7D820032AED0 /* PreferencesDeskTableViewCell.swift */; };
 		B53815A01BFAED2D00CB13AE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B538159F1BFAED2D00CB13AE /* AppDelegate.swift */; };
@@ -35,6 +36,9 @@
 		B53815B61BFB0B3D00CB13AE /* DDHotKeyUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = B53815B31BFB0B3D00CB13AE /* DDHotKeyUtilities.m */; };
 		B53815B81BFB0B5500CB13AE /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B53815B71BFB0B5500CB13AE /* Carbon.framework */; };
 		B53815BF1BFB0E4500CB13AE /* HotKey.m in Sources */ = {isa = PBXBuildFile; fileRef = B53815BE1BFB0E4500CB13AE /* HotKey.m */; };
+		B57DB0AB218147C700B6E579 /* Desk+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57DB0A9218147C700B6E579 /* Desk+CoreDataClass.swift */; };
+		B57DB0AC218147C700B6E579 /* Desk+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57DB0AA218147C700B6E579 /* Desk+CoreDataProperties.swift */; };
+		B57DB0AE2181623A00B6E579 /* Globals+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57DB0AD2181623A00B6E579 /* Globals+CoreDataClass.swift */; };
 		B5F7DD531BFBE26400ABE7E5 /* DeviceOld.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F7DD521BFBE26400ABE7E5 /* DeviceOld.swift */; };
 		B5F7DD551BFBEF9400ABE7E5 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F7DD541BFBEF9400ABE7E5 /* Request.swift */; };
 		B5F7DD591BFBF31000ABE7E5 /* DeskOld.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F7DD581BFBF31000ABE7E5 /* DeskOld.swift */; };
@@ -79,6 +83,7 @@
 		B529D1852179456C000442AA /* PreferencesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesViewController.swift; sourceTree = "<group>"; };
 		B529D187217945BA000442AA /* PreferencesDeskDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesDeskDetailViewController.swift; sourceTree = "<group>"; };
 		B529D18B21794D5C000442AA /* DeskConfigurationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeskConfigurationViewController.swift; sourceTree = "<group>"; };
+		B52B8CEF218132D1004004B4 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		B52FD3A4217E69830032AED0 /* DeskStatic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeskStatic.swift; sourceTree = "<group>"; };
 		B52FD3A6217E7D820032AED0 /* PreferencesDeskTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesDeskTableViewCell.swift; sourceTree = "<group>"; };
 		B538159C1BFAED2D00CB13AE /* StandUp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StandUp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -96,6 +101,9 @@
 		B53815BC1BFB0C2C00CB13AE /* StandUp-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "StandUp-Bridging-Header.h"; sourceTree = "<group>"; };
 		B53815BD1BFB0E4500CB13AE /* HotKey.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotKey.h; sourceTree = "<group>"; };
 		B53815BE1BFB0E4500CB13AE /* HotKey.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotKey.m; sourceTree = "<group>"; };
+		B57DB0A9218147C700B6E579 /* Desk+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Desk+CoreDataClass.swift"; sourceTree = "<group>"; };
+		B57DB0AA218147C700B6E579 /* Desk+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Desk+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		B57DB0AD2181623A00B6E579 /* Globals+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Globals+CoreDataClass.swift"; path = "/Users/ben/Developer/StandUp/StandUp/Model/Globals+CoreDataClass.swift"; sourceTree = "<absolute>"; };
 		B5F7DD4D1BFBC52000ABE7E5 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		B5F7DD521BFBE26400ABE7E5 /* DeviceOld.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceOld.swift; sourceTree = "<group>"; };
 		B5F7DD541BFBEF9400ABE7E5 /* Request.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
@@ -163,6 +171,10 @@
 		B52B8CEA21813034004004B4 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				B57DB0AD2181623A00B6E579 /* Globals+CoreDataClass.swift */,
+				B57DB0A9218147C700B6E579 /* Desk+CoreDataClass.swift */,
+				B57DB0AA218147C700B6E579 /* Desk+CoreDataProperties.swift */,
+				B52B8CEE218132D1004004B4 /* Model.xcdatamodeld */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -425,6 +437,7 @@
 				B529D18D21794D5C000442AA /* DeskConfigurationViewController.swift in Sources */,
 				B5F7DD531BFBE26400ABE7E5 /* DeviceOld.swift in Sources */,
 				B51008B61BFD2A8100206391 /* PrefsViewController.swift in Sources */,
+				B57DB0AB218147C700B6E579 /* Desk+CoreDataClass.swift in Sources */,
 				B5FB13131BFC4FD700F91B8B /* MenuHandler.swift in Sources */,
 				B51008BE1BFD348100206391 /* Settings.swift in Sources */,
 				B5164168217FEDA1008150A6 /* LoginItemHelper.swift in Sources */,
@@ -432,8 +445,11 @@
 				B5F7DD551BFBEF9400ABE7E5 /* Request.swift in Sources */,
 				B5F7DD5F1BFBFCB600ABE7E5 /* SparkEvent.m in Sources */,
 				B53815B61BFB0B3D00CB13AE /* DDHotKeyUtilities.m in Sources */,
+				B57DB0AE2181623A00B6E579 /* Globals+CoreDataClass.swift in Sources */,
 				B53815A01BFAED2D00CB13AE /* AppDelegate.swift in Sources */,
+				B52B8CF0218132D1004004B4 /* Model.xcdatamodeld in Sources */,
 				B51008C21BFD3FFA00206391 /* Desks.swift in Sources */,
+				B57DB0AC218147C700B6E579 /* Desk+CoreDataProperties.swift in Sources */,
 				B5F7DD5C1BFBFC4200ABE7E5 /* EventSource.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -635,6 +651,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		B52B8CEE218132D1004004B4 /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				B52B8CEF218132D1004004B4 /* Model.xcdatamodel */,
+			);
+			currentVersion = B52B8CEF218132D1004004B4 /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = B53815941BFAED2D00CB13AE /* Project object */;
 }

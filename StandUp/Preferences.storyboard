@@ -353,7 +353,7 @@
                                     <rect key="frame" x="1" y="0.0" width="235" height="346"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" emptySelection="NO" autosaveColumns="NO" rowHeight="48" rowSizeStyle="automatic" headerView="hMc-HT-HHm" viewBased="YES" id="421-NG-dk3">
+                                        <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" multipleSelection="NO" emptySelection="NO" autosaveColumns="NO" rowHeight="48" rowSizeStyle="automatic" headerView="hMc-HT-HHm" viewBased="YES" id="421-NG-dk3">
                                             <rect key="frame" x="0.0" y="0.0" width="235" height="321"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <size key="intercellSpacing" width="3" height="2"/>
@@ -432,10 +432,6 @@
                                                     </prototypeCellViews>
                                                 </tableColumn>
                                             </tableColumns>
-                                            <connections>
-                                                <outlet property="dataSource" destination="cYa-NZ-D0A" id="Sd7-hu-Cv0"/>
-                                                <outlet property="delegate" destination="cYa-NZ-D0A" id="1FL-TE-0m9"/>
-                                            </connections>
                                         </tableView>
                                     </subviews>
                                 </clipView>

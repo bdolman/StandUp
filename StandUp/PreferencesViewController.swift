@@ -12,6 +12,7 @@ private var DragDropType = NSPasteboard.PasteboardType(rawValue: "private.table-
 
 class PreferencesViewController: NSViewController {
     // Injected properties
+    var managedObjectContext: NSManagedObjectContext!
     var settings: Settings!
     
     @IBOutlet weak var deskTableView: NSTableView!
@@ -21,8 +22,17 @@ class PreferencesViewController: NSViewController {
     
     private weak var deskDetailViewController: PreferencesDeskDetailViewController!
     
-    private var desks = [DeskStatic]()
-    private var observers = [NSKeyValueObservation]()
+    private lazy var fetchedResultsController: NSFetchedResultsController<Desk> = {
+        let fetchRequest: NSFetchRequest<Desk> = Desk.fetchRequest()
+        fetchRequest.sortDescriptors = [Desk.sortOrder(ascending: true)]
+        let frc = NSFetchedResultsController(fetchRequest: fetchRequest,
+                                             managedObjectContext: self.managedObjectContext,
+                                             sectionNameKeyPath: nil,
+                                             cacheName: nil)
+        frc.delegate = self
+        try! frc.performFetch()
+        return frc
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,12 +41,15 @@ class PreferencesViewController: NSViewController {
     
     override func viewWillAppear() {
         super.viewWillAppear()
+        deskTableView.delegate = self
+        deskTableView.dataSource = self
         loadDesks()
         updateRunAtLoginCheckbox()
     }
     
     override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
         if let deskConfigController = segue.destinationController as? DeskConfigurationViewController {
+            deskConfigController.managedObjectContext = managedObjectContext
             deskConfigController.delegate = self
         }
         if let deskDetailController = segue.destinationController as? PreferencesDeskDetailViewController {
@@ -45,9 +58,15 @@ class PreferencesViewController: NSViewController {
     }
     
     @IBAction func removeDeskButtonClicked(_ sender: Any) {
-        let index = deskTableView.selectedRow
-        guard index >= 0 else { return }
-        remove(desk: desks[index])
+        guard let selectedIndexPath = deskTableView.selectedIndexPath else { return }
+        let desk = fetchedResultsController.object(at: selectedIndexPath)
+        managedObjectContext.delete(desk)
+        try! managedObjectContext.save()
+        
+        if fetchedResultsController.fetchedObjects!.count > 0 {
+            let newSelectedIndex = min(0, selectedIndexPath.item - 1)
+            deskTableView.selectRowIndexes(IndexSet(integer: newSelectedIndex), byExtendingSelection: false)
+        }
     }
     
     @IBAction func runAtLoginCheckboxChecked(_ sender: Any) {
@@ -60,9 +79,8 @@ class PreferencesViewController: NSViewController {
     }
     
     private func updateSelectedDesk() {
-        let selectedIndex = deskTableView.selectedRow
-        if selectedIndex >= 0 {
-            let desk = desks[selectedIndex]
+        if let selectedIndexPath = deskTableView.selectedIndexPath {
+            let desk = fetchedResultsController.object(at: selectedIndexPath)
             deskDetailViewController.desk = desk
             
             deskDetailBox.isHidden = false
@@ -79,70 +97,9 @@ class PreferencesViewController: NSViewController {
 // MARK: - Model management
 extension PreferencesViewController {
     private func loadDesks() {
-        desks = settings.desks ?? []
         deskTableView.reloadData()
         updateSelectedDesk()
-        updateDeskObservers()
     }
-    
-    private func saveDesks() {
-        settings.desks = desks
-    }
-    
-    private func updateDeskObservers() {
-        observers.removeAll()
-        desks.forEach { (desk) in
-            observers.append(desk.observe(\.name, changeHandler: { [weak self] (desk, change) in
-                self?.update(desk: desk)
-                self?.saveDesks()
-            }))
-            observers.append(desk.observe(\.accessToken, changeHandler: { [weak self] (desk, change) in
-                self?.update(desk: desk)
-                self?.saveDesks()
-            }))
-            observers.append(desk.observe(\.height, changeHandler: { [weak self] (desk, change) in
-                self?.update(desk: desk)
-            }))
-            observers.append(desk.observe(\.connectionState, changeHandler: { [weak self] (desk, change) in
-                self?.update(desk: desk)
-            }))
-        }
-    }
-    
-    private func update(desk: DeskStatic) {
-        if let index = desks.firstIndex(of: desk), let cell = deskTableView.view(atColumn: 0, row: index, makeIfNecessary: false) as? PreferencesDeskTableViewCell {
-            cell.update(desk: desk)
-        }
-    }
-    
-    private func add(desk: DeskStatic, selectDesk: Bool) {
-        desks.append(desk)
-        deskTableView.insertRows(at: IndexSet(integer: desks.count - 1), withAnimation: .slideDown)
-        if selectDesk {
-            deskTableView.selectRowIndexes(IndexSet(integer: desks.count - 1), byExtendingSelection: false)
-        }
-        updateDeskObservers()
-        saveDesks()
-    }
-    
-    private func remove(desk: DeskStatic) {
-        guard let index = desks.firstIndex(of: desk) else { return }
-        
-        desks.remove(at: index)
-        deskTableView.removeRows(at: IndexSet([index]), withAnimation: .effectFade)
-        
-        if desks.count > 0 {
-            let newSelectedIndex = max(0,index - 1)
-            deskTableView.selectRowIndexes(IndexSet(integer: newSelectedIndex), byExtendingSelection: false)
-        }
-        
-        updateDeskObservers()
-        saveDesks()
-        
-        desk.close()
-    }
-    
-    
 }
 
 // MARK: - NSTableViewDelegate
@@ -178,7 +135,6 @@ extension PreferencesViewController: NSTableViewDelegate {
         var oldIndexOffset = 0
         var newIndexOffset = 0
 
-        tableView.beginUpdates()
         for oldIndex in oldIndexes {
             let from: Int
             let to: Int
@@ -191,12 +147,18 @@ extension PreferencesViewController: NSTableViewDelegate {
                 to = row + newIndexOffset
                 newIndexOffset += 1
             }
-            tableView.moveRow(at: from, to: to)
+            
+            // Rearrange and then update ordering
+            var desks = fetchedResultsController.fetchedObjects!
             desks.insert(desks.remove(at: from), at: to)
+            for (index, desk) in desks.enumerated() {
+                let newOrder = Int32(index)
+                if desk.order != newOrder {
+                    desk.order = newOrder
+                }
+            }
+            try! managedObjectContext.save()
         }
-        tableView.endUpdates()
-        
-        saveDesks()
         
         return true
     }
@@ -205,19 +167,57 @@ extension PreferencesViewController: NSTableViewDelegate {
 // MARK: - NSTableViewDataSource
 extension PreferencesViewController: NSTableViewDataSource {
     func numberOfRows(in tableView: NSTableView) -> Int {
-        return desks.count
+        return fetchedResultsController.sections![0].numberOfObjects
     }
     
     func tableView(_ tableView: NSTableView, objectValueFor tableColumn: NSTableColumn?, row: Int) -> Any? {
-        return desks[row]
+        let indexPath = IndexPath(item: row, section: 0)
+        return fetchedResultsController.object(at: indexPath)
+    }
+}
+
+extension PreferencesViewController: NSFetchedResultsControllerDelegate {
+    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        deskTableView.beginUpdates()
+    }
+    
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        deskTableView.endUpdates()
+    }
+    
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?,
+                    for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?)
+    {
+        switch type {
+        case .insert:
+            let indexSet = IndexSet(integer: newIndexPath!.item)
+            deskTableView.insertRows(at: indexSet, withAnimation: .slideDown)
+        case .delete:
+            let indexSet = IndexSet(integer: indexPath!.item)
+            deskTableView.removeRows(at: indexSet, withAnimation: .effectFade)
+        case .move where indexPath! == newIndexPath!: fallthrough // This happens, despite documentation saying it shouldn't
+        case .update:
+            let indexSet = IndexSet(integer: indexPath!.item)
+            deskTableView.reloadData(forRowIndexes: indexSet, columnIndexes: IndexSet(integer: 0))
+        case .move:
+            deskTableView.moveRow(at: indexPath!.item, to: newIndexPath!.item)
+        }
     }
 }
 
 extension PreferencesViewController: DeskConfigurationViewControllerDelegate {
-    func deskConfigurationViewController(_ controller: DeskConfigurationViewController, savedDesk: DeskStatic) {
+    func deskConfigurationViewController(_ controller: DeskConfigurationViewController, savedDesk: Desk) {
         dismiss(controller)
-        if !desks.contains(savedDesk) {
-            add(desk: savedDesk, selectDesk: true)
+        if let selectedIndex = fetchedResultsController.indexPath(forObject: savedDesk) {
+            deskTableView.selectRowIndexes(IndexSet(integer: selectedIndex.item), byExtendingSelection: false)
         }
+    }
+}
+
+
+extension NSTableView {
+    var selectedIndexPath: IndexPath? {
+        guard selectedRow >= 0 else { return nil }
+        return IndexPath(item: selectedRow, section: 0)
     }
 }

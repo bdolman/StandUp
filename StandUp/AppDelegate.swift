@@ -24,109 +24,106 @@ extension DeskState {
 class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet weak var window: NSWindow!
     
-    var menuHandler: MenuHandler!
-    let settings = Settings()
-    let desks = Desks()
-    var desk: DeskOld? = nil {
-        willSet {
-            removeDeskObservers()
-        }
-        didSet {
-            addDeskObservers()
-            menuHandler.desk = desk
-            updateStatusIcon()
-        }
-    }
-    var prefsController: PrefsWindowController? = nil
-    let statusItem: NSStatusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
-    
-    func registerGlobalShortcutHandlers() {
-        HotKey.registerRaise { event in
-            self.desk?.raise()
-        }
-        HotKey.registerLowerHotKey { event in
-            self.desk?.lower()
-        }
-    }
-    
-    fileprivate func addDeskObservers() {
-        guard let desk = desk else { return }
-        NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.deskStateChanged(_:)),
-            name: NSNotification.Name(rawValue: DeskStateChangedNotification), object: desk)
-    }
-    
-    fileprivate func removeDeskObservers() {
-        guard let desk = desk else { return }
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: DeskStateChangedNotification), object: desk)
-    }
-    
-    func setupStatusItem() {
-        statusItem.menu = menuHandler.menu
-    }
-    
-    func updateStatusIcon() {
-        if let image = desk?.state?.image {
-            statusItem.button?.image = image
-        } else {
-            statusItem.button?.image = DeskState.raising.image
-        }
-    }
-    
-    func observeActiveDeskChanges() {
-         NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.activeDeskChanged(_:)),
-            name: NSNotification.Name(rawValue: ActiveDeskDidChangeNotification), object: desks)
-    }
-    
-    @objc func deskStateChanged(_ notification: Notification) {
-        OperationQueue.main.addOperation {
-            self.updateStatusIcon()
-        }
-    }
-    
-    @objc func activeDeskChanged(_ notification: Notification) {
-        desk = desks.activeDesk
-    }
-    
-    func savedDesk() -> DeskOld? {
-        if let auth = settings.auth {
-            let device = DeviceOld(accessToken: auth.accessToken, deviceId: auth.deviceId)
-            return DeskOld(device: device, sittingHeight: settings.sittingHeight, standingHeight: settings.standingHeight)
-        } else {
-            return nil
-        }
-    }
-    
-    func updateLoginState() {
-        LoginItemHelper.setLoginState(enabled: settings.enabledAtLogin)
-    }
+    private var persistentContainer: NSPersistentContainer?
+    private let settings = Settings()
+    private var menuHandler: MenuHandler?
+    private var prefsController: PrefsWindowController? = nil
+    private let statusItem: NSStatusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        updateLoginState()
-        menuHandler = MenuHandler()
-        menuHandler.delegate = self
-        setupStatusItem()
-        registerGlobalShortcutHandlers()
-        
-        desks.activeDesk = savedDesk()
-        desk = desks.activeDesk
-        desk?.updateCurrentState()
-        observeActiveDeskChanges()
-        
-        updateStatusIcon()
-        
-        if desk == nil {
-            showPreferences()
+        loadPersistentContainer()
+    }
+}
+
+// MARK: - Data model
+extension AppDelegate {
+    private func loadPersistentContainer(retriesRemaining: Int = 1) {
+        let container = NSPersistentContainer(name: "Model")
+        container.loadPersistentStores { (description, error) in
+            if let error = error {
+                NSLog("Error loading persistent store \(error)")
+                guard retriesRemaining > 0 else {
+                    fatalError("Model failure. Unable to load or reset.")
+                }
+                guard let modelURL = description.url else {
+                    fatalError("Model failure. Unable to load or reset.")
+                }
+                do {
+                    try container.persistentStoreCoordinator.destroyPersistentStore(at: modelURL, ofType: description.type, options: description.options)
+                    NSLog("Successfully reset store at \(modelURL)")
+                } catch {
+                    NSLog("Error deleting store. Will retry anyway. \(error)")
+                }
+                self.loadPersistentContainer(retriesRemaining: retriesRemaining - 1)
+            } else {
+                self.didLoad(persistentContainer: container)
+            }
         }
     }
     
-    func showPreferences() {
+    private func didLoad(persistentContainer: NSPersistentContainer) {
+        self.persistentContainer = persistentContainer
+        
+        updateLoginState()
+        
+        menuHandler = MenuHandler()
+        menuHandler?.delegate = self
+        
+        registerGlobalShortcutHandlers()
+        
+        setupStatusItem()
+        updateStatusIcon()
+        
+        showPreferences()
+    }
+}
+
+// MARK: - Hotkeys
+extension AppDelegate {
+    func registerGlobalShortcutHandlers() {
+        // TODO
+        //        HotKey.registerRaise { event in
+        //            self.desk?.raise()
+        //        }
+        //        HotKey.registerLowerHotKey { event in
+        //            self.desk?.lower()
+        //        }
+    }
+}
+
+// MARK: - Status Icon
+extension AppDelegate {
+    private func setupStatusItem() {
+        statusItem.menu = menuHandler?.menu
+    }
+    
+    private func updateStatusIcon() {
+        // TODO
+//        if let image = desk?.state?.image {
+//            statusItem.button?.image = image
+//        } else {
+//            statusItem.button?.image = DeskState.raising.image
+//        }
+    }
+}
+
+// MARK: - Login Helper
+extension AppDelegate {
+    private func updateLoginState() {
+        LoginItemHelper.setLoginState(enabled: settings.enabledAtLogin)
+    }
+}
+
+// MARK: - Preferences Window
+extension AppDelegate {
+    private func showPreferences() {
         if prefsController == nil {
             let storyboard = NSStoryboard(name: "Preferences", bundle: Bundle.main)
             prefsController = storyboard.instantiateInitialController() as? PrefsWindowController
-            prefsController?.desks = desks
+            prefsController?.managedObjectContext = persistentContainer?.viewContext
             prefsController?.settings = settings
             NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.prefsClosed(_:)),
-                name: NSWindow.willCloseNotification, object: prefsController)
+                                                   name: NSWindow.willCloseNotification, object: prefsController)
         }
         prefsController?.showWindow(self)
         prefsController?.window?.makeKeyAndOrderFront(self)

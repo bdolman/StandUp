@@ -10,15 +10,12 @@ import Cocoa
 
 class PrefsWindowController: NSWindowController {
     // Injected properties
-    var desks: Desks!
+    var managedObjectContext: NSManagedObjectContext!
     var settings: Settings!
     
     override func showWindow(_ sender: Any?) {
-        if let prefsViewController = contentViewController as? PrefsViewController {
-            prefsViewController.desks = desks
-            prefsViewController.settings = settings
-        }
         if let prefsViewController = contentViewController as? PreferencesViewController {
+            prefsViewController.managedObjectContext = managedObjectContext
             prefsViewController.settings = settings
         }
         super.showWindow(sender)

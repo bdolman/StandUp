@@ -9,12 +9,14 @@
 import Cocoa
 
 protocol DeskConfigurationViewControllerDelegate: NSObjectProtocol {
-    func deskConfigurationViewController(_ controller: DeskConfigurationViewController, savedDesk: DeskStatic)
+    func deskConfigurationViewController(_ controller: DeskConfigurationViewController, savedDesk: Desk)
 }
 
 class DeskConfigurationViewController: NSViewController {
     // Injected properties
-    var desk: DeskStatic?
+    var managedObjectContext: NSManagedObjectContext!
+    var desk: Desk?
+    
     weak var delegate: DeskConfigurationViewControllerDelegate?
     
     @IBOutlet weak var saveButton: NSButton!
@@ -63,13 +65,17 @@ class DeskConfigurationViewController: NSViewController {
     }
     
     @IBAction func saveButtonClicked(_ sender: Any) {
-        let savedDesk = desk ?? DeskStatic(deviceID: deviceID, accessToken: accessToken, name: name)
+        let savedDesk = desk ?? Desk(entity: Desk.entity(), insertInto: managedObjectContext)
+        if savedDesk.deviceID != deviceID {
+            savedDesk.deviceID = deviceID
+        }
         if savedDesk.name != name {
             savedDesk.name = name
         }
         if savedDesk.accessToken != accessToken {
             savedDesk.accessToken = accessToken
         }
+        try! managedObjectContext.save()
         delegate?.deskConfigurationViewController(self, savedDesk: savedDesk)
     }
     
