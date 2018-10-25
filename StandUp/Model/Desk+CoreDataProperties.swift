@@ -21,6 +21,7 @@ extension Desk {
     @NSManaged public var name: String
     @NSManaged public var order: Int32
     @NSManaged public var height: Int32
+    @NSManaged public var isOnline: Bool
     @NSManaged public var direction: Direction
     @NSManaged public var connectionState: ConnectionState
 
