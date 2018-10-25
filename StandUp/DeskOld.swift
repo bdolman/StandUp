@@ -11,11 +11,11 @@ import Foundation
 let DeskHeightChangedNotification = "DeskHeightChangedNotification"
 let DeskStateChangedNotification = "DeskStateChangedNotification"
 
-enum DeskState {
-    case lowered
-    case lowering
-    case raised
-    case raising
+@objc public enum DeskState: Int16 {
+    case lowered = 0
+    case lowering = 1
+    case raised = 2
+    case raising = 3
 }
 
 private enum DeskEvent {

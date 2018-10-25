@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14315.18" systemVersion="18A391" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Desk" representedClassName="Desk" syncable="YES">
+        <attribute name="accessToken" attributeType="String" syncable="YES"/>
+        <attribute name="connectionState" transient="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" customClassName="MyEnum" syncable="YES"/>
+        <attribute name="deviceID" attributeType="String" syncable="YES"/>
+        <attribute name="direction" transient="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="height" transient="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="name" attributeType="String" syncable="YES"/>
+        <attribute name="order" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <relationship name="globalsActiveDesk" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Globals" inverseName="activeDesk" inverseEntity="Globals" syncable="YES"/>
+    </entity>
+    <entity name="Globals" representedClassName="Globals" syncable="YES" codeGenerationType="category">
+        <relationship name="activeDesk" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Desk" inverseName="globalsActiveDesk" inverseEntity="Desk" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Desk" positionX="-54" positionY="-9" width="128" height="165"/>
+        <element name="Globals" positionX="-54" positionY="36" width="128" height="60"/>
+    </elements>
+</model>
