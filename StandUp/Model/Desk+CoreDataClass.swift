@@ -95,7 +95,7 @@ extension Desk {
             statusString = "Error"
             if (error as NSError).domain == NSURLErrorDomain {
                 if (error as NSError).code == NSURLErrorNotConnectedToInternet {
-                    statusString = "Internet offline"
+                    statusString = "No internet connection"
                 }
             }
         case (.closed, .none):
@@ -105,6 +105,7 @@ extension Desk {
     }
 }
 
+// MARK: - Network model
 extension Desk {
     private var baseURL: URL {
         let host = URL(string: "https://api.particle.io")!
@@ -143,6 +144,8 @@ extension Desk {
         newSource?.onOpen(handler)
         newSource?.onError(handler)
         newSource?.onMessage(handler)
+        
+        updateHeight()
     }
     
     private func handleEvent(_ event: Event) {
@@ -211,15 +214,23 @@ extension Desk {
             }
         case .moveTimeout:
             direction = .stopped
+        case .deviceStatus(let isOnline):
+            // TODO
+            break
         }
     }
     
     private func updateHeight() {
-        getHeight { [weak self] (height, error) in
+        getHeight { [weak self] (height, isConnected, error) in
             if let newHeight = height, self?.height != Int32(newHeight) {
                 self?.height = Int32(newHeight)
             }
+            
         }
+    }
+    
+    private func updateDeviceStatus() {
+        
     }
 }
 
@@ -234,15 +245,15 @@ extension Desk {
         }
     }
     
-    func getHeight(_ completionHandler: @escaping (_ height: Int?, _ error: Error?) -> Void) {
+    func getHeight(_ completionHandler: @escaping (_ height: Int?, _ isOnline: Bool?, _ error: Error?) -> Void) {
         let url = self.baseURL.appendingPathComponent("getHeight")
         _ = Alamofire.request(url, method: .post, headers: headers)
             .responseObject { (response: DataResponse<GetHeightResponse>) in
                 switch response.result {
                 case .success(let response):
-                    completionHandler(response.height, nil)
+                    completionHandler(response.height, response.isOnline, nil)
                 case .failure(let error):
-                    completionHandler(nil, error)
+                    completionHandler(nil, nil, error)
                 }
         }
     }
@@ -251,17 +262,21 @@ extension Desk {
 
 private final class GetHeightResponse: ResponseObjectSerializable {
     let height: Int
+    let isOnline: Bool
     init?(response: HTTPURLResponse, representation: Any) {
-        if let height = (representation as AnyObject).value(forKeyPath: "return_value") as? Int {
-            self.height = height
-        } else {
-            height = 0
+        guard
+            let height = (representation as AnyObject).value(forKeyPath: "return_value") as? Int,
+            let isOnline = (representation as AnyObject).value(forKeyPath: "connected") as? Bool
+        else {
             return nil
         }
+        self.height = height
+        self.isOnline = isOnline
     }
 }
 
 private enum DeskEvent {
+    case deviceStatus(Bool)
     case movingDown
     case movingUp
     case targetReached
@@ -270,6 +285,10 @@ private enum DeskEvent {
     
     init?(sparkEvent: SparkEvent) {
         switch sparkEvent.event {
+        case "spark/status" where sparkEvent.data == "online":
+            self = .deviceStatus(true)
+        case "spark/status" where sparkEvent.data == "offline":
+            self = .deviceStatus(false)
         case "movingdown":
             self = .movingDown
         case "movingup":
