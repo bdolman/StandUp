@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreData
+import Alamofire
 
 @objc(Desk)
 public class Desk: NSManagedObject {
@@ -25,9 +26,39 @@ public class Desk: NSManagedObject {
     
     var connectionError: Error?
     
+    private var source: EventSource?
+    
     public override func awakeFromInsert() {
         super.awakeFromInsert()
         setPrimitiveValue(nextOrderValue(), forKey: "order")
+    }
+    
+    public override func awakeFromFetch() {
+        super.awakeFromFetch()
+        if Thread.current.isMainThread, source == nil {
+            startEventObserver()
+        }
+    }
+    
+    public override func didSave() {
+        super.didSave()
+        if Thread.current.isMainThread, !isDeleted, source == nil {
+            startEventObserver()
+        }
+    }
+    
+    public override func willSave() {
+        super.willSave()
+        if Thread.current.isMainThread, changedValues().keys.contains("accessToken"), source != nil {
+            stopEventObserver()
+        }
+    }
+    
+    public override func prepareForDeletion() {
+        super.prepareForDeletion()
+        if Thread.current.isMainThread {
+            stopEventObserver()
+        }
     }
     
     private func nextOrderValue() -> Int32 {
@@ -71,5 +102,190 @@ extension Desk {
             statusString = "Disconnected"
         }
         return statusString
+    }
+}
+
+extension Desk {
+    private var baseURL: URL {
+        let host = URL(string: "https://api.particle.io")!
+        let base = host.appendingPathComponent("/v1/devices/\(self.deviceID)")
+        return base
+    }
+    
+    private var headers: [String: String] {
+        return [
+            "Authorization" : "Bearer \(self.accessToken)"
+        ]
+    }
+    
+    private func stopEventObserver() {
+        let oldSource = source
+        source = nil
+        oldSource?.close()
+        
+        connectionError = nil
+        connectionState = .closed
+        direction = .stopped
+    }
+    
+    private func startEventObserver() {
+        stopEventObserver()
+        connectionState = .connecting
+        
+        let url = baseURL.appendingPathComponent("events")
+        let newSource = EventSource(url: url, timeoutInterval: 30.0,
+                                    queue: DispatchQueue.main, accessToken: accessToken)
+        source = newSource
+        let handler: EventSourceEventHandler = {[weak self, weak newSource] (event: Event!) -> Void in
+            guard self?.source == newSource else { return } // Source has changed
+            self?.handleEvent(event)
+        }
+        newSource?.onOpen(handler)
+        newSource?.onError(handler)
+        newSource?.onMessage(handler)
+    }
+    
+    private func handleEvent(_ event: Event) {
+        updateConnectionState(fromEventState: event.readyState, error: event.error)
+        
+        guard let data = event.data else {
+            if let error = event.error {
+                NSLog("Event error \(error)")
+            }
+            return
+        }
+        do {
+            let obj = try JSONSerialization.jsonObject(with: data, options: [])
+            guard var dict = obj as? [String:AnyObject] else {
+                NSLog("Invalid event data")
+                return
+            }
+            if let eventName = event.name {
+                dict["event"] = eventName as AnyObject
+            }
+            if let sparkEvent = SparkEvent(eventDict: dict) {
+                handleSparkEvent(sparkEvent)
+            }
+        } catch {
+            NSLog("Event parse error \(error)")
+        }
+    }
+    
+    private func updateConnectionState(fromEventState eventState: EventState, error: Error?) {
+        let newState: ConnectionState
+        var newError: Error?
+        
+        switch eventState {
+        case kEventStateConnecting:
+            newState = .connecting
+        case kEventStateOpen:
+            newState = .open
+        default:
+            newError = error
+            newState = .closed
+        }
+        self.connectionError = newError
+        if newState != connectionState {
+            connectionState = newState
+        }
+    }
+    
+    private func handleSparkEvent(_ event: SparkEvent) {
+        if let deskEvent = DeskEvent(sparkEvent: event) {
+            handleDeskEvent(deskEvent)
+        }
+    }
+    
+    private func handleDeskEvent(_ event: DeskEvent) {
+        NSLog("\(event)")
+        switch event {
+        case .movingDown:
+            direction = .down
+        case .movingUp:
+            direction = .up
+        case .targetReached:
+            direction = .stopped
+        case .height(let height):
+            if self.height != height {
+                self.height = Int32(height)
+            }
+        case .moveTimeout:
+            direction = .stopped
+        }
+    }
+    
+    private func updateHeight() {
+        getHeight { [weak self] (height, error) in
+            if let newHeight = height, self?.height != Int32(newHeight) {
+                self?.height = Int32(newHeight)
+            }
+        }
+    }
+}
+
+extension Desk {
+    func setHeight(_ heightInCms: Int, completionHandler: @escaping (_ error: Error?) -> Void) {
+        let url = self.baseURL.appendingPathComponent("setHeight")
+        let params = ["arg" : heightInCms]
+        Alamofire
+            .request(url, method: .post, parameters: params, headers: headers)
+            .response { (response) in
+                completionHandler(response.error)
+        }
+    }
+    
+    func getHeight(_ completionHandler: @escaping (_ height: Int?, _ error: Error?) -> Void) {
+        let url = self.baseURL.appendingPathComponent("getHeight")
+        _ = Alamofire.request(url, method: .post, headers: headers)
+            .responseObject { (response: DataResponse<GetHeightResponse>) in
+                switch response.result {
+                case .success(let response):
+                    completionHandler(response.height, nil)
+                case .failure(let error):
+                    completionHandler(nil, error)
+                }
+        }
+    }
+}
+
+
+private final class GetHeightResponse: ResponseObjectSerializable {
+    let height: Int
+    init?(response: HTTPURLResponse, representation: Any) {
+        if let height = (representation as AnyObject).value(forKeyPath: "return_value") as? Int {
+            self.height = height
+        } else {
+            height = 0
+            return nil
+        }
+    }
+}
+
+private enum DeskEvent {
+    case movingDown
+    case movingUp
+    case targetReached
+    case height(Int)
+    case moveTimeout
+    
+    init?(sparkEvent: SparkEvent) {
+        switch sparkEvent.event {
+        case "movingdown":
+            self = .movingDown
+        case "movingup":
+            self = .movingUp
+        case "height":
+            if let heightValue = Int(sparkEvent.data) {
+                self = .height(heightValue)
+            } else {
+                return nil
+            }
+        case "targetreached":
+            self = .targetReached
+        case "movetimeout":
+            self = .moveTimeout
+        default:
+            return nil
+        }
     }
 }
