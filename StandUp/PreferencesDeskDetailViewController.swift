@@ -33,18 +33,17 @@ class PreferencesDeskDetailViewController: NSViewController {
         observers.removeAll()
         guard let desk = desk else { return }
         
-        observers.append(desk.observe(\.name, changeHandler: { [weak self] (desk, change) in
-            self?.updateName()
-        }))
-        observers.append(desk.observe(\.height, changeHandler: { [weak self] (desk, change) in
-            self?.updateStatus()
-        }))
-        observers.append(desk.observe(\.connectionState, changeHandler: { [weak self] (desk, change) in
-            self?.updateStatus()
-        }))
-        observers.append(desk.observe(\.isOnline, changeHandler: { [weak self] (desk, change) in
-            self?.updateStatus()
-        }))
+        let changeHandler = { [weak self] (desk: Desk, _: Any) -> Void in
+            self?.reloadData()
+        }
+        
+        observers.append(contentsOf: [
+            desk.observe(\.name, changeHandler: changeHandler),
+            desk.observe(\.height, changeHandler: changeHandler),
+            desk.observe(\.connectionState, changeHandler: changeHandler),
+            desk.observe(\.connectionError, changeHandler: changeHandler),
+            desk.observe(\.isOnline, changeHandler: changeHandler)
+        ])
     }
     
     private func updateName() {

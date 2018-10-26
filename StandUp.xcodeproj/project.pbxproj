@@ -16,6 +16,8 @@
 		B51008BE1BFD348100206391 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51008BD1BFD348100206391 /* Settings.swift */; };
 		B51008C01BFD39D100206391 /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51008BF1BFD39D000206391 /* Auth.swift */; };
 		B51008C21BFD3FFA00206391 /* Desks.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51008C11BFD3FFA00206391 /* Desks.swift */; };
+		B512670821838D6600223052 /* StatusItemManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B512670721838D6600223052 /* StatusItemManager.swift */; };
+		B512670A218391DF00223052 /* MenuManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5126709218391DF00223052 /* MenuManager.swift */; };
 		B5127D3D1BFDA1E80072FB39 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5127D3C1BFDA1E80072FB39 /* AppDelegate.swift */; };
 		B5127D3F1BFDA1E80072FB39 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B5127D3E1BFDA1E80072FB39 /* Assets.xcassets */; };
 		B5127D421BFDA1E80072FB39 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = B5127D401BFDA1E80072FB39 /* MainMenu.xib */; };
@@ -71,6 +73,8 @@
 		B51008BD1BFD348100206391 /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		B51008BF1BFD39D000206391 /* Auth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Auth.swift; sourceTree = "<group>"; };
 		B51008C11BFD3FFA00206391 /* Desks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Desks.swift; sourceTree = "<group>"; };
+		B512670721838D6600223052 /* StatusItemManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusItemManager.swift; sourceTree = "<group>"; };
+		B5126709218391DF00223052 /* MenuManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuManager.swift; sourceTree = "<group>"; };
 		B5127D3A1BFDA1E80072FB39 /* StandUp Helper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "StandUp Helper.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5127D3C1BFDA1E80072FB39 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B5127D3E1BFDA1E80072FB39 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -232,6 +236,8 @@
 				B52FD3A4217E69830032AED0 /* DeskStatic.swift */,
 				B52FD3A6217E7D820032AED0 /* PreferencesDeskTableViewCell.swift */,
 				B5164167217FEDA1008150A6 /* LoginItemHelper.swift */,
+				B512670721838D6600223052 /* StatusItemManager.swift */,
+				B5126709218391DF00223052 /* MenuManager.swift */,
 			);
 			path = StandUp;
 			sourceTree = "<group>";
@@ -423,6 +429,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B512670A218391DF00223052 /* MenuManager.swift in Sources */,
 				B53815BF1BFB0E4500CB13AE /* HotKey.m in Sources */,
 				B53815B51BFB0B3D00CB13AE /* DDHotKeyTextField.m in Sources */,
 				B51008BB1BFD2AAF00206391 /* PrefsPresetsController.swift in Sources */,
@@ -438,6 +445,7 @@
 				B5F7DD531BFBE26400ABE7E5 /* DeviceOld.swift in Sources */,
 				B51008B61BFD2A8100206391 /* PrefsViewController.swift in Sources */,
 				B57DB0AB218147C700B6E579 /* Desk+CoreDataClass.swift in Sources */,
+				B512670821838D6600223052 /* StatusItemManager.swift in Sources */,
 				B5FB13131BFC4FD700F91B8B /* MenuHandler.swift in Sources */,
 				B51008BE1BFD348100206391 /* Settings.swift in Sources */,
 				B5164168217FEDA1008150A6 /* LoginItemHelper.swift in Sources */,

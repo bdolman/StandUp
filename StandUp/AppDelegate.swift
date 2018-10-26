@@ -27,8 +27,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     private var persistentContainer: NSPersistentContainer?
     private let settings = Settings()
     private var menuHandler: MenuHandler?
+    private var statusItemManager: StatusItemManager?
     private var prefsController: PrefsWindowController? = nil
-    private let statusItem: NSStatusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         loadPersistentContainer()
@@ -64,6 +64,7 @@ extension AppDelegate {
     private func didLoad(persistentContainer: NSPersistentContainer) {
         self.persistentContainer = persistentContainer
         
+        ensureActiveDesk()
         loadAllDesks()
         updateLoginState()
         
@@ -73,7 +74,6 @@ extension AppDelegate {
         registerGlobalShortcutHandlers()
         
         setupStatusItem()
-        updateStatusIcon()
         
         showPreferences()
     }
@@ -100,19 +100,28 @@ extension AppDelegate {
     }
 }
 
+// MARK: - Active Desk
+extension AppDelegate {
+    private func ensureActiveDesk() {
+        guard let context = persistentContainer?.viewContext else { return }
+        let globals = Globals.globalsIn(context)
+        if globals.activeDesk == nil {
+            let fetchRequest: NSFetchRequest<Desk> = Desk.fetchRequest()
+            fetchRequest.sortDescriptors = [Desk.sortOrder(ascending: true)]
+            if let firstDesk = try? context.fetch(fetchRequest).first {
+                globals.activeDesk = firstDesk
+                try! context.save()
+            }
+        }
+    }
+}
+
 // MARK: - Status Icon
 extension AppDelegate {
     private func setupStatusItem() {
-        statusItem.menu = menuHandler?.menu
-    }
-    
-    private func updateStatusIcon() {
-        // TODO
-//        if let image = desk?.state?.image {
-//            statusItem.button?.image = image
-//        } else {
-//            statusItem.button?.image = DeskState.raising.image
-//        }
+        guard let context = persistentContainer?.viewContext else { return }
+        let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
+        statusItemManager = StatusItemManager(statusItem: statusItem, managedObjectContext: context)
     }
 }
 

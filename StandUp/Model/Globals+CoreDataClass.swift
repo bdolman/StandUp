@@ -23,7 +23,7 @@ public class Globals: NSManagedObject {
     
     private class func ensureGlobalsIn(_ context: NSManagedObjectContext) -> Globals {
          let fetchRequest: NSFetchRequest<Globals> = Globals.fetchRequest()
-        if let globals = try! fetchRequest.execute().first {
+        if let globals = try! context.fetch(fetchRequest).first {
             return globals
         } else {
             let globals = Globals(entity: Globals.entity(), insertInto: context)

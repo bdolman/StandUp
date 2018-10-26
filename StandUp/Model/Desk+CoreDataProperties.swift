@@ -24,5 +24,6 @@ extension Desk {
     @NSManaged public var isOnline: Bool
     @NSManaged public var direction: Direction
     @NSManaged public var connectionState: ConnectionState
+    @NSManaged public var connectionError: Error?
 
 }
