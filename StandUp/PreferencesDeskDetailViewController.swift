@@ -42,6 +42,9 @@ class PreferencesDeskDetailViewController: NSViewController {
         observers.append(desk.observe(\.connectionState, changeHandler: { [weak self] (desk, change) in
             self?.updateStatus()
         }))
+        observers.append(desk.observe(\.isOnline, changeHandler: { [weak self] (desk, change) in
+            self?.updateStatus()
+        }))
     }
     
     private func updateName() {
@@ -54,8 +57,8 @@ class PreferencesDeskDetailViewController: NSViewController {
         
         let statusString = desk.connectionStatusString
         var heightString: String = ""
-        switch (desk.connectionState, desk.connectionError) {
-        case (.open, _):
+        switch (desk.connectionState, desk.isOnline) {
+        case (.open, true):
             heightString = "\(desk.height) cm"
         default:
             break

@@ -86,19 +86,21 @@ extension Desk {
 extension Desk {
     var connectionStatusString: String {
         var statusString: String
-        switch (connectionState, connectionError) {
-        case (.connecting, _):
+        switch (connectionState, isOnline, connectionError) {
+        case (.connecting, _, _):
             statusString = "Connecting..."
-        case (.open, _):
+        case (.open, true, _):
             statusString = "Connected"
-        case (.closed, .some(let error)):
+        case (.open, false, _):
+            statusString = "Offline"
+        case (.closed, _, .some(let error)):
             statusString = "Error"
             if (error as NSError).domain == NSURLErrorDomain {
                 if (error as NSError).code == NSURLErrorNotConnectedToInternet {
                     statusString = "No internet connection"
                 }
             }
-        case (.closed, .none):
+        case (.closed, _, .none):
             statusString = "Disconnected"
         }
         return statusString
@@ -215,22 +217,19 @@ extension Desk {
         case .moveTimeout:
             direction = .stopped
         case .deviceStatus(let isOnline):
-            // TODO
-            break
+            self.isOnline = isOnline
         }
     }
     
     private func updateHeight() {
-        getHeight { [weak self] (height, isConnected, error) in
+        getHeight { [weak self] (height, isOnline, error) in
             if let newHeight = height, self?.height != Int32(newHeight) {
                 self?.height = Int32(newHeight)
             }
-            
+            if let newIsOnline = isOnline, self?.isOnline != newIsOnline {
+                self?.isOnline = newIsOnline
+            }
         }
-    }
-    
-    private func updateDeviceStatus() {
-        
     }
 }
 
