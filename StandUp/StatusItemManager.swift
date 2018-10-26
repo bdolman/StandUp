@@ -8,9 +8,14 @@
 
 import Cocoa
 
+protocol StatusItemManagerDelegate: NSObjectProtocol {
+    func statusItemManagerWantsPreferences(_ statusItemManager: StatusItemManager, forDesk desk: Desk?)
+}
+
 class StatusItemManager: NSObject {
     let statusItem: NSStatusItem
     let managedObjectContext: NSManagedObjectContext
+    weak var delegate: StatusItemManagerDelegate? = nil
     
     private let menuManager: MenuManager
     private var activeDesk: Desk?
@@ -27,6 +32,7 @@ class StatusItemManager: NSObject {
         
         super.init()
         
+        menuManager.delegate = self
         setupActiveDeskObserver()
         updateActiveDesk()
     }
@@ -78,5 +84,11 @@ class StatusItemManager: NSObject {
             }
         }
         statusItem.button?.image = image
+    }
+}
+
+extension StatusItemManager: MenuManagerDelegate {
+    func menuManagerWantsPreferences(_ menuManager: MenuManager, forDesk desk: Desk?) {
+        delegate?.statusItemManagerWantsPreferences(self, forDesk: desk)
     }
 }

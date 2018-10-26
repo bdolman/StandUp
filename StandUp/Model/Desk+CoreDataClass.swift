@@ -29,6 +29,9 @@ public class Desk: NSManagedObject {
     public override func awakeFromInsert() {
         super.awakeFromInsert()
         setPrimitiveValue(nextOrderValue(), forKey: "order")
+        if let context = managedObjectContext {
+            Desk.ensureActiveDesk(inContext: context)
+        }
     }
     
     public override func awakeFromFetch() {
@@ -56,6 +59,9 @@ public class Desk: NSManagedObject {
         super.prepareForDeletion()
         if Thread.current.isMainThread {
             stopEventObserver()
+        }
+        if let context = managedObjectContext {
+            Desk.ensureActiveDesk(inContext: context)
         }
     }
     
@@ -135,15 +141,19 @@ extension Desk {
         
         let url = baseURL.appendingPathComponent("events")
         let newSource = EventSource(url: url, timeoutInterval: 10.0,
-                                    queue: DispatchQueue.main, accessToken: accessToken)
+                                    queue: DispatchQueue.global(qos: .background), accessToken: accessToken)
         source = newSource
         let handler: EventSourceEventHandler = {[weak self, weak newSource] (event: Event!) -> Void in
-            guard self?.source == newSource else { return } // Source has changed
-            self?.handleEvent(event)
+            DispatchQueue.main.async {
+                guard self?.source == newSource else { return } // Source has changed
+                self?.handleEvent(event)
+            }
         }
         newSource?.onOpen({ [weak self] (event) in
             handler(event)
-            self?.updateHeight()
+            DispatchQueue.main.async {
+                self?.updateHeight()
+            }
         })
         newSource?.onError(handler)
         newSource?.onMessage(handler)
@@ -190,7 +200,9 @@ extension Desk {
             newError = error
             newState = .closed
         }
-        self.connectionError = newError
+        if newError as NSError? != connectionError as NSError? {
+            connectionError = newError
+        }
         if newState != connectionState {
             connectionState = newState
         }
@@ -204,20 +216,33 @@ extension Desk {
     
     private func handleDeskEvent(_ event: DeskEvent) {
         NSLog("\(event)")
+        
+        var newDirection: Direction?
+        var newHeight: Int32?
+        var newIsOnline: Bool?
+        
         switch event {
         case .movingDown:
-            direction = .down
+            newDirection = .down
         case .movingUp:
-            direction = .up
+            newDirection = .up
         case .targetReached:
-            direction = .stopped
+            newDirection = .stopped
         case .height(let height):
-            if self.height != height {
-                self.height = Int32(height)
-            }
+            newHeight = Int32(height)
         case .moveTimeout:
-            direction = .stopped
+            newDirection = .stopped
         case .deviceStatus(let isOnline):
+            newIsOnline = isOnline
+        }
+        
+        if let direction = newDirection, self.direction != direction {
+            self.direction = direction
+        }
+        if let height = newHeight, self.height != height {
+            self.height = height
+        }
+        if let isOnline = newIsOnline, self.isOnline != isOnline {
             self.isOnline = isOnline
         }
     }
@@ -255,6 +280,19 @@ extension Desk {
                 case .failure(let error):
                     completionHandler(nil, nil, error)
                 }
+        }
+    }
+}
+
+extension Desk {
+    class func ensureActiveDesk(inContext context: NSManagedObjectContext) {
+        let globals = Globals.globalsIn(context)
+        if globals.activeDesk == nil || globals.activeDesk?.isDeleted == true {
+            let fetchRequest: NSFetchRequest<Desk> = Desk.fetchRequest()
+            fetchRequest.sortDescriptors = [Desk.sortOrder(ascending: true)]
+            if let firstDesk = try? context.fetch(fetchRequest).first(where: {!$0.isDeleted}) {
+                globals.activeDesk = firstDesk
+            }
         }
     }
 }

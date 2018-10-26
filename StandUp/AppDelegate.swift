@@ -64,7 +64,6 @@ extension AppDelegate {
     private func didLoad(persistentContainer: NSPersistentContainer) {
         self.persistentContainer = persistentContainer
         
-        ensureActiveDesk()
         loadAllDesks()
         updateLoginState()
         
@@ -100,28 +99,13 @@ extension AppDelegate {
     }
 }
 
-// MARK: - Active Desk
-extension AppDelegate {
-    private func ensureActiveDesk() {
-        guard let context = persistentContainer?.viewContext else { return }
-        let globals = Globals.globalsIn(context)
-        if globals.activeDesk == nil {
-            let fetchRequest: NSFetchRequest<Desk> = Desk.fetchRequest()
-            fetchRequest.sortDescriptors = [Desk.sortOrder(ascending: true)]
-            if let firstDesk = try? context.fetch(fetchRequest).first {
-                globals.activeDesk = firstDesk
-                try! context.save()
-            }
-        }
-    }
-}
-
 // MARK: - Status Icon
 extension AppDelegate {
     private func setupStatusItem() {
         guard let context = persistentContainer?.viewContext else { return }
         let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.squareLength)
         statusItemManager = StatusItemManager(statusItem: statusItem, managedObjectContext: context)
+        statusItemManager?.delegate = self
     }
 }
 
@@ -134,7 +118,7 @@ extension AppDelegate {
 
 // MARK: - Preferences Window
 extension AppDelegate {
-    private func showPreferences() {
+    private func showPreferences(selectDesk: Desk? = nil) {
         if prefsController == nil {
             let storyboard = NSStoryboard(name: "Preferences", bundle: Bundle.main)
             prefsController = storyboard.instantiateInitialController() as? PrefsWindowController
@@ -146,6 +130,10 @@ extension AppDelegate {
         prefsController?.showWindow(self)
         prefsController?.window?.makeKeyAndOrderFront(self)
         NSApp.activate(ignoringOtherApps: true)
+        
+        if let desk = selectDesk {
+            prefsController?.selectDesk(desk: desk)
+        }
     }
     
     @objc func prefsClosed(_ notification: Notification) {
@@ -161,3 +149,8 @@ extension AppDelegate: MenuHandlerDelegate {
     }
 }
 
+extension AppDelegate: StatusItemManagerDelegate {
+    func statusItemManagerWantsPreferences(_ statusItemManager: StatusItemManager, forDesk desk: Desk?) {
+        showPreferences(selectDesk: desk)
+    }
+}
