@@ -63,6 +63,7 @@ class PreferencesViewController: NSViewController {
         managedObjectContext.delete(desk)
         try! managedObjectContext.save()
         
+        
         if fetchedResultsController.fetchedObjects!.count > 0 {
             let newSelectedIndex = min(0, selectedIndexPath.item - 1)
             deskTableView.selectRowIndexes(IndexSet(integer: newSelectedIndex), byExtendingSelection: false)
@@ -90,6 +91,12 @@ class PreferencesViewController: NSViewController {
             
             deskDetailBox.isHidden = true
             emptyStateBox.isHidden = false
+        }
+    }
+    
+    func selectDesk(desk: Desk) {
+        if let selectedIndex = fetchedResultsController.indexPath(forObject: desk) {
+            deskTableView.selectRowIndexes(IndexSet(integer: selectedIndex.item), byExtendingSelection: false)
         }
     }
 }

@@ -20,4 +20,8 @@ class PrefsWindowController: NSWindowController {
         }
         super.showWindow(sender)
     }
+    
+    func selectDesk(desk: Desk) {
+        (contentViewController as? PreferencesViewController)?.selectDesk(desk: desk)
+    }
 }
