@@ -24,8 +24,6 @@ public class Desk: NSManagedObject {
         case open
     }
     
-    var connectionError: Error?
-    
     private var source: EventSource?
     
     public override func awakeFromInsert() {
@@ -136,14 +134,17 @@ extension Desk {
         connectionState = .connecting
         
         let url = baseURL.appendingPathComponent("events")
-        let newSource = EventSource(url: url, timeoutInterval: 30.0,
+        let newSource = EventSource(url: url, timeoutInterval: 10.0,
                                     queue: DispatchQueue.main, accessToken: accessToken)
         source = newSource
         let handler: EventSourceEventHandler = {[weak self, weak newSource] (event: Event!) -> Void in
             guard self?.source == newSource else { return } // Source has changed
             self?.handleEvent(event)
         }
-        newSource?.onOpen(handler)
+        newSource?.onOpen({ [weak self] (event) in
+            handler(event)
+            self?.updateHeight()
+        })
         newSource?.onError(handler)
         newSource?.onMessage(handler)
         
