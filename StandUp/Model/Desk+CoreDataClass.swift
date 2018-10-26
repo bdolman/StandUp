@@ -92,7 +92,7 @@ extension Desk {
         case (.open, true, _):
             statusString = "Connected"
         case (.open, false, _):
-            statusString = "Offline"
+            statusString = "Device is offline"
         case (.closed, _, .some(let error)):
             statusString = "Error"
             if (error as NSError).domain == NSURLErrorDomain {
