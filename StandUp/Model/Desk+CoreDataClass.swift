@@ -36,6 +36,7 @@ public class Desk: NSManagedObject {
         if let context = managedObjectContext {
             Desk.ensureActiveDesk(inContext: context)
         }
+        setInitialPresets()
     }
     
     public override func awakeFromFetch() {
@@ -70,6 +71,24 @@ public class Desk: NSManagedObject {
         if let context = managedObjectContext {
             Desk.ensureActiveDesk(inContext: context)
         }
+    }
+    
+    private func setInitialPresets() {
+        guard let context = managedObjectContext else { return }
+        
+        let sitPreset = Preset(context: context)
+        sitPreset.order = 0
+        sitPreset.height = 60
+        sitPreset.name = "Sit"
+        
+        let standPreset = Preset(context: context)
+        standPreset.order = 1
+        standPreset.height = 100
+        standPreset.name = "Stand"
+        
+        let initialPresets = Set([sitPreset, standPreset])
+        initialPresets.forEach({$0.setPrimitiveValue(self, forKey: "desk")})
+        setPrimitiveValue(initialPresets, forKey: "presets")
     }
     
     private func nextOrderValue() -> Int32 {

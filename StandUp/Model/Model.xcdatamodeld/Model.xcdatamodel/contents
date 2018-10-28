@@ -11,7 +11,7 @@
         <attribute name="name" attributeType="String" syncable="YES"/>
         <attribute name="order" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <relationship name="globalsActiveDesk" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Globals" inverseName="activeDesk" inverseEntity="Globals" syncable="YES"/>
-        <relationship name="presets" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Preset" inverseName="desk" inverseEntity="Preset" syncable="YES"/>
+        <relationship name="presets" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Preset" inverseName="desk" inverseEntity="Preset" syncable="YES"/>
     </entity>
     <entity name="Globals" representedClassName="Globals" syncable="YES" codeGenerationType="category">
         <relationship name="activeDesk" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Desk" inverseName="globalsActiveDesk" inverseEntity="Desk" syncable="YES"/>

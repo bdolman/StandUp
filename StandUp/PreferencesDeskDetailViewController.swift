@@ -31,10 +31,9 @@ class PreferencesDeskDetailViewController: NSViewController {
     private var presetsFetchedResultsController: NSFetchedResultsController<Preset>?
 
     private func createPresetsFetchedResultsController() {
-        guard let desk = desk else {
-            presetsFetchedResultsController = nil
-            return
-        }
+        presetsFetchedResultsController?.delegate = nil
+        presetsFetchedResultsController = nil
+        guard let desk = desk else { return }
         let fetchRequest: NSFetchRequest<Preset> = Preset.fetchRequest()
         fetchRequest.predicate = NSPredicate(format: "desk == %@", desk)
         fetchRequest.sortDescriptors = [Preset.sortOrder(ascending: true)]
