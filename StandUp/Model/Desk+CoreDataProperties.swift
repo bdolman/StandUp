@@ -25,5 +25,7 @@ extension Desk {
     @NSManaged public var direction: Direction
     @NSManaged public var connectionState: ConnectionState
     @NSManaged public var connectionError: Error?
+    
+    @NSManaged public var presets: Set<Preset>
 
 }

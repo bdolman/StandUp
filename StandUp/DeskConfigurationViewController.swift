@@ -65,7 +65,7 @@ class DeskConfigurationViewController: NSViewController {
     }
     
     @IBAction func saveButtonClicked(_ sender: Any) {
-        let savedDesk = desk ?? Desk(entity: Desk.entity(), insertInto: managedObjectContext)
+        let savedDesk = desk ?? Desk(context: managedObjectContext)
         if savedDesk.deviceID != deviceID {
             savedDesk.deviceID = deviceID
         }

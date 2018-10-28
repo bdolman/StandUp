@@ -18,6 +18,7 @@
 		B51008C21BFD3FFA00206391 /* Desks.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51008C11BFD3FFA00206391 /* Desks.swift */; };
 		B512670821838D6600223052 /* StatusItemManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B512670721838D6600223052 /* StatusItemManager.swift */; };
 		B512670A218391DF00223052 /* MenuManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5126709218391DF00223052 /* MenuManager.swift */; };
+		B512670E2185766B00223052 /* Preset+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = B512670C2185766A00223052 /* Preset+CoreDataClass.swift */; };
 		B5127D3D1BFDA1E80072FB39 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5127D3C1BFDA1E80072FB39 /* AppDelegate.swift */; };
 		B5127D3F1BFDA1E80072FB39 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B5127D3E1BFDA1E80072FB39 /* Assets.xcassets */; };
 		B5127D421BFDA1E80072FB39 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = B5127D401BFDA1E80072FB39 /* MainMenu.xib */; };
@@ -75,6 +76,7 @@
 		B51008C11BFD3FFA00206391 /* Desks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Desks.swift; sourceTree = "<group>"; };
 		B512670721838D6600223052 /* StatusItemManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusItemManager.swift; sourceTree = "<group>"; };
 		B5126709218391DF00223052 /* MenuManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuManager.swift; sourceTree = "<group>"; };
+		B512670C2185766A00223052 /* Preset+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Preset+CoreDataClass.swift"; path = "/Users/ben/Developer/StandUp/StandUp/Model/Preset+CoreDataClass.swift"; sourceTree = "<absolute>"; };
 		B5127D3A1BFDA1E80072FB39 /* StandUp Helper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "StandUp Helper.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5127D3C1BFDA1E80072FB39 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B5127D3E1BFDA1E80072FB39 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -175,6 +177,7 @@
 		B52B8CEA21813034004004B4 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				B512670C2185766A00223052 /* Preset+CoreDataClass.swift */,
 				B57DB0AD2181623A00B6E579 /* Globals+CoreDataClass.swift */,
 				B57DB0A9218147C700B6E579 /* Desk+CoreDataClass.swift */,
 				B57DB0AA218147C700B6E579 /* Desk+CoreDataProperties.swift */,
@@ -441,6 +444,7 @@
 				B53815B41BFB0B3D00CB13AE /* DDHotKeyCenter.m in Sources */,
 				B529D189217945BA000442AA /* PreferencesDeskDetailViewController.swift in Sources */,
 				B51008C01BFD39D100206391 /* Auth.swift in Sources */,
+				B512670E2185766B00223052 /* Preset+CoreDataClass.swift in Sources */,
 				B529D18D21794D5C000442AA /* DeskConfigurationViewController.swift in Sources */,
 				B5F7DD531BFBE26400ABE7E5 /* DeviceOld.swift in Sources */,
 				B51008B61BFD2A8100206391 /* PrefsViewController.swift in Sources */,
