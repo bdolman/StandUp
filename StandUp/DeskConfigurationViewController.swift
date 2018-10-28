@@ -90,7 +90,6 @@ extension DeskConfigurationViewController {
     
     private func validateData() {
         saveButton.isEnabled = isDataValid
-        deviceIDField.isEnabled = desk == nil
     }
 }
 
