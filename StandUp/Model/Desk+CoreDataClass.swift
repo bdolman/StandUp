@@ -54,7 +54,10 @@ public class Desk: NSManagedObject {
     
     public override func willSave() {
         super.willSave()
-        if Thread.current.isMainThread, changedValues().keys.contains("accessToken"), source != nil {
+        if Thread.current.isMainThread,
+            changedValues().keys.contains("accessToken") ||  changedValues().keys.contains("deviceID"),
+            source != nil
+        {
             stopEventObserver()
         }
     }

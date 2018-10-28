@@ -33,8 +33,6 @@ class MenuManager: NSObject {
     
     private let deskSelectionMenu = NSMenu()
     private var activeDesk: Desk?
-    private var activeDeskObserver: NSKeyValueObservation?
-    private var deskObservers = [NSKeyValueObservation]()
     
     init(menu: NSMenu, managedObjectContext: NSManagedObjectContext) {
         self.menu = menu
