@@ -19,6 +19,7 @@
 		B512670821838D6600223052 /* StatusItemManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B512670721838D6600223052 /* StatusItemManager.swift */; };
 		B512670A218391DF00223052 /* MenuManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5126709218391DF00223052 /* MenuManager.swift */; };
 		B512670E2185766B00223052 /* Preset+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = B512670C2185766A00223052 /* Preset+CoreDataClass.swift */; };
+		B512671021865F8700223052 /* Notification+CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B512670F21865F8700223052 /* Notification+CoreData.swift */; };
 		B5127D3D1BFDA1E80072FB39 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5127D3C1BFDA1E80072FB39 /* AppDelegate.swift */; };
 		B5127D3F1BFDA1E80072FB39 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B5127D3E1BFDA1E80072FB39 /* Assets.xcassets */; };
 		B5127D421BFDA1E80072FB39 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = B5127D401BFDA1E80072FB39 /* MainMenu.xib */; };
@@ -77,6 +78,7 @@
 		B512670721838D6600223052 /* StatusItemManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusItemManager.swift; sourceTree = "<group>"; };
 		B5126709218391DF00223052 /* MenuManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuManager.swift; sourceTree = "<group>"; };
 		B512670C2185766A00223052 /* Preset+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Preset+CoreDataClass.swift"; path = "/Users/ben/Developer/StandUp/StandUp/Model/Preset+CoreDataClass.swift"; sourceTree = "<absolute>"; };
+		B512670F21865F8700223052 /* Notification+CoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification+CoreData.swift"; sourceTree = "<group>"; };
 		B5127D3A1BFDA1E80072FB39 /* StandUp Helper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "StandUp Helper.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5127D3C1BFDA1E80072FB39 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B5127D3E1BFDA1E80072FB39 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -241,6 +243,7 @@
 				B5164167217FEDA1008150A6 /* LoginItemHelper.swift */,
 				B512670721838D6600223052 /* StatusItemManager.swift */,
 				B5126709218391DF00223052 /* MenuManager.swift */,
+				B512670F21865F8700223052 /* Notification+CoreData.swift */,
 			);
 			path = StandUp;
 			sourceTree = "<group>";
@@ -443,6 +446,7 @@
 				B52FD3A7217E7D820032AED0 /* PreferencesDeskTableViewCell.swift in Sources */,
 				B53815B41BFB0B3D00CB13AE /* DDHotKeyCenter.m in Sources */,
 				B529D189217945BA000442AA /* PreferencesDeskDetailViewController.swift in Sources */,
+				B512671021865F8700223052 /* Notification+CoreData.swift in Sources */,
 				B51008C01BFD39D100206391 /* Auth.swift in Sources */,
 				B512670E2185766B00223052 /* Preset+CoreDataClass.swift in Sources */,
 				B529D18D21794D5C000442AA /* DeskConfigurationViewController.swift in Sources */,
