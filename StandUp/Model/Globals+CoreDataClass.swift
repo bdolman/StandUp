@@ -26,7 +26,7 @@ public class Globals: NSManagedObject {
         if let globals = try! context.fetch(fetchRequest).first {
             return globals
         } else {
-            let globals = Globals(entity: Globals.entity(), insertInto: context)
+            let globals = Globals(context: context)
             try! context.save()
             return globals
         }

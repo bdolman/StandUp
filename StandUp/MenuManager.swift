@@ -82,7 +82,7 @@ class MenuManager: NSObject {
         
         if let desk = activeDesk {
             // Active Desk
-            let deskItem = NSMenuItem(title: "Desk: \(desk.name)", action: #selector(ignore(_:)), keyEquivalent: "")
+            let deskItem = NSMenuItem(title: "\(desk.name)", action: #selector(ignore(_:)), keyEquivalent: "")
             deskItem.target = self
             deskItem.tag = ItemType.activeDesk.rawValue
             if fetchedResultsController.sections![0].numberOfObjects > 1 {
@@ -166,9 +166,9 @@ class MenuManager: NSObject {
         switch itemType {
         case .activeDesk:
             if let desk = activeDesk {
-                menuItem.title = "Desk: \(desk.name)"
+                menuItem.title = "\(desk.name)"
             } else {
-                menuItem.title = "Desk: --"
+                menuItem.title = "Desk"
             }
             if fetchedResultsController.sections![0].numberOfObjects > 1 {
                 return true

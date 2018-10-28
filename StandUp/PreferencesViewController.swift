@@ -41,6 +41,7 @@ class PreferencesViewController: NSViewController {
     
     override func viewWillAppear() {
         super.viewWillAppear()
+        deskDetailViewController.managedObjectContext = managedObjectContext
         deskTableView.delegate = self
         deskTableView.dataSource = self
         loadDesks()
@@ -53,6 +54,7 @@ class PreferencesViewController: NSViewController {
             deskConfigController.delegate = self
         }
         if let deskDetailController = segue.destinationController as? PreferencesDeskDetailViewController {
+            deskDetailController.managedObjectContext = managedObjectContext
             deskDetailViewController = deskDetailController
         }
     }

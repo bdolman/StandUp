@@ -11,12 +11,20 @@
         <attribute name="name" attributeType="String" syncable="YES"/>
         <attribute name="order" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <relationship name="globalsActiveDesk" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Globals" inverseName="activeDesk" inverseEntity="Globals" syncable="YES"/>
+        <relationship name="presets" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Preset" inverseName="desk" inverseEntity="Preset" syncable="YES"/>
     </entity>
     <entity name="Globals" representedClassName="Globals" syncable="YES" codeGenerationType="category">
         <relationship name="activeDesk" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Desk" inverseName="globalsActiveDesk" inverseEntity="Desk" syncable="YES"/>
     </entity>
+    <entity name="Preset" representedClassName="Preset" syncable="YES" codeGenerationType="category">
+        <attribute name="height" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="order" optional="YES" attributeType="Integer 32" defaultValueString="-1" usesScalarValueType="YES" syncable="YES"/>
+        <relationship name="desk" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Desk" inverseName="presets" inverseEntity="Desk" syncable="YES"/>
+    </entity>
     <elements>
-        <element name="Desk" positionX="-54" positionY="-9" width="128" height="195"/>
+        <element name="Desk" positionX="-54" positionY="-9" width="128" height="210"/>
         <element name="Globals" positionX="-54" positionY="36" width="128" height="60"/>
+        <element name="Preset" positionX="-45" positionY="72" width="128" height="105"/>
     </elements>
 </model>
