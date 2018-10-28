@@ -14,6 +14,7 @@ private enum ItemType: Int {
     case addDesk
     case desk
     case presetsHeader
+    case preset
     case addPreset
     case height
     case state
@@ -107,16 +108,37 @@ class MenuManager: NSObject {
             menu.addItem(NSMenuItem.separator())
             
             // Presets title
-            let presetsItem = NSMenuItem(title: "Presets", action: #selector(ignore(_:)), keyEquivalent: "")
-            presetsItem.target = self
-            presetsItem.tag = ItemType.presetsHeader.rawValue
-            menu.addItem(presetsItem)
+            let presetsTitleItem = NSMenuItem(title: "Presets:", action: #selector(ignore(_:)), keyEquivalent: "")
+            presetsTitleItem.target = self
+            presetsTitleItem.tag = ItemType.presetsHeader.rawValue
+            menu.addItem(presetsTitleItem)
             
-            // Add a preset
-            let addPresetItem = NSMenuItem(title: "Add a Preset...", action: #selector(addPreset(_:)), keyEquivalent: "")
-            addPresetItem.target = self
-            addPresetItem.tag = ItemType.addPreset.rawValue
-            menu.addItem(addPresetItem)
+            let presetModifierMask = Int(NSEvent.ModifierFlags.shift.rawValue | NSEvent.ModifierFlags.control.rawValue)
+            desk.orderedPresets.enumerated().forEach { (index, preset) in
+                let presetNum = index + 1
+                var title = preset.name ?? ""
+                if title.isEmpty {
+                    title = "Preset #\(presetNum)"
+                }
+                var keyEquivalent = ""
+                if presetNum < 10 {
+                    keyEquivalent = "\(presetNum)"
+                }
+                let presetItem = NSMenuItem(title: title, action: #selector(activatePreset(_:)), keyEquivalent: keyEquivalent)
+                presetItem.target = self
+                presetItem.tag = ItemType.preset.rawValue
+                presetItem.representedObject = preset
+                presetItem.keyEquivalentModifierMask = NSEvent.ModifierFlags(rawValue: UInt(presetModifierMask))
+                menu.addItem(presetItem)
+            }
+            
+            if desk.presets.count == 0 {
+                // Add a preset
+                let addPresetItem = NSMenuItem(title: "Add a Preset...", action: #selector(addPreset(_:)), keyEquivalent: "")
+                addPresetItem.target = self
+                addPresetItem.tag = ItemType.addPreset.rawValue
+                menu.addItem(addPresetItem)
+            }
         } else {
             // Add Desk
             let addDeskItem = NSMenuItem(title: "Add Desk...", action: #selector(showPreferences(_:)), keyEquivalent: "")
@@ -148,6 +170,21 @@ class MenuManager: NSObject {
     
     @objc func addPreset(_ sender: AnyObject) {
         delegate?.menuManagerWantsPreferences(self, forDesk: activeDesk)
+    }
+    
+    @objc func activatePreset(_ sender: AnyObject) {
+        guard
+            let preset = (sender as? NSMenuItem)?.representedObject as? Preset,
+            let desk = preset.desk
+        else { return }
+        
+        NSLog("Setting Desk \"\(desk.name)\" to \(preset.height) cm")
+        
+        desk.setHeight(Int(preset.height)) { (error) in
+            if let error = error {
+                NSLog("Error setting height \(error)")
+            }
+        }
     }
     
     @objc func changeActiveDesk(_ sender: AnyObject) {
