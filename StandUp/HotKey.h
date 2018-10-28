@@ -7,13 +7,15 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "DDHotKeyCenter.h"
 
 typedef void (^HotKeyBlock)(NSEvent*);
 
 /// Do this in Objective-C because it's nigh unto impossible in Swift
 @interface HotKey : NSObject
 
-+ (void)registerRaiseHotKey:(HotKeyBlock)block;
-+ (void)registerLowerHotKey:(HotKeyBlock)block;
++ (DDHotKey *)registerPresetHotKey:(int32_t)presetNumber block:(HotKeyBlock)block;
++ (DDHotKey *)registerRaiseHotKey:(HotKeyBlock)block;
++ (DDHotKey *)registerLowerHotKey:(HotKeyBlock)block;
 
 @end

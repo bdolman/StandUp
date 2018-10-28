@@ -39,6 +39,7 @@ class MenuManager: NSObject {
         self.managedObjectContext = managedObjectContext
         super.init()
         
+        observePresetChanges()
         updateActiveDesk()
         rebuildDeskSelectionMenu()
         rebuildMenu()
@@ -60,6 +61,21 @@ class MenuManager: NSObject {
         let newActiveDesk = Globals.globalsIn(managedObjectContext).activeDesk
         if newActiveDesk != activeDesk {
             activeDesk = newActiveDesk
+        }
+    }
+    
+    private func observePresetChanges() {
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(contextDidChange(_:)),
+                                               name: NSNotification.Name.NSManagedObjectContextObjectsDidChange,
+                                               object: managedObjectContext)
+    }
+    
+    @objc private func contextDidChange(_ notification: Notification) {
+        let changedPresets = notification.changedObjects(ofClass: Preset.self, keys: [NSUpdatedObjectsKey])
+        let activeDeskPresetsChanged = changedPresets.contains(where: {$0.desk == activeDesk})
+        if activeDeskPresetsChanged {
+            rebuildMenu()
         }
     }
     
@@ -122,7 +138,7 @@ class MenuManager: NSObject {
                 if presetNum < 10 {
                     keyEquivalent = "\(presetNum)"
                 }
-                let presetItem = NSMenuItem(title: title, action: #selector(activatePreset(_:)), keyEquivalent: keyEquivalent)
+                let presetItem = NSMenuItem(title: title, action: #selector(menuPresetSelected(_:)), keyEquivalent: keyEquivalent)
                 presetItem.target = self
                 presetItem.tag = ItemType.preset.rawValue
                 presetItem.representedObject = preset
@@ -158,6 +174,37 @@ class MenuManager: NSObject {
         quitItem.target = self
         quitItem.tag = ItemType.quit.rawValue
         menu.addItem(quitItem)
+        
+        updateGlobalHotKeys()
+    }
+    
+    private func updateGlobalHotKeys() {
+        guard let hotKeyCenter = DDHotKeyCenter.shared() else { return }
+        hotKeyCenter.unregisterAllHotKeys()
+        guard let presets = activeDesk?.orderedPresets, presets.count > 0 else { return }
+        
+        HotKey.registerRaise { [weak self] (event) in
+            self?.raiseToNextPreset()
+        }
+        HotKey.registerLowerHotKey { [weak self] (event) in
+            self?.lowerToNextPreset()
+        }
+        
+        presets.enumerated().forEach { (index, preset) in
+            let presetNum = index + 1
+            HotKey.registerPresetHotKey(Int32(presetNum), block: { [weak self] (event) in
+                self?.activate(preset: preset)
+            })
+        }
+        
+    }
+    
+    private func raiseToNextPreset() {
+        
+    }
+    
+    private func lowerToNextPreset() {
+        
     }
     
     @objc private func ignore(_ sender: AnyObject) {}
@@ -170,11 +217,14 @@ class MenuManager: NSObject {
         delegate?.menuManagerWantsPreferences(self, forDesk: activeDesk)
     }
     
-    @objc func activatePreset(_ sender: AnyObject) {
-        guard
-            let preset = (sender as? NSMenuItem)?.representedObject as? Preset,
-            let desk = preset.desk
-        else { return }
+    @objc func menuPresetSelected(_ sender: AnyObject) {
+        guard let preset = (sender as? NSMenuItem)?.representedObject as? Preset else { return }
+        
+        activate(preset: preset)
+    }
+    
+    @objc func activate(preset: Preset) {
+        guard let desk = preset.desk else { return }
         
         NSLog("Setting Desk \"\(desk.name)\" to \(preset.height) cm")
         
