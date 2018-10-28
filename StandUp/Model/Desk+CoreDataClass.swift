@@ -26,6 +26,10 @@ public class Desk: NSManagedObject {
     
     private var source: EventSource?
     
+    var orderedPresets: [Preset] {
+        return presets.sorted(by: {$0.order < $1.order})
+    }
+    
     public override func awakeFromInsert() {
         super.awakeFromInsert()
         setPrimitiveValue(nextOrderValue(), forKey: "order")
