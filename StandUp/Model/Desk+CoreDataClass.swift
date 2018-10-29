@@ -30,6 +30,10 @@ public class Desk: NSManagedObject {
         return presets.sorted(by: {$0.order < $1.order})
     }
     
+    var heightOrderedPresets: [Preset] {
+        return presets.sorted(by: {$0.height < $1.height})
+    }
+    
     public override func awakeFromInsert() {
         super.awakeFromInsert()
         setPrimitiveValue(nextOrderValue(), forKey: "order")
