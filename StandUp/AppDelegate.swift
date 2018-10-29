@@ -15,7 +15,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     private var persistentContainer: NSPersistentContainer?
     private let settings = Settings()
-    private var menuHandler: MenuHandler?
     private var statusItemManager: StatusItemManager?
     private var prefsController: PrefsWindowController? = nil
     
@@ -55,10 +54,6 @@ extension AppDelegate {
         
         loadAllDesks()
         updateLoginState()
-        
-        menuHandler = MenuHandler()
-        menuHandler?.delegate = self
-        
         setupStatusItem()
         
         // Show prefs is no desk is configured
@@ -119,13 +114,6 @@ extension AppDelegate {
         guard let prefsController = self.prefsController else { return }
         self.prefsController = nil
         NotificationCenter.default.removeObserver(self, name: NSWindow.willCloseNotification, object: prefsController)
-    }
-}
-
-// MARK: - MenuHandlerDelegate
-extension AppDelegate: MenuHandlerDelegate {
-    func menuHandlerPreferencesItemClicked(_ menuHandler: MenuHandler) {
-        showPreferences()
     }
 }
 
