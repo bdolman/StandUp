@@ -9,17 +9,6 @@
 import Cocoa
 import ServiceManagement
 
-extension DeskState {
-    var image: NSImage {
-        switch self {
-        case .lowered: return NSImage(named: "desk-sit")!
-        case .lowering: return NSImage(named: "desk-stand-busy")!
-        case .raised: return NSImage(named: "desk-stand")!
-        case .raising: return NSImage(named: "desk-sit-busy")!
-        }
-    }
-}
-
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet weak var window: NSWindow!
@@ -31,13 +20,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     private var prefsController: PrefsWindowController? = nil
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        loadPersistentContainer()
+        loadDataModel()
     }
 }
 
 // MARK: - Data model
 extension AppDelegate {
-    private func loadPersistentContainer(retriesRemaining: Int = 1) {
+    private func loadDataModel(retriesRemaining: Int = 1) {
         let container = NSPersistentContainer(name: "Model")
         container.loadPersistentStores { (description, error) in
             if let error = error {
@@ -54,14 +43,14 @@ extension AppDelegate {
                 } catch {
                     NSLog("Error deleting store. Will retry anyway. \(error)")
                 }
-                self.loadPersistentContainer(retriesRemaining: retriesRemaining - 1)
+                self.loadDataModel(retriesRemaining: retriesRemaining - 1)
             } else {
-                self.didLoad(persistentContainer: container)
+                self.didLoadDataModel(persistentContainer: container)
             }
         }
     }
     
-    private func didLoad(persistentContainer: NSPersistentContainer) {
+    private func didLoadDataModel(persistentContainer: NSPersistentContainer) {
         self.persistentContainer = persistentContainer
         
         loadAllDesks()
@@ -70,11 +59,14 @@ extension AppDelegate {
         menuHandler = MenuHandler()
         menuHandler?.delegate = self
         
-        registerGlobalShortcutHandlers()
-        
         setupStatusItem()
         
-        showPreferences()
+        // Show prefs is no desk is configured
+        let fetchRequest: NSFetchRequest<Desk> = Desk.fetchRequest()
+        let desks = try! persistentContainer.viewContext.fetch(fetchRequest)
+        if desks.count == 0 {
+            showPreferences()
+        }
     }
     
     // Faults in all desks so that they start their network connections
@@ -83,19 +75,6 @@ extension AppDelegate {
         let fetchRequest: NSFetchRequest<Desk> = Desk.fetchRequest()
         fetchRequest.returnsObjectsAsFaults = false
         let _ = try! context.fetch(fetchRequest)
-    }
-}
-
-// MARK: - Hotkeys
-extension AppDelegate {
-    func registerGlobalShortcutHandlers() {
-        // TODO
-        //        HotKey.registerRaise { event in
-        //            self.desk?.raise()
-        //        }
-        //        HotKey.registerLowerHotKey { event in
-        //            self.desk?.lower()
-        //        }
     }
 }
 
@@ -143,12 +122,14 @@ extension AppDelegate {
     }
 }
 
+// MARK: - MenuHandlerDelegate
 extension AppDelegate: MenuHandlerDelegate {
     func menuHandlerPreferencesItemClicked(_ menuHandler: MenuHandler) {
         showPreferences()
     }
 }
 
+// MARK: - StatusItemManagerDelegate
 extension AppDelegate: StatusItemManagerDelegate {
     func statusItemManagerWantsPreferences(_ statusItemManager: StatusItemManager, forDesk desk: Desk?) {
         showPreferences(selectDesk: desk)

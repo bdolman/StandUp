@@ -59,24 +59,15 @@ class PreferencesViewController: NSViewController {
         }
     }
     
-    @IBAction func removeDeskButtonClicked(_ sender: Any) {
-        guard let selectedIndexPath = deskTableView.selectedIndexPath else { return }
-        let desk = fetchedResultsController.object(at: selectedIndexPath)
-        managedObjectContext.delete(desk)
-        try! managedObjectContext.save()
-        
-        
-        if fetchedResultsController.fetchedObjects!.count > 0 {
-            let newSelectedIndex = min(0, selectedIndexPath.item - 1)
-            deskTableView.selectRowIndexes(IndexSet(integer: newSelectedIndex), byExtendingSelection: false)
+    func selectDesk(desk: Desk) {
+        if let selectedIndex = fetchedResultsController.indexPath(forObject: desk) {
+            deskTableView.selectRowIndexes(IndexSet(integer: selectedIndex.item), byExtendingSelection: false)
         }
     }
-    
-    @IBAction func runAtLoginCheckboxChecked(_ sender: Any) {
-        settings.enabledAtLogin = runAtLoginCheckbox.state == .on ? true : false
-        LoginItemHelper.setLoginState(enabled: settings.enabledAtLogin)
-    }
-    
+}
+
+// MARK: - UI Updating
+extension PreferencesViewController {
     private func updateRunAtLoginCheckbox() {
         runAtLoginCheckbox.state = settings.enabledAtLogin ? .on : .off
     }
@@ -95,11 +86,26 @@ class PreferencesViewController: NSViewController {
             emptyStateBox.isHidden = false
         }
     }
-    
-    func selectDesk(desk: Desk) {
-        if let selectedIndex = fetchedResultsController.indexPath(forObject: desk) {
-            deskTableView.selectRowIndexes(IndexSet(integer: selectedIndex.item), byExtendingSelection: false)
+}
+
+// MARK: - IBActions
+extension PreferencesViewController {
+    @IBAction private func removeDeskButtonClicked(_ sender: Any) {
+        guard let selectedIndexPath = deskTableView.selectedIndexPath else { return }
+        let desk = fetchedResultsController.object(at: selectedIndexPath)
+        managedObjectContext.delete(desk)
+        try! managedObjectContext.save()
+        
+        
+        if fetchedResultsController.fetchedObjects!.count > 0 {
+            let newSelectedIndex = min(0, selectedIndexPath.item - 1)
+            deskTableView.selectRowIndexes(IndexSet(integer: newSelectedIndex), byExtendingSelection: false)
         }
+    }
+    
+    @IBAction private func runAtLoginCheckboxChecked(_ sender: Any) {
+        settings.enabledAtLogin = runAtLoginCheckbox.state == .on ? true : false
+        LoginItemHelper.setLoginState(enabled: settings.enabledAtLogin)
     }
 }
 
@@ -185,6 +191,7 @@ extension PreferencesViewController: NSTableViewDataSource {
     }
 }
 
+// MARK: - NSFetchedResultsControllerDelegate
 extension PreferencesViewController: NSFetchedResultsControllerDelegate {
     func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         deskTableView.beginUpdates()
@@ -214,19 +221,12 @@ extension PreferencesViewController: NSFetchedResultsControllerDelegate {
     }
 }
 
+// MARK: - DeskConfigurationViewControllerDelegate
 extension PreferencesViewController: DeskConfigurationViewControllerDelegate {
     func deskConfigurationViewController(_ controller: DeskConfigurationViewController, savedDesk: Desk) {
         dismiss(controller)
         if let selectedIndex = fetchedResultsController.indexPath(forObject: savedDesk) {
             deskTableView.selectRowIndexes(IndexSet(integer: selectedIndex.item), byExtendingSelection: false)
         }
-    }
-}
-
-
-extension NSTableView {
-    var selectedIndexPath: IndexPath? {
-        guard selectedRow >= 0 else { return nil }
-        return IndexPath(item: selectedRow, section: 0)
     }
 }
