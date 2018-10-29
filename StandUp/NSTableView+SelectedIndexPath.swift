@@ -3,7 +3,7 @@
 //  StandUp
 //
 //  Created by Ben Dolman on 10/28/18.
-//  Copyright © 2018 Hit Labs. All rights reserved.
+//  Copyright © 2018 Ben Dolman. All rights reserved.
 //
 
 import Cocoa
