@@ -10,12 +10,7 @@
 		02C7BB242C524629325EB89B /* Pods_StandUp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 816796EA1DC565AF0B818B9F /* Pods_StandUp.framework */; };
 		B51008B21BFD142700206391 /* Preferences.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B51008B11BFD142700206391 /* Preferences.storyboard */; };
 		B51008B41BFD2A3900206391 /* PrefsWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51008B31BFD2A3900206391 /* PrefsWindowController.swift */; };
-		B51008B61BFD2A8100206391 /* PrefsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51008B51BFD2A8100206391 /* PrefsViewController.swift */; };
-		B51008B81BFD2A9E00206391 /* PrefsAuthController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51008B71BFD2A9E00206391 /* PrefsAuthController.swift */; };
-		B51008BB1BFD2AAF00206391 /* PrefsPresetsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51008B91BFD2AAF00206391 /* PrefsPresetsController.swift */; };
 		B51008BE1BFD348100206391 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51008BD1BFD348100206391 /* Settings.swift */; };
-		B51008C01BFD39D100206391 /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51008BF1BFD39D000206391 /* Auth.swift */; };
-		B51008C21BFD3FFA00206391 /* Desks.swift in Sources */ = {isa = PBXBuildFile; fileRef = B51008C11BFD3FFA00206391 /* Desks.swift */; };
 		B512670821838D6600223052 /* StatusItemManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B512670721838D6600223052 /* StatusItemManager.swift */; };
 		B512670A218391DF00223052 /* MenuManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5126709218391DF00223052 /* MenuManager.swift */; };
 		B512670E2185766B00223052 /* Preset+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = B512670C2185766A00223052 /* Preset+CoreDataClass.swift */; };
@@ -31,7 +26,6 @@
 		B529D18D21794D5C000442AA /* DeskConfigurationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B529D18B21794D5C000442AA /* DeskConfigurationViewController.swift */; };
 		B52B8CF0218132D1004004B4 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B52B8CEE218132D1004004B4 /* Model.xcdatamodeld */; };
 		B52B90292186C86E0019B009 /* NSTableView+SelectedIndexPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = B52B90282186C86E0019B009 /* NSTableView+SelectedIndexPath.swift */; };
-		B52FD3A5217E69830032AED0 /* DeskStatic.swift in Sources */ = {isa = PBXBuildFile; fileRef = B52FD3A4217E69830032AED0 /* DeskStatic.swift */; };
 		B52FD3A7217E7D820032AED0 /* PreferencesDeskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B52FD3A6217E7D820032AED0 /* PreferencesDeskTableViewCell.swift */; };
 		B53815A01BFAED2D00CB13AE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B538159F1BFAED2D00CB13AE /* AppDelegate.swift */; };
 		B53815A21BFAED2D00CB13AE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B53815A11BFAED2D00CB13AE /* Assets.xcassets */; };
@@ -44,12 +38,9 @@
 		B57DB0AB218147C700B6E579 /* Desk+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57DB0A9218147C700B6E579 /* Desk+CoreDataClass.swift */; };
 		B57DB0AC218147C700B6E579 /* Desk+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57DB0AA218147C700B6E579 /* Desk+CoreDataProperties.swift */; };
 		B57DB0AE2181623A00B6E579 /* Globals+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57DB0AD2181623A00B6E579 /* Globals+CoreDataClass.swift */; };
-		B5F7DD531BFBE26400ABE7E5 /* DeviceOld.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F7DD521BFBE26400ABE7E5 /* DeviceOld.swift */; };
 		B5F7DD551BFBEF9400ABE7E5 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F7DD541BFBEF9400ABE7E5 /* Request.swift */; };
-		B5F7DD591BFBF31000ABE7E5 /* DeskOld.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F7DD581BFBF31000ABE7E5 /* DeskOld.swift */; };
 		B5F7DD5C1BFBFC4200ABE7E5 /* EventSource.m in Sources */ = {isa = PBXBuildFile; fileRef = B5F7DD5B1BFBFC4200ABE7E5 /* EventSource.m */; };
 		B5F7DD5F1BFBFCB600ABE7E5 /* SparkEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = B5F7DD5E1BFBFCB600ABE7E5 /* SparkEvent.m */; };
-		B5FB13131BFC4FD700F91B8B /* MenuHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5FB13121BFC4FD700F91B8B /* MenuHandler.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -70,12 +61,7 @@
 		844723D5B65C273208473ACA /* Pods-StandUp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StandUp.release.xcconfig"; path = "Pods/Target Support Files/Pods-StandUp/Pods-StandUp.release.xcconfig"; sourceTree = "<group>"; };
 		B51008B11BFD142700206391 /* Preferences.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Preferences.storyboard; sourceTree = "<group>"; };
 		B51008B31BFD2A3900206391 /* PrefsWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrefsWindowController.swift; sourceTree = "<group>"; };
-		B51008B51BFD2A8100206391 /* PrefsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrefsViewController.swift; sourceTree = "<group>"; };
-		B51008B71BFD2A9E00206391 /* PrefsAuthController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrefsAuthController.swift; sourceTree = "<group>"; };
-		B51008B91BFD2AAF00206391 /* PrefsPresetsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrefsPresetsController.swift; sourceTree = "<group>"; };
 		B51008BD1BFD348100206391 /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
-		B51008BF1BFD39D000206391 /* Auth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Auth.swift; sourceTree = "<group>"; };
-		B51008C11BFD3FFA00206391 /* Desks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Desks.swift; sourceTree = "<group>"; };
 		B512670721838D6600223052 /* StatusItemManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusItemManager.swift; sourceTree = "<group>"; };
 		B5126709218391DF00223052 /* MenuManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuManager.swift; sourceTree = "<group>"; };
 		B512670C2185766A00223052 /* Preset+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Preset+CoreDataClass.swift"; path = "/Users/ben/Developer/StandUp/StandUp/Model/Preset+CoreDataClass.swift"; sourceTree = "<absolute>"; };
@@ -94,7 +80,6 @@
 		B529D18B21794D5C000442AA /* DeskConfigurationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeskConfigurationViewController.swift; sourceTree = "<group>"; };
 		B52B8CEF218132D1004004B4 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		B52B90282186C86E0019B009 /* NSTableView+SelectedIndexPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSTableView+SelectedIndexPath.swift"; sourceTree = "<group>"; };
-		B52FD3A4217E69830032AED0 /* DeskStatic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeskStatic.swift; sourceTree = "<group>"; };
 		B52FD3A6217E7D820032AED0 /* PreferencesDeskTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesDeskTableViewCell.swift; sourceTree = "<group>"; };
 		B538159C1BFAED2D00CB13AE /* StandUp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StandUp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B538159F1BFAED2D00CB13AE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -115,14 +100,11 @@
 		B57DB0AA218147C700B6E579 /* Desk+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Desk+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		B57DB0AD2181623A00B6E579 /* Globals+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Globals+CoreDataClass.swift"; path = "/Users/ben/Developer/StandUp/StandUp/Model/Globals+CoreDataClass.swift"; sourceTree = "<absolute>"; };
 		B5F7DD4D1BFBC52000ABE7E5 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
-		B5F7DD521BFBE26400ABE7E5 /* DeviceOld.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeviceOld.swift; sourceTree = "<group>"; };
 		B5F7DD541BFBEF9400ABE7E5 /* Request.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
-		B5F7DD581BFBF31000ABE7E5 /* DeskOld.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeskOld.swift; sourceTree = "<group>"; };
 		B5F7DD5A1BFBFC4200ABE7E5 /* EventSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventSource.h; sourceTree = "<group>"; };
 		B5F7DD5B1BFBFC4200ABE7E5 /* EventSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventSource.m; sourceTree = "<group>"; };
 		B5F7DD5D1BFBFCB600ABE7E5 /* SparkEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SparkEvent.h; sourceTree = "<group>"; };
 		B5F7DD5E1BFBFCB600ABE7E5 /* SparkEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SparkEvent.m; sourceTree = "<group>"; };
-		B5FB13121BFC4FD700F91B8B /* MenuHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuHandler.swift; sourceTree = "<group>"; };
 		C30C54F62195A2FEF3BF7287 /* Pods-StandUp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-StandUp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-StandUp/Pods-StandUp.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -225,22 +207,13 @@
 				B53815BC1BFB0C2C00CB13AE /* StandUp-Bridging-Header.h */,
 				B53815BD1BFB0E4500CB13AE /* HotKey.h */,
 				B53815BE1BFB0E4500CB13AE /* HotKey.m */,
-				B5F7DD521BFBE26400ABE7E5 /* DeviceOld.swift */,
 				B5F7DD541BFBEF9400ABE7E5 /* Request.swift */,
-				B5F7DD581BFBF31000ABE7E5 /* DeskOld.swift */,
-				B5FB13121BFC4FD700F91B8B /* MenuHandler.swift */,
 				B51008B11BFD142700206391 /* Preferences.storyboard */,
 				B51008B31BFD2A3900206391 /* PrefsWindowController.swift */,
-				B51008B51BFD2A8100206391 /* PrefsViewController.swift */,
-				B51008B71BFD2A9E00206391 /* PrefsAuthController.swift */,
-				B51008B91BFD2AAF00206391 /* PrefsPresetsController.swift */,
 				B51008BD1BFD348100206391 /* Settings.swift */,
-				B51008BF1BFD39D000206391 /* Auth.swift */,
-				B51008C11BFD3FFA00206391 /* Desks.swift */,
 				B529D1852179456C000442AA /* PreferencesViewController.swift */,
 				B529D187217945BA000442AA /* PreferencesDeskDetailViewController.swift */,
 				B529D18B21794D5C000442AA /* DeskConfigurationViewController.swift */,
-				B52FD3A4217E69830032AED0 /* DeskStatic.swift */,
 				B52FD3A6217E7D820032AED0 /* PreferencesDeskTableViewCell.swift */,
 				B5164167217FEDA1008150A6 /* LoginItemHelper.swift */,
 				B512670721838D6600223052 /* StatusItemManager.swift */,
@@ -441,24 +414,16 @@
 				B512670A218391DF00223052 /* MenuManager.swift in Sources */,
 				B53815BF1BFB0E4500CB13AE /* HotKey.m in Sources */,
 				B53815B51BFB0B3D00CB13AE /* DDHotKeyTextField.m in Sources */,
-				B51008BB1BFD2AAF00206391 /* PrefsPresetsController.swift in Sources */,
-				B51008B81BFD2A9E00206391 /* PrefsAuthController.swift in Sources */,
 				B51008B41BFD2A3900206391 /* PrefsWindowController.swift in Sources */,
-				B52FD3A5217E69830032AED0 /* DeskStatic.swift in Sources */,
-				B5F7DD591BFBF31000ABE7E5 /* DeskOld.swift in Sources */,
 				B52B90292186C86E0019B009 /* NSTableView+SelectedIndexPath.swift in Sources */,
 				B52FD3A7217E7D820032AED0 /* PreferencesDeskTableViewCell.swift in Sources */,
 				B53815B41BFB0B3D00CB13AE /* DDHotKeyCenter.m in Sources */,
 				B529D189217945BA000442AA /* PreferencesDeskDetailViewController.swift in Sources */,
 				B512671021865F8700223052 /* Notification+CoreData.swift in Sources */,
-				B51008C01BFD39D100206391 /* Auth.swift in Sources */,
 				B512670E2185766B00223052 /* Preset+CoreDataClass.swift in Sources */,
 				B529D18D21794D5C000442AA /* DeskConfigurationViewController.swift in Sources */,
-				B5F7DD531BFBE26400ABE7E5 /* DeviceOld.swift in Sources */,
-				B51008B61BFD2A8100206391 /* PrefsViewController.swift in Sources */,
 				B57DB0AB218147C700B6E579 /* Desk+CoreDataClass.swift in Sources */,
 				B512670821838D6600223052 /* StatusItemManager.swift in Sources */,
-				B5FB13131BFC4FD700F91B8B /* MenuHandler.swift in Sources */,
 				B51008BE1BFD348100206391 /* Settings.swift in Sources */,
 				B5164168217FEDA1008150A6 /* LoginItemHelper.swift in Sources */,
 				B529D1862179456C000442AA /* PreferencesViewController.swift in Sources */,
@@ -468,7 +433,6 @@
 				B57DB0AE2181623A00B6E579 /* Globals+CoreDataClass.swift in Sources */,
 				B53815A01BFAED2D00CB13AE /* AppDelegate.swift in Sources */,
 				B52B8CF0218132D1004004B4 /* Model.xcdatamodeld in Sources */,
-				B51008C21BFD3FFA00206391 /* Desks.swift in Sources */,
 				B57DB0AC218147C700B6E579 /* Desk+CoreDataProperties.swift in Sources */,
 				B5F7DD5C1BFBFC4200ABE7E5 /* EventSource.m in Sources */,
 			);
