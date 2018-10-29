@@ -32,6 +32,16 @@ public class Preset: NSManagedObject {
             return 0
         }
     }
+    
+    var displayName: String {
+        if let name = name, !name.isEmpty {
+            return name
+        }
+        if let index = desk?.orderedPresets.firstIndex(of: self) {
+            return "Preset #\(index + 1)"
+        }
+        return "Preset"
+    }
 }
 
 extension Preset {

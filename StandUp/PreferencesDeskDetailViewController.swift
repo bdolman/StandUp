@@ -221,11 +221,7 @@ extension PreferencesDeskDetailViewController: NSTableViewDataSource {
         case .number:
             return row + 1
         case .name:
-            if let name = preset.name, !name.isEmpty {
-                return name
-            } else {
-                return "Preset #\(row + 1)"
-            }
+            return preset.displayName
         case .height:
             return "\(preset.height) cm"
         }

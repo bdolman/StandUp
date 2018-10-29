@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import UserNotifications
 
 private enum MenuItemType: Int {
     case unknown
@@ -33,6 +34,8 @@ class MenuManager: NSObject {
     
     private let deskSelectionMenu = NSMenu()
     private var activeDesk: Desk?
+    private var targetPreset: Preset?
+    private var targetPresetObserver: NSKeyValueObservation?
     
     init(menu: NSMenu, managedObjectContext: NSManagedObjectContext) {
         self.menu = menu
@@ -43,6 +46,7 @@ class MenuManager: NSObject {
         updateActiveDesk()
         rebuildDeskSelectionMenu()
         rebuildMenu()
+        authorizeNotifications()
     }
     
     private lazy var fetchedResultsController: NSFetchedResultsController<Desk> = {
@@ -61,6 +65,42 @@ class MenuManager: NSObject {
         let newActiveDesk = Globals.globalsIn(managedObjectContext).activeDesk
         if newActiveDesk != activeDesk {
             activeDesk = newActiveDesk
+            targetPreset = nil
+            targetPresetObserver = nil
+        }
+    }
+}
+
+// MARK: - Notifications
+extension MenuManager {
+    private func authorizeNotifications() {
+        if #available(OSX 10.14, *) {
+            UNUserNotificationCenter.current().requestAuthorization(options: .alert) { (authorized, error) in
+                if let error = error {
+                    NSLog("Notification auth \(error)")
+                }
+            }
+        }
+    }
+    
+    private func presentStartNotification(forPreset preset: Preset) {
+        guard let desk = preset.desk else { return }
+        
+        if #available(OSX 10.14, *) {
+            let goingUp = desk.height <= preset.height
+            let content = UNMutableNotificationContent()
+            content.title = desk.name
+            if goingUp {
+                content.body = "Raising to \(preset.displayName) position (\(preset.height) cm)"
+            } else {
+                content.body = "Lowering to \(preset.displayName) position (\(preset.height) cm)"
+            }
+            let request = UNNotificationRequest(identifier: "position-notification", content: content, trigger: nil)
+            UNUserNotificationCenter.current().add(request) { (error) in
+                if let error = error {
+                    NSLog("Add notification error \(error)")
+                }
+            }
         }
     }
 }
@@ -102,11 +142,43 @@ extension MenuManager {
 // MARK: - Desk actions
 extension MenuManager {
     private func raiseToNextPreset() {
-        // TODO
+        guard let desk = activeDesk else { return }
+        var nextPreset: Preset?
+        let presets = desk.heightOrderedPresets
+        if let targetPreset = targetPreset, let index = presets.firstIndex(of: targetPreset) {
+            if index + 1 < presets.count {
+                nextPreset = presets[index + 1]
+            }
+        }
+        if nextPreset == nil {
+            nextPreset = presets.first { (preset) -> Bool in
+                let toleranceRange = (preset.height - 1...preset.height + 1)
+                return preset.height > desk.height && !toleranceRange.contains(desk.height)
+            }
+        }
+        if let nextPreset = nextPreset {
+            activate(preset: nextPreset)
+        }
     }
     
     private func lowerToNextPreset() {
-        // TODO
+        guard let desk = activeDesk else { return }
+        var nextPreset: Preset?
+        let presets = Array(desk.heightOrderedPresets.reversed())
+        if let targetPreset = targetPreset, let index = presets.firstIndex(of: targetPreset) {
+            if index + 1 < presets.count {
+                nextPreset = presets[index + 1]
+            }
+        }
+        if nextPreset == nil {
+            nextPreset = presets.first { (preset) -> Bool in
+                let toleranceRange = (preset.height - 1...preset.height + 1)
+                return preset.height < desk.height && !toleranceRange.contains(desk.height)
+            }
+        }
+        if let nextPreset = nextPreset {
+            activate(preset: nextPreset)
+        }
     }
     
     private func activate(preset: Preset) {
@@ -114,9 +186,29 @@ extension MenuManager {
         
         NSLog("Setting Desk \"\(desk.name)\" to \(preset.height) cm")
         
+        presentStartNotification(forPreset: preset)
+        
+        targetPreset = preset
+        var targetPresetObserver: NSKeyValueObservation?
+        targetPresetObserver = desk.observe(\.direction) { [weak self] (desk, change) in
+            guard self?.targetPreset == preset, self?.targetPresetObserver == targetPresetObserver else { return }
+            if desk.direction == .stopped {
+                NSLog("reached target")
+                self?.targetPreset = nil
+                self?.targetPresetObserver = nil
+            }
+        }
+        self.targetPresetObserver = targetPresetObserver
+
         desk.setHeight(Int(preset.height)) { (error) in
             if let error = error {
                 NSLog("Error setting height \(error)")
+                if self.targetPreset == preset {
+                    self.targetPreset = nil
+                }
+                if self.targetPresetObserver == targetPresetObserver {
+                    self.targetPresetObserver = nil
+                }
             }
         }
     }
@@ -230,10 +322,7 @@ extension MenuManager {
             let presetModifierMask = Int(NSEvent.ModifierFlags.shift.rawValue | NSEvent.ModifierFlags.control.rawValue)
             desk.orderedPresets.enumerated().forEach { (index, preset) in
                 let presetNum = index + 1
-                var title = preset.name ?? ""
-                if title.isEmpty {
-                    title = "Preset #\(presetNum)"
-                }
+                let title = preset.displayName
                 var keyEquivalent = ""
                 if presetNum < 10 {
                     keyEquivalent = "\(presetNum)"
