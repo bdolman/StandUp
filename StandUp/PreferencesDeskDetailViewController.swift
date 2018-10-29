@@ -10,6 +10,12 @@ import Cocoa
 
 private var DragDropType = NSPasteboard.PasteboardType(rawValue: "private.table-row")
 
+private enum Column: String {
+    case number
+    case name
+    case height
+}
+
 class PreferencesDeskDetailViewController: NSViewController {
     // Injected properties
     var managedObjectContext: NSManagedObjectContext!
@@ -30,22 +36,6 @@ class PreferencesDeskDetailViewController: NSViewController {
     private var observers = [NSKeyValueObservation]()
     private var presetsFetchedResultsController: NSFetchedResultsController<Preset>?
 
-    private func createPresetsFetchedResultsController() {
-        presetsFetchedResultsController?.delegate = nil
-        presetsFetchedResultsController = nil
-        guard let desk = desk else { return }
-        let fetchRequest: NSFetchRequest<Preset> = Preset.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "desk == %@", desk)
-        fetchRequest.sortDescriptors = [Preset.sortOrder(ascending: true)]
-        let frc = NSFetchedResultsController(fetchRequest: fetchRequest,
-                                             managedObjectContext: self.managedObjectContext,
-                                             sectionNameKeyPath: nil,
-                                             cacheName: nil)
-        presetsFetchedResultsController = frc
-        frc.delegate = self
-        try! frc.performFetch()
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
         presetsTableView.registerForDraggedTypes([DragDropType])
@@ -59,23 +49,17 @@ class PreferencesDeskDetailViewController: NSViewController {
         reloadPresetsData()
     }
     
-    private func updateDeskObservers() {
-        observers.removeAll()
-        guard let desk = desk else { return }
-        
-        let deskChangeHandler = { [weak self] (desk: Desk, _: Any) -> Void in
-            self?.reloadDeskData()
+    override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
+        if let deskConfigController = segue.destinationController as? DeskConfigurationViewController {
+            deskConfigController.delegate = self
+            deskConfigController.desk = desk
+            deskConfigController.managedObjectContext = desk?.managedObjectContext
         }
-        
-        observers.append(contentsOf: [
-            desk.observe(\.name, changeHandler: deskChangeHandler),
-            desk.observe(\.height, changeHandler: deskChangeHandler),
-            desk.observe(\.connectionState, changeHandler: deskChangeHandler),
-            desk.observe(\.connectionError, changeHandler: deskChangeHandler),
-            desk.observe(\.isOnline, changeHandler: deskChangeHandler)
-        ])
     }
-    
+}
+
+// MARK: - Desk properties
+extension PreferencesDeskDetailViewController {
     private func updateName() {
         guard let desk = desk else { return }
         nameField.stringValue = desk.name
@@ -101,39 +85,64 @@ class PreferencesDeskDetailViewController: NSViewController {
         updateName()
         updateStatus()
     }
-    
+}
+
+// MARK: - Presets
+extension PreferencesDeskDetailViewController {
     private func reloadPresetsData() {
         createPresetsFetchedResultsController()
         presetsTableView.reloadData()
     }
     
-    override func prepare(for segue: NSStoryboardSegue, sender: Any?) {
-        if let deskConfigController = segue.destinationController as? DeskConfigurationViewController {
-            deskConfigController.delegate = self
-            deskConfigController.desk = desk
-            deskConfigController.managedObjectContext = desk?.managedObjectContext
-        }
-    }
-    
-    @IBAction func addPreset(_ sender: Any) {
+    @IBAction private func addPreset(_ sender: Any) {
         guard let desk = desk else { return }
         let preset = Preset(context: managedObjectContext)
         preset.desk = desk
         try! managedObjectContext.save()
     }
     
-    @IBAction func removePreset(_ sender: Any) {
+    @IBAction private func removePreset(_ sender: Any) {
         guard let presetsFetchedResultsController = presetsFetchedResultsController else { return }
         guard let selectedIndexPath = presetsTableView.selectedIndexPath else { return }
         let preset = presetsFetchedResultsController.object(at: selectedIndexPath)
         managedObjectContext.delete(preset)
         try! managedObjectContext.save()
     }
+}
+
+// MARK: - Desk setup
+extension PreferencesDeskDetailViewController {
+    private func createPresetsFetchedResultsController() {
+        presetsFetchedResultsController?.delegate = nil
+        presetsFetchedResultsController = nil
+        guard let desk = desk else { return }
+        let fetchRequest: NSFetchRequest<Preset> = Preset.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "desk == %@", desk)
+        fetchRequest.sortDescriptors = [Preset.sortOrder(ascending: true)]
+        let frc = NSFetchedResultsController(fetchRequest: fetchRequest,
+                                             managedObjectContext: self.managedObjectContext,
+                                             sectionNameKeyPath: nil,
+                                             cacheName: nil)
+        presetsFetchedResultsController = frc
+        frc.delegate = self
+        try! frc.performFetch()
+    }
     
-    private enum Column: String {
-        case number
-        case name
-        case height
+    private func updateDeskObservers() {
+        observers.removeAll()
+        guard let desk = desk else { return }
+        
+        let deskChangeHandler = { [weak self] (desk: Desk, _: Any) -> Void in
+            self?.reloadDeskData()
+        }
+        
+        observers.append(contentsOf: [
+            desk.observe(\.name, changeHandler: deskChangeHandler),
+            desk.observe(\.height, changeHandler: deskChangeHandler),
+            desk.observe(\.connectionState, changeHandler: deskChangeHandler),
+            desk.observe(\.connectionError, changeHandler: deskChangeHandler),
+            desk.observe(\.isOnline, changeHandler: deskChangeHandler)
+        ])
     }
 }
 
@@ -249,6 +258,7 @@ extension PreferencesDeskDetailViewController: NSTableViewDataSource {
     }
 }
 
+// MARK: - NSFetchedResultsControllerDelegate
 extension PreferencesDeskDetailViewController: NSFetchedResultsControllerDelegate {
     func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         presetsTableView.beginUpdates()
@@ -278,6 +288,7 @@ extension PreferencesDeskDetailViewController: NSFetchedResultsControllerDelegat
     }
 }
 
+// MARK: - DeskConfigurationViewControllerDelegate
 extension PreferencesDeskDetailViewController: DeskConfigurationViewControllerDelegate {
     func deskConfigurationViewController(_ controller: DeskConfigurationViewController, savedDesk: Desk) {
         dismiss(controller)

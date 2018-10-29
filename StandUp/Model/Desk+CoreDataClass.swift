@@ -241,7 +241,7 @@ extension Desk {
     }
     
     private func handleDeskEvent(_ event: DeskEvent) {
-        NSLog("\(event)")
+        // NSLog("\(event)")
         
         var newDirection: Direction?
         var newHeight: Int32?
@@ -285,6 +285,7 @@ extension Desk {
     }
 }
 
+// MARK: - Desk API calls
 extension Desk {
     func setHeight(_ heightInCms: Int, completionHandler: @escaping (_ error: Error?) -> Void) {
         let url = self.baseURL.appendingPathComponent("setHeight")
@@ -310,6 +311,7 @@ extension Desk {
     }
 }
 
+// MARK: - Active desk
 extension Desk {
     class func ensureActiveDesk(inContext context: NSManagedObjectContext) {
         let globals = Globals.globalsIn(context)

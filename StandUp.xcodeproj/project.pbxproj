@@ -30,6 +30,7 @@
 		B529D189217945BA000442AA /* PreferencesDeskDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B529D187217945BA000442AA /* PreferencesDeskDetailViewController.swift */; };
 		B529D18D21794D5C000442AA /* DeskConfigurationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B529D18B21794D5C000442AA /* DeskConfigurationViewController.swift */; };
 		B52B8CF0218132D1004004B4 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B52B8CEE218132D1004004B4 /* Model.xcdatamodeld */; };
+		B52B90292186C86E0019B009 /* NSTableView+SelectedIndexPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = B52B90282186C86E0019B009 /* NSTableView+SelectedIndexPath.swift */; };
 		B52FD3A5217E69830032AED0 /* DeskStatic.swift in Sources */ = {isa = PBXBuildFile; fileRef = B52FD3A4217E69830032AED0 /* DeskStatic.swift */; };
 		B52FD3A7217E7D820032AED0 /* PreferencesDeskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B52FD3A6217E7D820032AED0 /* PreferencesDeskTableViewCell.swift */; };
 		B53815A01BFAED2D00CB13AE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B538159F1BFAED2D00CB13AE /* AppDelegate.swift */; };
@@ -92,6 +93,7 @@
 		B529D187217945BA000442AA /* PreferencesDeskDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesDeskDetailViewController.swift; sourceTree = "<group>"; };
 		B529D18B21794D5C000442AA /* DeskConfigurationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeskConfigurationViewController.swift; sourceTree = "<group>"; };
 		B52B8CEF218132D1004004B4 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		B52B90282186C86E0019B009 /* NSTableView+SelectedIndexPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSTableView+SelectedIndexPath.swift"; sourceTree = "<group>"; };
 		B52FD3A4217E69830032AED0 /* DeskStatic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeskStatic.swift; sourceTree = "<group>"; };
 		B52FD3A6217E7D820032AED0 /* PreferencesDeskTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesDeskTableViewCell.swift; sourceTree = "<group>"; };
 		B538159C1BFAED2D00CB13AE /* StandUp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StandUp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -244,6 +246,7 @@
 				B512670721838D6600223052 /* StatusItemManager.swift */,
 				B5126709218391DF00223052 /* MenuManager.swift */,
 				B512670F21865F8700223052 /* Notification+CoreData.swift */,
+				B52B90282186C86E0019B009 /* NSTableView+SelectedIndexPath.swift */,
 			);
 			path = StandUp;
 			sourceTree = "<group>";
@@ -443,6 +446,7 @@
 				B51008B41BFD2A3900206391 /* PrefsWindowController.swift in Sources */,
 				B52FD3A5217E69830032AED0 /* DeskStatic.swift in Sources */,
 				B5F7DD591BFBF31000ABE7E5 /* DeskOld.swift in Sources */,
+				B52B90292186C86E0019B009 /* NSTableView+SelectedIndexPath.swift in Sources */,
 				B52FD3A7217E7D820032AED0 /* PreferencesDeskTableViewCell.swift in Sources */,
 				B53815B41BFB0B3D00CB13AE /* DDHotKeyCenter.m in Sources */,
 				B529D189217945BA000442AA /* PreferencesDeskDetailViewController.swift in Sources */,
