@@ -170,7 +170,7 @@ extension Desk {
         connectionState = .connecting
         
         let url = baseURL.appendingPathComponent("events")
-        let newSource = EventSource(url: url, timeoutInterval: 10.0,
+        let newSource = EventSource(url: url, timeoutInterval: 60.0,
                                     queue: DispatchQueue.global(qos: .background), accessToken: accessToken)
         source = newSource
         let handler: EventSourceEventHandler = {[weak self, weak newSource] (event: Event!) -> Void in
